@@ -1,0 +1,30 @@
+{
+	"name": "oh-my-pi-zh",
+	"version": "2.0.0",
+	"description": "Oh My Pi (omp) 中文汉化补丁 — 前往 GitHub 下载编译好的中文版二进制，或从源码构建",
+	"main": "cli.js",
+	"bin": {
+		"omp-zh-patch": "cli.js",
+		"omp-zh-unpatch": "cli.js"
+	},
+	"scripts": {
+		"postinstall": "node cli.js"
+	},
+	"keywords": [
+		"oh-my-pi",
+		"omp",
+		"chinese",
+		"localization",
+		"i18n",
+		"zh-CN"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/LiuQingHuaYang/oh-my-pi-zh"
+	},
+	"homepage": "https://github.com/LiuQingHuaYang/oh-my-pi-zh",
+	"engines": {
+		"node": ">=18"
+	}
+}

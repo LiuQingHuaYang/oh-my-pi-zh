@@ -1,0 +1,167 @@
+name: Build Chinese Edition
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Upstream version tag (e.g. v16.1.10)'
+        required: false
+        type: string
+  schedule:
+    - cron: '0 0 * * 0'  # 每周日检查
+
+env:
+  UPSTREAM_REPO: can1357/oh-my-pi
+
+jobs:
+  build-windows:
+    name: Windows x64
+    runs-on: windows-latest
+    steps:
+      - name: Checkout zh repo
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Clone upstream source
+        run: |
+          git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
+          cd source
+          if [ "${{ github.event.inputs.version }}" != "" ]; then
+            git checkout ${{ github.event.inputs.version }}
+          fi
+        shell: bash
+
+      - name: Install dependencies
+        working-directory: source
+        run: bun install
+        shell: bash
+
+      - name: Apply Chinese patch
+        working-directory: source
+        run: python ../patch_omp_zh_v2.py
+        shell: bash
+
+      - name: Build native addon
+        working-directory: source
+        run: bun --cwd=packages/natives run build
+        shell: bash
+        continue-on-error: true
+
+      - name: Build binary
+        working-directory: source
+        run: bun --cwd=packages/coding-agent run build
+        shell: bash
+        continue-on-error: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: omp-windows-x64
+          path: source/packages/coding-agent/dist/omp*
+          if-no-files-found: warn
+
+  build-linux:
+    name: Linux x64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout zh repo
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Clone upstream source
+        run: |
+          git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
+          cd source
+          if [ "${{ github.event.inputs.version }}" != "" ]; then
+            git checkout ${{ github.event.inputs.version }}
+          fi
+
+      - name: Install dependencies
+        working-directory: source
+        run: bun install
+
+      - name: Apply Chinese patch
+        working-directory: source
+        run: python ../patch_omp_zh_v2.py
+
+      - name: Build native addon
+        working-directory: source
+        run: bun --cwd=packages/natives run build
+        continue-on-error: true
+
+      - name: Build binary
+        working-directory: source
+        run: bun --cwd=packages/coding-agent run build
+        continue-on-error: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: omp-linux-x64
+          path: source/packages/coding-agent/dist/omp*
+          if-no-files-found: warn
+
+  build-macos:
+    name: macOS
+    strategy:
+      matrix:
+        target:
+          - id: macos-arm64
+            runner: macos-latest
+            outfile: omp-darwin-arm64
+          - id: macos-x64
+            runner: macos-13
+            outfile: omp-darwin-x64
+    runs-on: ${{ matrix.target.runner }}
+    steps:
+      - name: Checkout zh repo
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Clone upstream source
+        run: |
+          git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
+          cd source
+          if [ "${{ github.event.inputs.version }}" != "" ]; then
+            git checkout ${{ github.event.inputs.version }}
+          fi
+
+      - name: Install dependencies
+        working-directory: source
+        run: bun install
+
+      - name: Apply Chinese patch
+        working-directory: source
+        run: python3 ../patch_omp_zh_v2.py
+
+      - name: Build native addon
+        working-directory: source
+        run: bun --cwd=packages/natives run build
+        continue-on-error: true
+
+      - name: Build binary
+        working-directory: source
+        run: bun --cwd=packages/coding-agent run build
+        continue-on-error: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target.outfile }}
+          path: source/packages/coding-agent/dist/omp*
+          if-no-files-found: warn

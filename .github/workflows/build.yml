@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Upstream version tag (e.g. v16.1.10)'
+        description: 'Upstream version tag (e.g. v16.1.14)'
         required: false
         type: string
   schedule:
-    - cron: '0 0 * * 0'  # 每周日检查
+    - cron: '0 0 * * 0'
 
 env:
   UPSTREAM_REPO: can1357/oh-my-pi
@@ -27,13 +27,13 @@ jobs:
           bun-version: latest
 
       - name: Clone upstream source
+        shell: bash
         run: |
           git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
           cd source
           if [ "${{ github.event.inputs.version }}" != "" ]; then
             git checkout ${{ github.event.inputs.version }}
           fi
-        shell: bash
 
       - name: Install dependencies
         working-directory: source
@@ -44,6 +44,16 @@ jobs:
         working-directory: source
         run: python ../patch_omp_zh_v2.py
         shell: bash
+
+      # 关键步骤：安装官方版并运行，生成正确版本的 .node 缓存
+      - name: Install official omp to get correct native addon cache
+        shell: bash
+        run: |
+          bun install -g @oh-my-pi/pi-coding-agent
+          omp --smoke-test
+          # 从缓存复制正确版本的 .node 到源码目录
+          OMP_VERSION=$(omp --version | cut -d/ -f2)
+          cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
 
       - name: Build native addon
         working-directory: source
@@ -93,7 +103,15 @@ jobs:
 
       - name: Apply Chinese patch
         working-directory: source
-        run: python ../patch_omp_zh_v2.py
+        run: python3 ../patch_omp_zh_v2.py
+
+      # 关键步骤：安装官方版生成正确版本的 .node 缓存
+      - name: Install official omp to get correct native addon cache
+        run: |
+          bun install -g @oh-my-pi/pi-coding-agent
+          omp --smoke-test
+          OMP_VERSION=$(omp --version | cut -d/ -f2)
+          cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
 
       - name: Build native addon
         working-directory: source
@@ -148,6 +166,14 @@ jobs:
       - name: Apply Chinese patch
         working-directory: source
         run: python3 ../patch_omp_zh_v2.py
+
+      # 关键步骤：安装官方版生成正确版本的 .node 缓存
+      - name: Install official omp to get correct native addon cache
+        run: |
+          bun install -g @oh-my-pi/pi-coding-agent
+          omp --smoke-test
+          OMP_VERSION=$(omp --version | cut -d/ -f2)
+          cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
 
       - name: Build native addon
         working-directory: source

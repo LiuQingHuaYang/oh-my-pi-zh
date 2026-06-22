@@ -38,7 +38,7 @@
 
 - [Bun](https://bun.sh) >= 1.3.14
 - Python >= 3.8
-- Rust（用于编译原生插件；如已有预编译 `.node` 文件可跳过）
+- Rust（用于编译原生插件；如有预编译 `.node` 文件可跳过）
 
 ### 步骤
 
@@ -54,13 +54,26 @@ curl -fsSL -o patch_omp_zh_v2.py https://raw.githubusercontent.com/LiuQingHuaYan
 # 3. 打汉化补丁
 python patch_omp_zh_v2.py
 
-# 4. 编译原生插件（如有预编译文件可跳过）
+# 4. ⚠️ 关键前置步骤：生成正确的原生插件缓存
+#    源码仓库中的 .node 文件版本可能过旧，需要先运行一次官方 omp
+#    让它把正确版本的 .node 提取到缓存目录，供后续编译使用。
+#    如果跳过此步，编译出的二进制会因版本哨兵不匹配而启动失败。
+#    (如果已经安装了官方 omp，直接运行 omp --smoke-test 即可)
+bun install -g @oh-my-pi/pi-coding-agent
+omp --smoke-test
+
+# 5. 将正确的 .node 文件复制到源码目录
+#    (Windows 示例，其他平台路径类似)
+#    如果编译时 rust 环境不可用，此步确保嵌入正确版本的原生插件
+cp "$HOME/.omp/natives/$(omp --version | cut -d/ -f2)/pi_natives.*.node" packages/natives/native/
+
+# 6. 编译原生插件（如有预编译文件可跳过）
 bun --cwd=packages/natives run build
 
-# 5. 编译中文版二进制
+# 7. 编译中文版二进制
 bun --cwd=packages/coding-agent run build
 
-# 6. 产物在 packages/coding-agent/dist/omp
+# 8. 产物在 packages/coding-agent/dist/omp
 ```
 
 ---
@@ -98,7 +111,7 @@ bun run build → 编译为中文二进制
 
 ## 兼容性
 
-- ✅ 当前测试版本：omp v16.1.10
+- ✅ 当前测试版本：omp v16.1.14
 - ✅ 跨平台：Windows / macOS / Linux
 - ✅ 适用于所有编译二进制版本（v16+）
 - ⚠️ 上游更新后需重新打补丁再编译

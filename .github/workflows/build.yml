@@ -26,6 +26,9 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Clone upstream source
         shell: bash
         run: |
@@ -150,6 +153,9 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Clone upstream source
         run: |

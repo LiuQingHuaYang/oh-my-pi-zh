@@ -50,7 +50,7 @@ jobs:
 
       - name: Apply Chinese patch
         working-directory: source
-        run: python ../patch_omp_zh_v2.py
+        run: PYTHONIOENCODING=utf-8 python ../patch_omp_zh_v2.py
         shell: bash
 
       # 关键步骤：安装官方版并运行，生成正确版本的 .node 缓存

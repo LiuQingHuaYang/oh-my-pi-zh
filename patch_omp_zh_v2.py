@@ -504,6 +504,73 @@ B_STRINGS = [
 ]
 
 
+# ──────────── 5. debug/index.ts ────────────
+D = os.path.join(CODING_AGENT_SRC, "debug", "index.ts")
+D_STRINGS = [
+    ('label: "Profile: work scheduling"', 'label: "分析：工作调度"'),
+    ('label: "Report: dump session"', 'label: "报告：转储会话"'),
+    ('label: "Report: memory issue"', 'label: "报告：内存问题"'),
+    ('label: "Test: terminal protocols"', 'label: "测试：终端协议"'),
+    ('label: "View: raw SSE stream"', 'label: "查看：原始 SSE 流"'),
+    ('label: "Start: JS remote debugger"', 'label: "启动：JS 远程调试器"'),
+    ('label: "Export: TUI transcript"', 'label: "导出：TUI 对话记录"'),
+    ('description: "Open session artifacts in file manager"', 'description: "在文件管理器中打开会话产物"'),
+    ('description: "Profile CPU, reproduce, then bundle"', 'description: "分析 CPU、复现、打包"'),
+    ('description: "Open flamegraph of last 30s"', 'description: "打开最近 30 秒火焰图"'),
+    ('description: "Create report bundle immediately"', 'description: "立即创建报告包"'),
+    ('description: "Heap snapshot + bundle"', 'description: "堆快照 + 打包"'),
+    ('description: "Show last 50 log entries"', 'description: "显示最近 50 条日志"'),
+    ('description: "Show environment details"', 'description: "显示环境详情"'),
+    ('description: "Remove old session artifacts"', 'description: "移除旧的会话产物"'),
+]
+
+
+# ──────────── 6. keybindings.ts ────────────
+K = os.path.join(TUI_SRC, "keybindings.ts")
+K_STRINGS = [
+    ('description: "Move cursor word left"', 'description: "向左移动一个词"'),
+    ('description: "Move cursor word right"', 'description: "向右移动一个词"'),
+    ('description: "Move to line start"', 'description: "移动到行首"'),
+    ('description: "Move to line end"', 'description: "移动到行尾"'),
+    ('description: "Jump forward to character"', 'description: "向前跳转到字符"'),
+    ('description: "Jump backward to character"', 'description: "向后跳转到字符"'),
+    ('description: "Page up"', 'description: "上翻页"'),
+    ('description: "Page down"', 'description: "下翻页"'),
+    ('description: "Delete character backward"', 'description: "向后删除字符"'),
+    ('description: "Delete character forward"', 'description: "向前删除字符"'),
+    ('description: "Delete word backward"', 'description: "向后删除词"'),
+    ('description: "Delete word forward"', 'description: "向前删除词"'),
+    ('description: "Delete to line start"', 'description: "删除到行首"'),
+    ('description: "Delete to line end"', 'description: "删除到行尾"'),
+    ('description: "Yank"', 'description: "粘贴"'),
+    ('description: "Yank pop"', 'description: "循环粘贴"'),
+    ('description: "Insert newline"', 'description: "插入换行"'),
+    ('description: "Tab / autocomplete"', 'description: "Tab / 自动补全"'),
+    ('description: "Move selection up"', 'description: "上移选择"'),
+    ('description: "Move selection down"', 'description: "下移选择"'),
+    ('description: "Selection page up"', 'description: "选择区上翻页"'),
+    ('description: "Selection page down"', 'description: "选择区下翻页"'),
+    ('description: "Confirm selection"', 'description: "确认选择"'),
+    ('description: "Cancel selection"', 'description: "取消选择"'),
+]
+
+
+# ──────────── 7. model-roles.ts ────────────
+M = os.path.join(CODING_AGENT_SRC, "config", "model-roles.ts")
+M_STRINGS = [
+    ('name: "Default"', 'name: "默认"'),
+    ('name: "Fast"', 'name: "快速"'),
+    ('name: "Thinking"', 'name: "深度思考"'),
+    ('name: "Vision"', 'name: "视觉"'),
+    ('name: "Architect"', 'name: "架构师"'),
+    ('name: "Designer"', 'name: "设计师"'),
+    ('name: "Commit"', 'name: "提交"'),
+    ('name: "Title"', 'name: "标题"'),
+    ('name: "Subtask"', 'name: "子任务"'),
+    ('name: "Advisor"', 'name: "顾问"'),
+]
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # 补丁引擎
 # ═══════════════════════════════════════════════════════════════════════════

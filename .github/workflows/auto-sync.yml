@@ -1,0 +1,219 @@
+name: Auto Sync Upstream
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # 每 6 小时检查一次上游新版本
+  workflow_dispatch:          # 也可手动触发
+    inputs:
+      force_version:
+        description: '强制指定版本（留空则自动检测）'
+        required: false
+        type: string
+
+env:
+  UPSTREAM_REPO: can1357/oh-my-pi
+
+jobs:
+  # ── 第 1 步：检查上游是否有新版本 ──
+  check-upstream:
+    name: 检查上游新版本
+    runs-on: ubuntu-latest
+    outputs:
+      should_build: ${{ steps.compare.outputs.should_build }}
+      new_version: ${{ steps.compare.outputs.new_version }}
+    steps:
+      - name: 获取上游最新 release
+        id: upstream
+        run: |
+          if [ "${{ github.event.inputs.force_version }}" != "" ]; then
+            echo "version=${{ github.event.inputs.force_version }}" >> $GITHUB_OUTPUT
+            echo "强制版本: ${{ github.event.inputs.force_version }}"
+          else
+            UPSTREAM_VERSION=$(curl -sL https://api.github.com/repos/${{ env.UPSTREAM_REPO }}/releases/latest | jq -r .tag_name)
+            echo "version=$UPSTREAM_VERSION" >> $GITHUB_OUTPUT
+            echo "上游最新: $UPSTREAM_VERSION"
+          fi
+
+      - name: 获取我们的最新 release
+        id: our
+        run: |
+          OUR_VERSION=$(curl -sL https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+          if [ "$OUR_VERSION" = "null" ] || [ -z "$OUR_VERSION" ]; then
+            OUR_VERSION="none"
+          fi
+          echo "version=$OUR_VERSION" >> $GITHUB_OUTPUT
+          echo "我们最新: $OUR_VERSION"
+
+      - name: 对比版本号
+        id: compare
+        run: |
+          UPSTREAM="${{ steps.upstream.outputs.version }}"
+          OURS="${{ steps.our.outputs.version }}"
+
+          if [ "$UPSTREAM" = "null" ] || [ -z "$UPSTREAM" ]; then
+            echo "无法获取上游版本"
+            echo "should_build=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [ "$UPSTREAM" = "$OURS" ]; then
+            echo "已是最新: $UPSTREAM，无需构建"
+            echo "should_build=false" >> $GITHUB_OUTPUT
+          else
+            echo "发现新版本: $UPSTREAM (我们: $OURS)"
+            echo "should_build=true" >> $GITHUB_OUTPUT
+            echo "new_version=$UPSTREAM" >> $GITHUB_OUTPUT
+          fi
+
+  # ── 第 2 步：构建所有平台二进制 ──
+  build:
+    name: 构建 ${{ matrix.target.name }}
+    needs: check-upstream
+    if: needs.check-upstream.outputs.should_build == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - os: windows-latest
+            name: Windows x64
+            artifact: omp-windows-x64
+            patch_cmd: PYTHONIOENCODING=utf-8 python ../patch_omp_zh_v2.py
+            setup_python: true
+          - os: ubuntu-latest
+            name: Linux x64
+            artifact: omp-linux-x64
+            patch_cmd: python3 ../patch_omp_zh_v2.py
+            setup_python: false
+          - os: macos-latest
+            name: macOS arm64
+            artifact: omp-darwin-arm64
+            patch_cmd: python3 ../patch_omp_zh_v2.py
+            setup_python: false
+    runs-on: ${{ matrix.target.os }}
+    steps:
+      - name: 检出我们的仓库（含补丁脚本）
+        uses: actions/checkout@v4
+
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 安装 Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: 安装 Python（仅 Windows）
+        if: matrix.target.setup_python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 克隆上游源码并切换到目标版本
+        shell: bash
+        run: |
+          git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
+          cd source
+          git checkout ${{ needs.check-upstream.outputs.new_version }}
+
+      - name: 安装依赖
+        working-directory: source
+        shell: bash
+        run: bun install
+
+      - name: 应用中文补丁
+        working-directory: source
+        shell: bash
+        run: ${{ matrix.target.patch_cmd }}
+
+      - name: 安装官方版（生成正确版本的 .node 缓存）
+        shell: bash
+        run: |
+          bun install -g @oh-my-pi/pi-coding-agent
+          omp --smoke-test
+          OMP_VERSION=$(omp --version | cut -d/ -f2)
+          cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
+
+      - name: 构建原生插件
+        working-directory: source
+        shell: bash
+        run: bun --cwd=packages/natives run build
+        continue-on-error: true
+
+      - name: 构建二进制
+        working-directory: source
+        shell: bash
+        run: bun --cwd=packages/coding-agent run build
+        continue-on-error: true
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target.artifact }}
+          path: source/packages/coding-agent/dist/omp*
+          if-no-files-found: warn
+
+  # ── 第 3 步：创建 GitHub Release ──
+  create-release:
+    name: 发布 ${{ needs.check-upstream.outputs.new_version }} 中文版
+    needs:
+      - check-upstream
+      - build
+    if: always() && needs.check-upstream.outputs.should_build == 'true' && !cancelled()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 下载所有构建产物
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: 整理产物到 flat 目录
+        run: |
+          mkdir -p release-assets
+          find artifacts -type f -exec cp {} release-assets/ \;
+          ls -la release-assets/
+
+      - name: 创建 Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ needs.check-upstream.outputs.new_version }}"
+          RELEASE_NAME="$VERSION 中文版"
+          
+          # 获取上游 release 的 changelog
+          UPSTREAM_BODY=$(curl -sL https://api.github.com/repos/${{ env.UPSTREAM_REPO }}/releases/tags/$VERSION | jq -r .body)
+          
+          # 构建 release body
+          cat > release-body.md << EOF
+          ## 自动同步上游 $VERSION
+          
+          基于 [can1357/oh-my-pi](https://github.com/${{ env.UPSTREAM_REPO }}) 的 \`$VERSION\` 版本，
+          应用中文翻译补丁后自动构建。
+          
+          ---
+          
+          ### 上游更新内容
+          $UPSTREAM_BODY
+          
+          ---
+          
+          *自动同步时间：$(date -u '+%Y-%m-%d %H:%M UTC')*  
+          *由 [Auto Sync Upstream](https://github.com/${{ github.repository }}/actions/workflows/auto-sync.yml) 工作流自动创建*
+          EOF
+          
+          # 检查该 tag 是否已存在
+          if gh release view "$VERSION" --repo "${{ github.repository }}" &>/dev/null; then
+            echo "Release $VERSION 已存在，跳过创建"
+          else
+            gh release create "$VERSION" \
+              --repo "${{ github.repository }}" \
+              --title "$RELEASE_NAME" \
+              --notes-file release-body.md \
+              release-assets/*
+            echo "Release $VERSION 创建成功"
+          fi
+
+      - name: 清理产物
+        if: always()
+        run: rm -rf artifacts release-assets release-body.md

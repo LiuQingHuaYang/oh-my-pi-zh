@@ -14,11 +14,8 @@ v2 改进：翻译数据集中管理，按文件 + 类别组织，易读易维�
 import os
 
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# 检测是在 CI（克隆到 source/ 子目录）还是本地直接运行
-_UPSTREAM_BASE = os.path.join(REPO_DIR, "source") if os.path.isdir(os.path.join(REPO_DIR, "source", "packages")) else REPO_DIR
-CODING_AGENT_SRC = os.path.join(_UPSTREAM_BASE, "packages", "coding-agent", "src")
-TUI_SRC = os.path.join(_UPSTREAM_BASE, "packages", "tui", "src")
+CODING_AGENT_SRC = os.path.join(REPO_DIR, "packages", "coding-agent", "src")
+TUI_SRC = os.path.join(REPO_DIR, "packages", "tui", "src")
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -29,7 +26,18 @@ TUI_SRC = os.path.join(_UPSTREAM_BASE, "packages", "tui", "src")
 S = os.path.join(CODING_AGENT_SRC, "config", "settings-schema.ts")
 
 # 1a. 设置面板标签页（tabs）- 在 TAB_METADATA 中
-S_TABS = []
+S_TABS = [
+    ('"Appearance"', '"外观"'),
+    ('"Model"', '"模型"'),
+    ('"Interaction"', '"交互"'),
+    ('"Context"', '"上下文"'),
+    ('"Memory"', '"记忆"'),
+    ('"Files"', '"文件"'),
+    ('"Shell"', '"Shell"'),
+    ('"Tools"', '"工具"'),
+    ('"Tasks"', '"任务"'),
+    ('"Providers"', '"提供商"'),
+]
 
 # 1b. 分组标题（TAB_GROUPS 中的 section headings）
 S_GROUPS = [
@@ -74,6 +82,16 @@ S_GROUPS = [
     ('"Tiny Model"', '"微型模型"'),
     ('"Protocol"', '"协议"'),
     ('"Privacy"', '"隐私"'),
+    # --- 补充未翻译的分组标题 ---
+    ('"Prewalk"', '"预检"'),
+    ('"Git"', '"Git"'),
+    ('"Editing"', '"编辑"'),
+    ('"LSP"', '"LSP"'),
+    ('"Eval & Runtimes"', '"评估与运行时"'),
+    ('"Grep & Browser"', '"搜索与浏览器"'),
+    ('"GitHub"', '"GitHub"'),
+    ('"Fireworks"', '"Fireworks"'),
+    ('"Timeouts"', '"超时"'),
 ]
 
 # 1c. 设置项标签（labels）- 尚未翻译的
@@ -394,6 +412,12 @@ W_STRINGS = [
     ('" to run python"', '" 运行 python"'),
     ('"No LSP servers"', '"无 LSP 服务器"'),
     ('"Please use nerdfont 😭."', '"请使用 Nerd Font 😭。"'),
+    # --- 补充缺失的欢迎页翻译 ---
+    ('"Welcome back!"', '"欢迎回来！"'),
+    ('"Tips"', '"提示"'),
+    ('"LSP Servers"', '"LSP 服务器"'),
+    ('"Recent sessions"', '"最近会话"'),
+    ('"No recent sessions"', '"暂无最近会话"'),
 ]
 
 
@@ -408,8 +432,10 @@ B_STRINGS = [
     ('"Toggle the advisor..."', '"Toggle advisor / 切换顾问"'),
     ('"Copy the advisor\'s transcript to clipboard"', '"Copy advisor transcript / 复制顾问记录"'),
     ('"Export session to HTML file"', '"Export to HTML / 导出为 HTML"'),
-    ('"Copy session transcript to clipboard..."', '"Copy transcript / 复制会话记录"'),
-    ('"Share session via an encrypted link..."', '"Share via link / 通过加密链接分享"'),
+    ('"Copy session transcript to clipboard (and write LLM request JSON to tmp)"',
+     '"Copy transcript / 复制会话记录"'),
+    ('"Share session via an encrypted link (share server or secret gist)"',
+     '"Share via link / 通过加密链接分享"'),
     ('"Share this session live via a relay"', '"Collab share / 实时协作分享"'),
     ('"disabled in settings"', '"设置中已禁用"'),
     ('"plan mode inactive"', '"计划模式未激活"'),
@@ -527,6 +553,48 @@ B_STRINGS = [
     ('"Reload all plugins (skills, commands, hooks, tools, agents, MCP)"', '"重新加载全部插件"'),
     ('"Force next turn to use a specific tool"', '"强制下回合使用指定工具"'),
     ('"Quit the application"', '"退出应用"'),
+    # --- 补充 v16.5.0 新增命令的描述翻译 ---
+    ('"Toggle vibe mode (direct persistent fast/good worker sessions; read-only toolset)"',
+     '"切换 Vibe 模式（持久快速工作会话；只读工具集）"'),
+    ('"Queue a message for after the agent yields"',
+     '"排队一条消息，在 agent 让出回合后发送"'),
+    ('"Switch to a fast/cheap model at the next action (works even without --prewalk)"',
+     '"下个操作切换到快速/廉价模型（即使没有 --prewalk 也有效）"'),
+    ('"Freeze all agents (main, subagents, advisor) until resumed"',
+     '"冻结所有代理（主代理、子代理、顾问）直到恢复"'),
+    # --- 补充 compact 子命令描述 ---
+    ('"Summarize locally with the active model (skip remote endpoints)"',
+     '"使用当前模型本地总结（跳过远程端点）"'),
+    ('"Summarize via the remote endpoint / provider-native compaction"',
+     '"通过远程端点/提供商原生压缩进行总结"'),
+    ('"Archive history onto dense bitmap images the model reads back (no LLM call)"',
+     '"将历史归档为密集位图图像供模型读取（无需 LLM 调用）"'),
+    # --- 补充子命令描述 ---
+    ('"Show session info and stats"', '"显示会话信息和统计"'),
+    ('"Show complete changelog"', '"显示完整更新日志"'),
+    ('"Spend a saved Codex rate-limit reset"', '"消耗一个已保存的 Codex 速率限制重置"'),
+    ('"Strip tool results + large blocks (default)"', '"剥离工具结果和大块内容（默认）"'),
+    ('"Strip image blocks"', '"剥离图片块"'),
+    ('"Show current memory injection payload"', '"显示当前记忆注入载荷"'),
+    ('"Show memory backend statistics"', '"显示记忆后端统计"'),
+    ('"Run memory backend diagnostics"', '"运行记忆后端诊断"'),
+    ('"Clear persisted memory data and artifacts"', '"清除持久化记忆数据和产物"'),
+    ('"Alias for clear"', '"清除的别名"'),
+    ('"Enqueue memory consolidation maintenance"', '"排队记忆整合维护"'),
+    ('"Alias for enqueue"', '"入队（enqueue）的别名"'),
+    ('"List all installed plugins (npm + marketplace)"', '"列出所有已安装插件（npm + 市场）"'),
+    ('"Enable a marketplace plugin"', '"启用市场插件"'),
+    ('"Disable a marketplace plugin"', '"禁用市场插件"'),
+    ('"Add a marketplace source"', '"添加市场源"'),
+    ('"Remove a marketplace source"', '"移除市场源"'),
+    ('"Update marketplace catalog(s)"', '"更新市场目录"'),
+    ('"List configured marketplaces"', '"列出已配置的市场"'),
+    ('"Browse available plugins"', '"浏览可用插件"'),
+    ('"Install a plugin (interactive browser if no args)"', '"安装插件（无参数时交互式浏览）"'),
+    ('"Uninstall a plugin (selector if no args)"', '"卸载插件（无参数时选择器）"'),
+    ('"List installed marketplace plugins"', '"列出已安装的市场插件"'),
+    ('"Upgrade outdated plugins"', '"升级过期插件"'),
+    ('"Show usage guide"', '"显示使用指南"'),
 ]
 
 
@@ -597,6 +665,31 @@ M_STRINGS = [
 ]
 
 
+# ──────────── 8. settings-list.ts ────────────
+SL = os.path.join(TUI_SRC, "components", "settings-list.ts")
+SL_STRINGS = [
+    ('"No settings available"', '"暂无设置"'),
+    ('"No matching settings"', '"无匹配设置"'),
+    ('"Backspace to edit search · Esc to cancel"', '"退格键编辑搜索 · Esc 取消"'),
+    ('"Enter/Space to change · ', '"Enter/空格 修改 · '),
+    ('Type to search · Esc to cancel"', '输入搜索 · Esc 取消"'),
+    # The full hint template includes the jump hint dynamically, but we translate
+    # the static parts. The base hint template is:
+    # "Enter/Space to change · PgUp/PgDn to jump sections · Type to search · Esc to cancel"
+    ('PgUp/PgDn to jump sections · ', 'PgUp/PgDn 跳转分区 · '),
+    ('"Type to search"', '"输入搜索"'),
+]
+
+
+# ──────────── 9. select-list.ts ────────────
+SC = os.path.join(TUI_SRC, "components", "select-list.ts")
+SC_STRINGS = [
+    ('"  No matching items"', '"  无匹配项"'),
+    ('"  Type to search"', '"  输入搜索"'),
+    ('"  Search: ', '"  搜索：'),
+]
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # 补丁引擎
 # ═══════════════════════════════════════════════════════════════════════════
@@ -651,6 +744,8 @@ def main():
     grand_total += apply_translations(D, D_STRINGS)
     grand_total += apply_translations(K, K_STRINGS)
     grand_total += apply_translations(M, M_STRINGS)
+    grand_total += apply_translations(SL, SL_STRINGS)
+    grand_total += apply_translations(SC, SC_STRINGS)
 
     print(f"\n{'=' * 60}")
     print(f"✅ 中文翻译补丁 v2 完成！共替换 {grand_total} 处。")

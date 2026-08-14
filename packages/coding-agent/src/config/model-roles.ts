@@ -40,16 +40,16 @@ export interface ModelRoleInfo {
 }
 
 export const MODEL_ROLES: Record<ModelRole, ModelRoleInfo> = {
-	default: { tag: "DEFAULT", name: "Default", color: "success" },
-	smol: { tag: "SMOL", name: "Fast", color: "warning" },
-	slow: { tag: "SLOW", name: "Thinking", color: "accent" },
-	vision: { tag: "VISION", name: "Vision", color: "error" },
-	plan: { tag: "PLAN", name: "Architect", color: "muted" },
-	designer: { tag: "DESIGNER", name: "Designer", color: "muted" },
-	commit: { tag: "COMMIT", name: "Commit", color: "dim" },
-	tiny: { tag: "TINY", name: "Tiny", color: "dim" },
-	task: { tag: "TASK", name: "Subtask", color: "muted" },
-	advisor: { tag: "ADVISOR", name: "Advisor", color: "accent" },
+	default: { tag: "DEFAULT", name: "默认", color: "success" },
+	smol: { tag: "SMOL", name: "快速", color: "warning" },
+	slow: { tag: "SLOW", name: "深度思考", color: "accent" },
+	vision: { tag: "VISION", name: "视觉", color: "error" },
+	plan: { tag: "PLAN", name: "架构师", color: "muted" },
+	designer: { tag: "DESIGNER", name: "设计师", color: "muted" },
+	commit: { tag: "COMMIT", name: "提交", color: "dim" },
+	tiny: { tag: "TINY", name: "微型", color: "dim" },
+	task: { tag: "TASK", name: "子任务", color: "muted" },
+	advisor: { tag: "ADVISOR", name: "顾问", color: "accent" },
 };
 
 export const MODEL_ROLE_IDS: ModelRole[] = [

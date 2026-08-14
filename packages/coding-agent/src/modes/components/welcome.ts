@@ -158,7 +158,7 @@ export class WelcomeComponent implements Component {
 	get tip(): string | undefined {
 		if (this.#selectedTip === undefined) {
 			if (theme.getSymbolPreset() === "unicode" && Math.random() < 0.1) {
-				this.#selectedTip = "Please use nerdfont 😭.";
+				this.#selectedTip = "请使用 Nerd Font 😭。";
 			} else {
 				this.#selectedTip = pickWeightedTip(TIPS, Math.random());
 			}
@@ -244,7 +244,7 @@ export class WelcomeComponent implements Component {
 		const minRightCol = 20;
 		const leftMinContentWidth = Math.max(
 			minLeftCol,
-			visibleWidth("Welcome back!"),
+			visibleWidth("欢迎回来！"),
 			visibleWidth(this.modelName),
 			visibleWidth(this.providerName),
 		);
@@ -264,7 +264,7 @@ export class WelcomeComponent implements Component {
 		// Left column - centered content
 		const leftLines = [
 			"",
-			this.#centerText(theme.bold("Welcome back!"), leftCol),
+			this.#centerText(theme.bold("欢迎回来！"), leftCol),
 			"",
 			...logoColored.map(l => this.#centerText(l, leftCol)),
 			"",
@@ -279,7 +279,7 @@ export class WelcomeComponent implements Component {
 		// Recent sessions content
 		const sessionLines: string[] = [];
 		if (this.recentSessions.length === 0) {
-			sessionLines.push(` ${theme.fg("dim", "No recent sessions")}`);
+			sessionLines.push(` ${theme.fg("dim", "暂无最近会话")}`);
 		} else {
 			// Reserve width for the bullet prefix (" • ") and the trailing " (timeAgo)"
 			// so the relative time is never the part that gets truncated. The name
@@ -305,7 +305,7 @@ export class WelcomeComponent implements Component {
 		// LSP servers content
 		const lspLines: string[] = [];
 		if (this.lspServers.length === 0) {
-			lspLines.push(` ${theme.fg("dim", "No LSP servers")}`);
+			lspLines.push(` ${theme.fg("dim", "无 LSP 服务器")}`);
 		} else {
 			for (const server of this.lspServers.slice(0, WELCOME_LSP_SLOTS)) {
 				const icon =
@@ -327,16 +327,16 @@ export class WelcomeComponent implements Component {
 
 		// Right column
 		const rightLines = [
-			` ${theme.bold(theme.fg("accent", "Tips"))}`,
-			` ${theme.fg("dim", "#")}${theme.fg("muted", " for prompt actions")}`,
-			` ${theme.fg("dim", "/")}${theme.fg("muted", " for commands")}`,
-			` ${theme.fg("dim", "!")}${theme.fg("muted", " to run bash")}`,
-			` ${theme.fg("dim", "$")}${theme.fg("muted", " to run python")}`,
+			` ${theme.bold(theme.fg("accent", "提示"))}`,
+			` ${theme.fg("dim", "#")}${theme.fg("muted", " 执行提示操作")}`,
+			` ${theme.fg("dim", "/")}${theme.fg("muted", " 查看命令")}`,
+			` ${theme.fg("dim", "!")}${theme.fg("muted", " 运行 bash")}`,
+			` ${theme.fg("dim", "$")}${theme.fg("muted", " 运行 python")}`,
 			separator,
-			` ${theme.bold(theme.fg("accent", "LSP Servers"))}`,
+			` ${theme.bold(theme.fg("accent", "LSP 服务器"))}`,
 			...lspLines,
 			separator,
-			` ${theme.bold(theme.fg("accent", "Recent sessions"))}`,
+			` ${theme.bold(theme.fg("accent", "最近会话"))}`,
 			...sessionLines,
 			"",
 		];

@@ -37,31 +37,31 @@ import { collectTerminalState, formatTerminalState } from "./terminal-info";
 
 /** Debug menu options */
 const DEBUG_MENU_ITEMS: SelectItem[] = [
-	{ value: "open-artifacts", label: "Open: artifact folder", description: "Open session artifacts in file manager" },
-	{ value: "performance", label: "Report: performance issue", description: "Profile CPU, reproduce, then bundle" },
-	{ value: "work", label: "Profile: work scheduling", description: "Open flamegraph of last 30s" },
-	{ value: "dump", label: "Report: dump session", description: "Create report bundle immediately" },
-	{ value: "memory", label: "Report: memory issue", description: "Heap snapshot + bundle" },
-	{ value: "logs", label: "View: recent logs", description: "Show last 50 log entries" },
-	{ value: "system", label: "View: system info", description: "Show environment details" },
-	{ value: "terminal", label: "View: terminal state", description: "Subprotocols, geometry, scrollback strategy" },
+	{ value: "open-artifacts", label: "打开：产物文件夹", description: "在文件管理器中打开会话产物" },
+	{ value: "performance", label: "报告：性能问题", description: "分析 CPU、复现、打包" },
+	{ value: "work", label: "分析：工作调度", description: "打开最近 30 秒火焰图" },
+	{ value: "dump", label: "报告：转储会话", description: "立即创建报告包" },
+	{ value: "memory", label: "报告：内存问题", description: "堆快照 + 打包" },
+	{ value: "logs", label: "查看：最近日志", description: "显示最近 50 条日志" },
+	{ value: "system", label: "查看：系统信息", description: "显示环境详情" },
+	{ value: "terminal", label: "查看：终端状态", description: "子协议、几何、回滚策略" },
 	{
 		value: "protocols",
-		label: "Test: terminal protocols",
-		description: "Styling, links, text sizing, graphics, notify",
+		label: "测试：终端协议",
+		description: "样式、链接、文本大小、图形、通知",
 	},
-	{ value: "raw-sse", label: "View: raw SSE stream", description: "Show live provider SSE frames" },
+	{ value: "raw-sse", label: "查看：原始 SSE 流", description: "显示实时提供商 SSE 帧" },
 	{
 		value: "remote-debugger",
-		label: "Start: JS remote debugger",
-		description: "Expose JavaScriptCore inspector socket (experimental)",
+		label: "启动：JS 远程调试器",
+		description: "暴露 JavaScriptCore 检查器套接字（实验性）",
 	},
 	{
 		value: "transcript",
-		label: "Export: TUI transcript",
-		description: "Write visible TUI conversation to a temp txt",
+		label: "导出：TUI 对话记录",
+		description: "将可见 TUI 对话写入临时 txt",
 	},
-	{ value: "clear-cache", label: "Clear: artifact cache", description: "Remove old session artifacts" },
+	{ value: "clear-cache", label: "清除：产物缓存", description: "移除旧的会话产物" },
 ];
 
 const formatFileHyperlink = (path: string): string => {

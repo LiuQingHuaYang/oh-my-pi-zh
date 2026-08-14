@@ -167,7 +167,7 @@ export class SelectList implements Component, MouseRoutable {
 			if (showSearchStatus) {
 				lines.push(this.#renderStatusLine(width));
 			}
-			lines.push(this.theme.noMatch("  No matching items"));
+			lines.push(this.theme.noMatch("  无匹配项"));
 			return lines;
 		}
 
@@ -460,7 +460,7 @@ export class SelectList implements Component, MouseRoutable {
 
 	#renderStatusLine(width: number): string {
 		const query = sanitizeSingleLine(this.#filterQuery);
-		const statusText = query ? `  Search: ${query}` : "  Type to search";
+		const statusText = query ? `  Search: ${query}` : "  输入搜索";
 		return this.theme.scrollInfo(truncateToWidth(statusText, Math.max(1, width - 2), Ellipsis.Omit));
 	}
 

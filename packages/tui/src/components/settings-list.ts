@@ -523,7 +523,7 @@ export class SettingsList implements Component {
 		const lines: string[] = [];
 
 		if (this.#items.length === 0) {
-			lines.push(this.#theme.hint(`  ${this.#options.emptyText ?? "No settings available"}`));
+			lines.push(this.#theme.hint(`  ${this.#options.emptyText ?? "暂无设置"}`));
 			return lines;
 		}
 
@@ -612,7 +612,7 @@ export class SettingsList implements Component {
 		// Add hint (suppressed entirely when the host owns the footer)
 		if (this.#options.hint !== "") {
 			lines.push("");
-			const jumpHint = sections.length >= 2 ? "PgUp/PgDn to jump sections · " : "";
+			const jumpHint = sections.length >= 2 ? "PgUp/PgDn 跳转分区 · " : "";
 			const hintText = this.#options.hint ?? `Enter/Space to change · ${jumpHint}Type to search · Esc to cancel`;
 			lines.push(truncateToWidth(this.#theme.hint(`  ${hintText}`), width));
 		}

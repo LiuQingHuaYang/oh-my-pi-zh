@@ -102,16 +102,16 @@ export const SETTING_TABS: SettingTab[] = [
 
 /** Tab display metadata - icon is a symbol key from theme.ts (tab.*) */
 export const TAB_METADATA: Record<SettingTab, { label: string; icon: `tab.${string}` }> = {
-	appearance: { label: "Appearance", icon: "tab.appearance" },
-	model: { label: "Model", icon: "tab.model" },
-	interaction: { label: "Interaction", icon: "tab.interaction" },
-	context: { label: "Context", icon: "tab.context" },
-	memory: { label: "Memory", icon: "tab.memory" },
-	files: { label: "Files", icon: "tab.files" },
+	appearance: { label: "外观", icon: "tab.appearance" },
+	model: { label: "模型", icon: "tab.model" },
+	interaction: { label: "交互", icon: "tab.interaction" },
+	context: { label: "上下文", icon: "tab.context" },
+	memory: { label: "记忆", icon: "tab.memory" },
+	files: { label: "文件", icon: "tab.files" },
 	shell: { label: "Shell", icon: "tab.shell" },
-	tools: { label: "Tools", icon: "tab.tools" },
-	tasks: { label: "Tasks", icon: "tab.tasks" },
-	providers: { label: "Providers", icon: "tab.providers" },
+	tools: { label: "工具", icon: "tab.tools" },
+	tasks: { label: "任务", icon: "tab.tasks" },
+	providers: { label: "提供商", icon: "tab.providers" },
 };
 
 /**
@@ -120,37 +120,37 @@ export const TAB_METADATA: Record<SettingTab, { label: string; icon: `tab.${stri
  * Ungrouped settings render first, before any section heading.
  */
 export const TAB_GROUPS: Record<SettingTab, readonly string[]> = {
-	appearance: ["Theme", "Status Line", "Display", "Images"],
-	model: ["Thinking", "Sampling", "Prompt", "Retry & Fallback", "Advisor", "Prewalk", "Vision"],
+	appearance: ["主题", "状态栏", "显示", "图片"],
+	model: ["思考", "采样", "提示", "重试与回退", "顾问", "预检", "视觉"],
 	interaction: [
-		"Input",
-		"Approvals",
-		"Notifications",
-		"Speech",
-		"Collab",
-		"Magic Keywords",
-		"Startup & Updates",
-		"Power (macOS)",
-		"Agent",
+		"输入",
+		"审批",
+		"通知",
+		"语音",
+		"协作",
+		"魔法关键词",
+		"启动与更新",
+		"电源 (macOS)",
+		"代理",
 		"Git",
 	],
-	context: ["General", "Compaction", "Rules (TTSR)", "Experimental"],
-	memory: ["General", "Auto-Learn", "Mnemopi", "Hindsight"],
-	files: ["Editing", "Reading", "Read Summaries", "LSP"],
-	shell: ["Bash", "Eval & Runtimes"],
+	context: ["通用", "压缩", "规则 (TTSR)", "实验性"],
+	memory: ["通用", "自动学习", "Mnemopi", "Hindsight"],
+	files: ["编辑", "阅读", "读取摘要", "LSP"],
+	shell: ["Bash", "评估与运行时"],
 	tools: [
-		"Available Tools",
-		"Todos",
-		"Grep & Browser",
+		"可用工具",
+		"待办",
+		"搜索与浏览器",
 		"Computer",
 		"GitHub",
-		"Output Limits",
-		"Execution",
-		"Discovery & MCP",
-		"Developer",
+		"输出限制",
+		"执行",
+		"发现与 MCP",
+		"开发者",
 	],
-	tasks: ["Modes", "Subagents", "Isolation", "Commands & Skills"],
-	providers: ["Services", "Fireworks", "Tiny Model", "Protocol", "Timeouts", "Privacy"],
+	tasks: ["模式", "子代理", "隔离", "命令与技能"],
+	providers: ["服务", "Fireworks", "微型模型", "协议", "超时", "隐私"],
 };
 
 /** Status line segment identifiers */
@@ -398,9 +398,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Auto Resume",
-			description: "Automatically resume the most recent session in the current directory",
+			group: "启动与更新",
+			label: "自动恢复",
+			description: "自动恢复当前目录中的最近会话",
 		},
 	},
 
@@ -411,30 +411,30 @@ export const SETTINGS_SCHEMA = {
 		default: "idle",
 		ui: {
 			tab: "interaction",
-			group: "Power (macOS)",
-			label: "Sleep Prevention",
+			group: "电源 (macOS)",
+			label: "睡眠防止",
 			description:
-				"Prevent macOS sleep during active sessions. Each level is cumulative — it adds the flags of all lower levels.",
+				"Prevent macOS sleep during active sessions. Each level is cumulative — it adds the flags of all lower levels. — 防止 macOS 在活动会话期间休眠；每个级别是累积的，会叠加所有更低级别的标志。",
 			options: [
 				{
 					value: "off",
-					label: "Off",
-					description: "Do not prevent any sleep",
+					label: "关闭",
+					description: "不阻止任何睡眠",
 				},
 				{
 					value: "idle",
-					label: "Prevent Idle Sleep",
-					description: "Keep the system awake while a session is open (caffeinate -i)",
+					label: "防止空闲睡眠",
+					description: "会话打开时保持系统唤醒 (caffeinate -i)",
 				},
 				{
 					value: "display",
-					label: "Prevent Display Sleep",
-					description: "Also keep the display from idle-sleeping (caffeinate -i -d)",
+					label: "防止显示器睡眠",
+					description: "同时防止显示器空闲休眠 (caffeinate -i -d)",
 				},
 				{
 					value: "system",
-					label: "Prevent System Sleep",
-					description: "Also block all system sleep on AC and declare the user active (caffeinate -i -d -s -u)",
+					label: "防止系统睡眠",
+					description: "同时阻止交流电源下的所有系统休眠并声明用户活跃 (caffeinate -i -d -s -u)",
 				},
 			],
 		},
@@ -444,10 +444,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Advisor",
-			label: "Enable Advisor",
+			group: "顾问",
+			label: "启用顾问",
 			description:
-				"Pair a second model (assigned to the 'advisor' role) that passively reviews each turn and injects notes.",
+				"Pair a second model (assigned to the 'advisor' role) that passively reviews each turn and injects notes. — 配对第二个模型（分配给“顾问”角色），被动审查每一轮并注入笔记。",
 		},
 	},
 	"prewalk.enabled": {
@@ -455,10 +455,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Prewalk",
-			label: "Enable Prewalk",
+			group: "预检",
+			label: "启用预检",
 			description:
-				"Start on the active model, then switch to a fast/cheap model (default the 'smol' role) at the first edit/write after the plan nudge's todo list exists — the strong model plans, commits the todos, and starts the implementation before handing off. Overridable per session with --prewalk / --no-prewalk.",
+				"Start on the active model, then switch to a fast/cheap model (default the 'smol' role) at the first edit/write after the plan nudge's todo list exists — the strong model plans, commits the todos, and starts the implementation before handing off. Overridable per session with --prewalk / --no-prewalk. — 从活动模型开始，在计划提示的待办列表出现后的第一次编辑/写入时切换到快速/廉价模型（默认“smol”角色）；强模型负责规划、提交待办并开始实现后再交接。可通过 --prewalk / --no-prewalk 按会话覆盖。",
 		},
 	},
 	"advisor.subagents": {
@@ -466,9 +466,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Advisor",
-			label: "Advisor for Subagents",
-			description: "Also enable the advisor on spawned task/eval subagents.",
+			group: "顾问",
+			label: "子代理顾问",
+			description: "同时在生成的 task/eval 子代理上启用顾问。",
 			condition: "advisorEnabled",
 		},
 	},
@@ -478,10 +478,10 @@ export const SETTINGS_SCHEMA = {
 		default: "off",
 		ui: {
 			tab: "model",
-			group: "Advisor",
-			label: "Advisor Sync Backlog",
+			group: "顾问",
+			label: "顾问同步积压",
 			description:
-				"Pause the main agent for up to 30 seconds if the advisor falls behind by this many turns. Off disables catch-up delays.",
+				"Pause the main agent for up to 30 seconds if the advisor falls behind by this many turns. Off disables catch-up delays. — 若顾问落后这么多轮，则暂停主代理最多 30 秒；关闭可禁用追赶延迟。",
 			condition: "advisorEnabled",
 		},
 	},
@@ -490,17 +490,17 @@ export const SETTINGS_SCHEMA = {
 		default: 3,
 		ui: {
 			tab: "model",
-			group: "Advisor",
-			label: "Advisor Immune Turns",
+			group: "顾问",
+			label: "顾问免疫轮次",
 			description:
-				"After an advisor concern or blocker interrupts, route further concerns/blockers non-interruptingly for this many primary turns.",
+				"After an advisor concern or blocker interrupts, route further concerns/blockers non-interruptingly for this many primary turns. — 在顾问的关注或阻塞中断后，在这么多主轮次内以非中断方式路由后续关注/阻塞。",
 			options: [
-				{ value: "0", label: "0 turns", description: "Allow every concern/blocker to interrupt." },
-				{ value: "1", label: "1 turn" },
-				{ value: "2", label: "2 turns" },
-				{ value: "3", label: "3 turns", description: "Default." },
-				{ value: "4", label: "4 turns" },
-				{ value: "5", label: "5 turns" },
+				{ value: "0", label: "0 轮", description: "允许每个关注/阻塞中断。" },
+				{ value: "1", label: "1 轮" },
+				{ value: "2", label: "2 轮" },
+				{ value: "3", label: "3 轮", description: "默认。" },
+				{ value: "4", label: "4 轮" },
+				{ value: "5", label: "5 轮" },
 			],
 			condition: "advisorEnabled",
 		},
@@ -512,8 +512,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "interaction",
 			group: "Git",
-			label: "Enable Git Integration",
-			description: "Show git branch, status, and PR information in the TUI and watch repository metadata.",
+			label: "启用 Git 集成",
+			description: "在 TUI 中显示 git 分支、状态和 PR 信息，并监视仓库元数据。",
 		},
 	},
 
@@ -528,8 +528,8 @@ export const SETTINGS_SCHEMA = {
 		default: EMPTY_NUMBER_RECORD,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Max In-Flight Requests",
+			group: "服务",
+			label: "最大并发请求数",
 			description:
 				'Maximum concurrent LLM requests per provider id (for example "openai" or "anthropic"), shared across local OMP processes with this config root. Omitted providers are unlimited.',
 		},
@@ -543,19 +543,19 @@ export const SETTINGS_SCHEMA = {
 		default: "global",
 		ui: {
 			tab: "model",
-			group: "Prompt",
-			label: "Model Role Storage",
-			description: "Where model selector role assignments are saved",
+			group: "提示",
+			label: "模型角色存储",
+			description: "模型选择器角色分配保存的位置",
 			options: [
 				{
 					value: "global",
-					label: "Global",
-					description: "Save role models in the active profile config (current behavior)",
+					label: "全局",
+					description: "将角色模型保存在活动配置文件配置中（当前行为）",
 				},
 				{
 					value: "project",
-					label: "Per-project",
-					description: "Save project role models in .omp/config.yml; missing project roles use global defaults",
+					label: "按项目",
+					description: "将项目角色模型保存在 .omp/config.yml 中；缺失的项目角色使用全局默认值",
 				},
 			],
 		},
@@ -579,9 +579,9 @@ export const SETTINGS_SCHEMA = {
 		default: "titanium",
 		ui: {
 			tab: "appearance",
-			group: "Theme",
-			label: "Dark Theme",
-			description: "Theme used when the terminal has a dark background",
+			group: "主题",
+			label: "深色主题",
+			description: "终端为深色背景时使用的主题",
 			options: "runtime",
 		},
 	},
@@ -591,9 +591,9 @@ export const SETTINGS_SCHEMA = {
 		default: "light",
 		ui: {
 			tab: "appearance",
-			group: "Theme",
-			label: "Light Theme",
-			description: "Theme used when the terminal has a light background",
+			group: "主题",
+			label: "浅色主题",
+			description: "终端为浅色背景时使用的主题",
 			options: "runtime",
 		},
 	},
@@ -604,13 +604,13 @@ export const SETTINGS_SCHEMA = {
 		default: "unicode",
 		ui: {
 			tab: "appearance",
-			group: "Theme",
-			label: "Symbol Preset",
-			description: "Glyph set for icons and symbols (Unicode, Nerd Font, or ASCII)",
+			group: "主题",
+			label: "符号预设",
+			description: "图标和符号的字符集（Unicode、Nerd Font 或 ASCII）",
 			options: [
-				{ value: "unicode", label: "Unicode", description: "Standard symbols (default)" },
-				{ value: "nerd", label: "Nerd Font", description: "Requires Nerd Font" },
-				{ value: "ascii", label: "ASCII", description: "Maximum compatibility" },
+				{ value: "unicode", label: "Unicode", description: "标准符号（默认）" },
+				{ value: "nerd", label: "Nerd Font", description: "需要 Nerd Font" },
+				{ value: "ascii", label: "ASCII", description: "最大兼容性" },
 			],
 		},
 	},
@@ -620,9 +620,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Theme",
-			label: "Color-Blind Mode",
-			description: "Use blue instead of green for diff additions",
+			group: "主题",
+			label: "色盲模式",
+			description: "使用蓝色代替绿色表示 diff 新增",
 		},
 	},
 
@@ -633,17 +633,17 @@ export const SETTINGS_SCHEMA = {
 		default: "default",
 		ui: {
 			tab: "appearance",
-			group: "Status Line",
-			label: "Status Line Preset",
-			description: "Pre-built status line configurations",
+			group: "状态栏",
+			label: "状态栏预设",
+			description: "预构建的状态栏配置",
 			options: [
-				{ value: "default", label: "Default", description: "Model, path, git, context, tokens, cost" },
-				{ value: "minimal", label: "Minimal", description: "Path and git only" },
-				{ value: "compact", label: "Compact", description: "Model, git, cost, context" },
-				{ value: "full", label: "Full", description: "All segments including time" },
-				{ value: "nerd", label: "Nerd", description: "Maximum info with Nerd Font icons" },
-				{ value: "ascii", label: "ASCII", description: "No special characters" },
-				{ value: "custom", label: "Custom", description: "User-defined segments" },
+				{ value: "default", label: "默认", description: "模型、路径、Git、上下文、Token、费用" },
+				{ value: "minimal", label: "极简", description: "仅路径和 Git" },
+				{ value: "compact", label: "紧凑", description: "模型、Git、费用、上下文" },
+				{ value: "full", label: "完整", description: "所有段（含时间）" },
+				{ value: "nerd", label: "Nerd", description: "最大信息量（Nerd Font 图标）" },
+				{ value: "ascii", label: "ASCII", description: "无特殊字符" },
+				{ value: "custom", label: "自定义", description: "用户自定义" },
 			],
 		},
 	},
@@ -654,17 +654,17 @@ export const SETTINGS_SCHEMA = {
 		default: "powerline-thin",
 		ui: {
 			tab: "appearance",
-			group: "Status Line",
-			label: "Status Line Separator",
-			description: "Style of separators between segments",
+			group: "状态栏",
+			label: "状态栏分隔符",
+			description: "各段之间分隔符的样式",
 			options: [
-				{ value: "powerline", label: "Powerline", description: "Solid arrows (Nerd Font)" },
-				{ value: "powerline-thin", label: "Thin chevron", description: "Thin arrows (Nerd Font)" },
-				{ value: "slash", label: "Slash", description: "Forward slashes" },
-				{ value: "pipe", label: "Pipe", description: "Vertical pipes" },
-				{ value: "block", label: "Block", description: "Solid blocks" },
-				{ value: "none", label: "None", description: "Space only" },
-				{ value: "ascii", label: "ASCII", description: "Greater-than signs" },
+				{ value: "powerline", label: "Powerline", description: "实心箭头 (Nerd Font)" },
+				{ value: "powerline-thin", label: "细箭头", description: "细箭头 (Nerd Font)" },
+				{ value: "slash", label: "斜线", description: "正斜杠" },
+				{ value: "pipe", label: "竖线", description: "竖线" },
+				{ value: "block", label: "方块", description: "实心方块" },
+				{ value: "none", label: "无", description: "仅空格" },
+				{ value: "ascii", label: "ASCII", description: "大于号" },
 			],
 		},
 	},
@@ -674,9 +674,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Status Line",
-			label: "Session Accent",
-			description: "Use the session name color for the editor border and status line gap",
+			group: "状态栏",
+			label: "会话强调色",
+			description: "使用会话名称颜色作为编辑器边框和状态栏间隙",
 		},
 	},
 
@@ -685,10 +685,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Status Line",
-			label: "Transparent Status Line",
+			group: "状态栏",
+			label: "透明状态栏",
 			description:
-				"Use the terminal's default background for the status line instead of the theme's `statusLineBg`. Powerline end caps are dropped because they need a contrasting fill to bridge into the surrounding terminal.",
+				"Use the terminal's default background for the status line instead of the theme's `statusLineBg`. Powerline end caps are dropped because they need a contrasting fill to bridge into the surrounding terminal. — 状态栏使用终端默认背景而非主题的 `statusLineBg`；Powerline 端帽被移除，因为它们需要对比填充来衔接周围终端。",
 		},
 	},
 	"statusLine.compactThinkingLevel": {
@@ -696,10 +696,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Status Line",
-			label: "Compact Thinking Level",
+			group: "状态栏",
+			label: "紧凑思考级别",
 			description:
-				"Show the thinking level as a single icon on the model name instead of a separate ` · <level>` suffix.",
+				"Show the thinking level as a single icon on the model name instead of a separate ` · <level>` suffix. — 在模型名称上以单个图标显示思考级别，而非单独的 ` · <级别>` 后缀。",
 		},
 	},
 	"tools.artifactSpillThreshold": {
@@ -707,9 +707,9 @@ export const SETTINGS_SCHEMA = {
 		default: 50,
 		ui: {
 			tab: "tools",
-			group: "Output Limits",
-			label: "Artifact Spill Threshold (KB)",
-			description: "Tool output above this size is saved as an artifact; tail is kept inline",
+			group: "输出限制",
+			label: "产物溢出阈值 (KB)",
+			description: "超过此大小的工具输出保存为产物；尾部保持内联",
 			options: [
 				{ value: "1", label: "1 KB", description: "~250 tokens" },
 				{ value: "2.5", label: "2.5 KB", description: "~625 tokens" },
@@ -717,7 +717,7 @@ export const SETTINGS_SCHEMA = {
 				{ value: "10", label: "10 KB", description: "~2.5K tokens" },
 				{ value: "20", label: "20 KB", description: "~5K tokens" },
 				{ value: "30", label: "30 KB", description: "~7.5K tokens" },
-				{ value: "50", label: "50 KB", description: "Default; ~12.5K tokens" },
+				{ value: "50", label: "50 KB", description: "默认；约 12.5K tokens" },
 				{ value: "75", label: "75 KB", description: "~19K tokens" },
 				{ value: "100", label: "100 KB", description: "~25K tokens" },
 				{ value: "200", label: "200 KB", description: "~50K tokens" },
@@ -731,15 +731,15 @@ export const SETTINGS_SCHEMA = {
 		default: 20,
 		ui: {
 			tab: "tools",
-			group: "Output Limits",
-			label: "Artifact Tail Size (KB)",
-			description: "Amount of tail content kept inline when output spills to artifact",
+			group: "输出限制",
+			label: "产物尾部大小 (KB)",
+			description: "输出溢出到产物时保留的内联尾部内容量",
 			options: [
 				{ value: "1", label: "1 KB", description: "~250 tokens" },
 				{ value: "2.5", label: "2.5 KB", description: "~625 tokens" },
 				{ value: "5", label: "5 KB", description: "~1.25K tokens" },
 				{ value: "10", label: "10 KB", description: "~2.5K tokens" },
-				{ value: "20", label: "20 KB", description: "Default; ~5K tokens" },
+				{ value: "20", label: "20 KB", description: "默认；约 5K tokens" },
 				{ value: "50", label: "50 KB", description: "~12.5K tokens" },
 				{ value: "100", label: "100 KB", description: "~25K tokens" },
 				{ value: "200", label: "200 KB", description: "~50K tokens" },
@@ -751,17 +751,17 @@ export const SETTINGS_SCHEMA = {
 		default: 20,
 		ui: {
 			tab: "tools",
-			group: "Output Limits",
-			label: "Artifact Head Size (KB)",
+			group: "输出限制",
+			label: "产物头部大小 (KB)",
 			description:
-				"Amount of head content kept inline alongside the tail when output spills to artifact (middle elision). 0 disables — keep tail only.",
+				"Amount of head content kept inline alongside the tail when output spills to artifact (middle elision). 0 disables — keep tail only. — 输出溢出到产物时，与尾部一起保留的内联头部内容量（中间省略）；0 禁用——仅保留尾部。",
 			options: [
-				{ value: "0", label: "0 KB", description: "Disabled; tail-only truncation" },
+				{ value: "0", label: "0 KB", description: "禁用；仅尾部截断" },
 				{ value: "1", label: "1 KB", description: "~250 tokens" },
 				{ value: "2.5", label: "2.5 KB", description: "~625 tokens" },
 				{ value: "5", label: "5 KB", description: "~1.25K tokens" },
 				{ value: "10", label: "10 KB", description: "~2.5K tokens" },
-				{ value: "20", label: "20 KB", description: "Default; ~5K tokens" },
+				{ value: "20", label: "20 KB", description: "默认；约 5K tokens" },
 				{ value: "50", label: "50 KB", description: "~12.5K tokens" },
 				{ value: "100", label: "100 KB", description: "~25K tokens" },
 				{ value: "200", label: "200 KB", description: "~50K tokens" },
@@ -773,18 +773,18 @@ export const SETTINGS_SCHEMA = {
 		default: 768,
 		ui: {
 			tab: "tools",
-			group: "Output Limits",
-			label: "Output Column Cap",
+			group: "输出限制",
+			label: "输出列限制",
 			description:
-				"Per-line byte cap for streaming tool outputs (bash, python, js eval) and `read`. Lines wider than this are ellipsis-truncated; remaining bytes up to the next newline are dropped. 0 disables.",
+				"Per-line byte cap for streaming tool outputs (bash, python, js eval) and `read`. Lines wider than this are ellipsis-truncated; remaining bytes up to the next newline are dropped. 0 disables. — 流式工具输出（bash、python、js eval）和 `read` 的每行字节上限；超过此宽度的行以省略号截断，到下一个换行符为止的剩余字节被丢弃；0 禁用。",
 			options: [
-				{ value: "0", label: "Off", description: "No per-line cap" },
-				{ value: "256", label: "256", description: "Tight" },
+				{ value: "0", label: "关闭", description: "无每行上限" },
+				{ value: "256", label: "256", description: "紧凑" },
 				{ value: "512", label: "512" },
-				{ value: "768", label: "768", description: "Default" },
+				{ value: "768", label: "768", description: "默认" },
 				{ value: "1024", label: "1024" },
 				{ value: "2048", label: "2048" },
-				{ value: "4096", label: "4096", description: "Loose" },
+				{ value: "4096", label: "4096", description: "宽松" },
 			],
 		},
 	},
@@ -793,17 +793,17 @@ export const SETTINGS_SCHEMA = {
 		default: 500,
 		ui: {
 			tab: "tools",
-			group: "Output Limits",
-			label: "Artifact Tail Lines",
-			description: "Maximum lines of tail content kept inline when output spills to artifact",
+			group: "输出限制",
+			label: "产物尾部行数",
+			description: "输出溢出到产物时保留的内联尾部最大行数",
 			options: [
-				{ value: "50", label: "50 lines", description: "~250 tokens" },
-				{ value: "100", label: "100 lines", description: "~500 tokens" },
-				{ value: "250", label: "250 lines", description: "~1.25K tokens" },
-				{ value: "500", label: "500 lines", description: "Default; ~2.5K tokens" },
-				{ value: "1000", label: "1000 lines", description: "~5K tokens" },
-				{ value: "2000", label: "2000 lines", description: "~10K tokens" },
-				{ value: "5000", label: "5000 lines", description: "~25K tokens" },
+				{ value: "50", label: "50 行", description: "~250 tokens" },
+				{ value: "100", label: "100 行", description: "~500 tokens" },
+				{ value: "250", label: "250 行", description: "~1.25K tokens" },
+				{ value: "500", label: "500 行", description: "默认；约 2.5K tokens" },
+				{ value: "1000", label: "1000 行", description: "~5K tokens" },
+				{ value: "2000", label: "2000 行", description: "~10K tokens" },
+				{ value: "5000", label: "5000 行", description: "~25K tokens" },
 			],
 		},
 	},
@@ -813,9 +813,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Status Line",
-			label: "Show Hook Status",
-			description: "Display hook status messages below the status line",
+			group: "状态栏",
+			label: "显示钩子状态",
+			description: "在状态栏下方显示钩子状态消息",
 		},
 	},
 
@@ -831,9 +831,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Images",
-			label: "Show Inline Images",
-			description: "Render images inline in the terminal",
+			group: "图片",
+			label: "显示内联图片",
+			description: "在终端内联渲染图片",
 			condition: "hasImageProtocol",
 		},
 	},
@@ -843,9 +843,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Images",
-			label: "Auto-Resize Images",
-			description: "Resize large images to 2000x2000 max for better model compatibility",
+			group: "图片",
+			label: "自动调整图片大小",
+			description: "将大图片调整为最大 2000x2000 以获得更好的模型兼容性",
 		},
 	},
 
@@ -854,9 +854,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Images",
-			label: "Block Images",
-			description: "Prevent images from being sent to LLM providers",
+			group: "图片",
+			label: "屏蔽图片",
+			description: "阻止图片发送到 LLM 提供商",
 		},
 	},
 
@@ -865,10 +865,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Vision",
-			label: "Describe Images for Text Models",
+			group: "视觉",
+			label: "为文本模型描述图片",
 			description:
-				"When an image is attached to a model without vision support, save it under local:// and inject a description from a vision-capable model instead of dropping it",
+				"When an image is attached to a model without vision support, save it under local:// and inject a description from a vision-capable model instead of dropping it. — 当图片附加到不支持视觉的模型时，将其保存到 local:// 下，并由具备视觉能力的模型注入描述，而不是丢弃它。",
 		},
 	},
 
@@ -876,21 +876,21 @@ export const SETTINGS_SCHEMA = {
 		type: "number",
 		default: 100,
 		description:
-			"Maximum width in terminal columns for inline images (default 100). Set to 0 for unlimited (bounded only by terminal width).",
+			"Maximum width in terminal columns for inline images (default 100). Set to 0 for unlimited (bounded only by terminal width). — 内联图片的最大终端列宽（默认 100）；设为 0 表示不限（仅受终端宽度限制）。",
 	},
 
 	"tui.maxInlineImageRows": {
 		type: "number",
 		default: 20,
 		description:
-			"Maximum height in terminal rows for inline images (default 20). Set to 0 to use only the viewport-based limit (60% of terminal height).",
+			"Maximum height in terminal rows for inline images (default 20). Set to 0 to use only the viewport-based limit (60% of terminal height). — 内联图片的最大终端行高（默认 20）；设为 0 仅使用基于视口的限制（终端高度的 60%）。",
 	},
 
 	"tui.maxInlineImages": {
 		type: "number",
 		default: 8,
 		description:
-			"Maximum number of inline images kept as live terminal graphics (default 8). Older images fall back to a text placeholder via a full redraw once the limit is exceeded. Set to 0 to keep every image (no limit).",
+			"Maximum number of inline images kept as live terminal graphics (default 8). Older images fall back to a text placeholder via a full redraw once the limit is exceeded. Set to 0 to keep every image (no limit). — 作为实时终端图形保留的内联图片最大数量（默认 8）；超过限制后，较旧的图片通过完全重绘回退为文本占位符；设为 0 保留所有图片（无限制）。",
 	},
 
 	"terminal.showProgress": {
@@ -898,9 +898,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Native Terminal Progress",
-			description: "Emit OSC 9;4 indeterminate progress while the agent or context maintenance is running",
+			group: "显示",
+			label: "原生终端进度",
+			description: "Emit OSC 9;4 indeterminate progress while the agent or context maintenance is running. — 在代理或上下文维护运行时发出 OSC 9;4 不确定进度。",
 		},
 	},
 
@@ -909,10 +909,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Large Headings (Kitty)",
+			group: "显示",
+			label: "大标题 (Kitty)",
 			description:
-				"Render Markdown H1 headings at 2x scale using Kitty's OSC 66 text-sizing protocol. Only takes effect on Kitty terminals; ignored everywhere else. Off by default.",
+				"Render Markdown H1 headings at 2x scale using Kitty's OSC 66 text-sizing protocol. Only takes effect on Kitty terminals; ignored everywhere else. Off by default. — 使用 Kitty 的 OSC 66 文本缩放协议以 2 倍比例渲染 Markdown H1 标题；仅对 Kitty 终端生效，其他终端忽略；默认关闭。",
 		},
 	},
 
@@ -921,9 +921,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Render Mermaid Diagrams",
-			description: "Render Mermaid fenced code blocks as ASCII diagrams",
+			group: "显示",
+			label: "渲染 Mermaid 图表",
+			description: "将 Mermaid 围栏代码块渲染为 ASCII 图表",
 		},
 	},
 
@@ -932,10 +932,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Terminal Title Run State",
+			group: "显示",
+			label: "终端标题运行状态",
 			description:
-				"Show the agent run state in the terminal title's separator — an animated spinner while working (a static ':' on Windows), '>' when it's your turn, '!' when the agent is waiting on you",
+				"Show the agent run state in the terminal title's separator — an animated spinner while working (a static ':' on Windows), '>' when it's your turn, '!' when the agent is waiting on you. — 在终端标题的分隔符中显示代理运行状态：工作时为动画旋转指示器（Windows 上为静态 ':'），轮到您时为 '>'，代理等待您时为 '!'。",
 		},
 	},
 
@@ -945,10 +945,10 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Terminal Hyperlinks",
+			group: "显示",
+			label: "终端超链接",
 			description:
-				"Wrap paths and URLs in OSC 8 hyperlinks for terminal-native click-to-open (auto: detect support; off: never; always: unconditional)",
+				"Wrap paths and URLs in OSC 8 hyperlinks for terminal-native click-to-open (auto: detect support; off: never; always: unconditional). — 将路径和 URL 包装为 OSC 8 超链接以实现终端原生点击打开（auto：检测支持；off：从不；always：无条件）。",
 		},
 	},
 	"tui.tight": {
@@ -956,9 +956,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Tight Layout",
-			description: "Remove the 1-character horizontal padding from the left and right of the terminal output",
+			group: "显示",
+			label: "紧凑布局",
+			description: "移除终端输出左右两侧的 1 字符水平内边距",
 		},
 	},
 	"tui.scrollbackRebuild": {
@@ -966,10 +966,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Rewrite Scrollback",
+			group: "显示",
+			label: "重写回滚",
 			description:
-				"Erase and replay terminal scrollback when a block's final form replaces its live preview. When off (default), stale preview copies remain in history and the final content is appended below.",
+				"Erase and replay terminal scrollback when a block's final form replaces its live preview. When off (default), stale preview copies remain in history and the final content is appended below. — 当块的最终形式替换其实时预览时，擦除并重放终端回滚；关闭（默认）时，过期的预览副本保留在历史中，最终内容追加在下方。",
 		},
 	},
 
@@ -979,13 +979,13 @@ export const SETTINGS_SCHEMA = {
 		default: "classic",
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Shimmer",
-			description: "Animation style for working/loading messages",
+			group: "显示",
+			label: "微光动画",
+			description: "工作/加载消息的动画样式",
 			options: [
-				{ value: "classic", label: "Classic", description: "Soft cosine wave sweeping across the text" },
-				{ value: "kitt", label: "KITT Scanner", description: "Knight Rider 1982 red light bouncing left-right" },
-				{ value: "disabled", label: "Disabled", description: "No animation; static muted text" },
+				{ value: "classic", label: "经典", description: "余弦波动画" },
+				{ value: "kitt", label: "KITT 扫描", description: "Knight Rider 扫描灯" },
+				{ value: "disabled", label: "禁用", description: "无动画；静态弱化文本" },
 			],
 		},
 	},
@@ -995,9 +995,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Smooth Streaming",
-			description: "Reveal assistant text and streamed tool input smoothly while chunks arrive",
+			group: "显示",
+			label: "平滑流式输出",
+			description: "在数据块到达时平滑显示助手文本和流式工具输入",
 		},
 	},
 
@@ -1006,9 +1006,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Show Token Usage",
-			description: "Show per-turn token usage on assistant messages",
+			group: "显示",
+			label: "显示 Token 用量",
+			description: "在助手消息上显示每轮 token 用量",
 		},
 	},
 
@@ -1017,9 +1017,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Cache Miss Marker",
-			description: "Show a divider above an assistant turn whose request lost (missed) the prompt cache",
+			group: "显示",
+			label: "缓存未命中标记",
+			description: "在请求丢失（未命中）提示缓存的助手轮次上方显示分隔线",
 		},
 	},
 
@@ -1028,10 +1028,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Collapse Compacted History",
+			group: "显示",
+			label: "折叠压缩历史",
 			description:
-				"Collapse pre-compaction history behind the summary divider on the live transcript; disable to keep the full transcript inline with dividers at each compaction point",
+				"Collapse pre-compaction history behind the summary divider on the live transcript; disable to keep the full transcript inline with dividers at each compaction point. — 在实时记录中，将压缩前历史折叠到摘要分隔线之后；禁用则保留完整记录内联，并在每个压缩点显示分隔线。",
 		},
 	},
 
@@ -1040,9 +1040,9 @@ export const SETTINGS_SCHEMA = {
 		default: true, // will be computed based on platform if undefined
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Show Hardware Cursor",
-			description: "Show terminal cursor for IME support",
+			group: "显示",
+			label: "显示硬件光标",
+			description: "显示终端光标以支持 IME",
 		},
 	},
 
@@ -1051,9 +1051,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "IME-Safe Prompt Layout",
-			description: "Move the prompt's bottom border to a separate row so macOS IME preedit cannot displace it",
+			group: "显示",
+			label: "IME 安全提示布局",
+			description: "Move the prompt's bottom border to a separate row so macOS IME preedit cannot displace it. — 将提示的底部边框移到单独一行，以免 macOS IME 预编辑将其挤走。",
 		},
 	},
 
@@ -1068,9 +1068,9 @@ export const SETTINGS_SCHEMA = {
 		default: "high",
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Thinking Level",
-			description: "Reasoning depth for thinking-capable models",
+			group: "思考",
+			label: "思考级别",
+			description: "支持思考的模型的推理深度",
 			options: [
 				getConfiguredThinkingLevelMetadata(AUTO_THINKING),
 				...THINKING_EFFORTS.map(getThinkingLevelMetadata),
@@ -1083,9 +1083,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Hide Thinking Blocks",
-			description: "Hide thinking blocks in assistant responses",
+			group: "思考",
+			label: "隐藏思考块",
+			description: "隐藏助手响应中的思考块",
 		},
 	},
 	proseOnlyThinking: {
@@ -1093,9 +1093,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Prose Only Thinking",
-			description: "Omit code blocks from thinking summaries and replace them with an ellipsis",
+			group: "思考",
+			label: "纯文本思考摘要",
+			description: "从思考摘要中省略代码块并用省略号替换",
 		},
 	},
 
@@ -1104,10 +1104,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Omit Thinking summaries",
+			group: "思考",
+			label: "省略思考摘要",
 			description:
-				"Instruct upstream providers to completely omit thinking summaries from responses (where supported)",
+				"Instruct upstream providers to completely omit thinking summaries from responses (where supported). — 指示上游提供商在响应中完全省略思考摘要（在支持的情况下）。",
 		},
 	},
 
@@ -1116,9 +1116,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Loop Guard",
-			description: "Enable automatic stream loop detection for model reasoning and prose",
+			group: "思考",
+			label: "循环防护",
+			description: "为模型推理和正文启用自动流循环检测",
 		},
 	},
 
@@ -1127,9 +1127,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Loop Guard Scan Prose",
-			description: "Apply loop guard to assistant prose messages in addition to thinking logs",
+			group: "思考",
+			label: "循环防护扫描正文",
+			description: "将循环防护应用于助手正文消息以及思考日志",
 		},
 	},
 
@@ -1138,10 +1138,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Loop Guard Tool-Call Reminder",
+			group: "思考",
+			label: "循环防护工具调用提醒",
 			description:
-				"When a Gemini reasoning stream emits many consecutive planning headers without calling a tool, interrupt it and inject a reminder to issue a tool call (requires Loop Guard)",
+				"When a Gemini reasoning stream emits many consecutive planning headers without calling a tool, interrupt it and inject a reminder to issue a tool call (requires Loop Guard). — 当 Gemini 推理流发出多个连续规划头而未调用工具时，中断它并注入提醒以发出工具调用（需要循环防护）。",
 		},
 	},
 
@@ -1150,9 +1150,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Tool-Call Loop Guard",
-			description: "Detect consecutive identical tool calls across turns and inject a corrective steer",
+			group: "思考",
+			label: "工具调用循环防护",
+			description: "检测跨轮次的连续相同工具调用并注入纠正引导",
 		},
 	},
 
@@ -1161,9 +1161,9 @@ export const SETTINGS_SCHEMA = {
 		default: 5,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Tool-Call Loop Threshold",
-			description: "Consecutive identical tool calls required before the corrective steer is injected",
+			group: "思考",
+			label: "工具调用循环阈值",
+			description: "注入纠正引导前所需的连续相同工具调用次数",
 		},
 	},
 
@@ -1172,9 +1172,9 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_TOOL_CALL_LOOP_EXEMPT_TOOLS,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Tool-Call Loop Exempt Tools",
-			description: "Tool names that may repeat consecutively without triggering the cross-turn loop guard",
+			group: "思考",
+			label: "工具调用循环豁免工具",
+			description: "可连续重复而不触发跨轮次循环防护的工具名称",
 		},
 	},
 
@@ -1184,18 +1184,18 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "model",
-			group: "Prompt",
-			label: "Inline Tool Descriptors",
+			group: "提示",
+			label: "内联工具描述",
 			description:
-				"Render full tool descriptors in the system prompt and strip top-level/nested descriptions from provider tool schemas so descriptor text is sent once. Auto enables this for Gemini models and disables it otherwise",
+				"Render full tool descriptors in the system prompt and strip top-level/nested descriptions from provider tool schemas so descriptor text is sent once. Auto enables this for Gemini models and disables it otherwise. — 在系统提示中渲染完整工具描述符，并从提供商工具模式中剥离顶层/嵌套描述，使描述文本只发送一次；自动模式对 Gemini 模型启用，其他情况禁用。",
 			options: [
 				{
 					value: "auto",
-					label: "Auto",
-					description: "Inline descriptors for Gemini models; keep them in tool schemas otherwise",
+					label: "自动",
+					description: "为 Gemini 模型内联描述符；否则保留在工具模式中",
 				},
-				{ value: "on", label: "On", description: "Always inline descriptors in the system prompt" },
-				{ value: "off", label: "Off", description: "Keep descriptors in provider tool schemas only" },
+				{ value: "on", label: "开启", description: "始终在系统提示中内联描述符" },
+				{ value: "off", label: "关闭", description: "仅将描述符保留在提供商工具模式中" },
 			],
 		},
 	},
@@ -1205,9 +1205,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Prompt",
-			label: "Include Model in Prompt",
-			description: "Surface the active model identifier in the system prompt so the agent knows which model it is",
+			group: "提示",
+			label: "在提示中包含模型名",
+			description: "在系统提示中显示活动模型标识符，以便代理知道当前是哪个模型",
 		},
 	},
 
@@ -1216,10 +1216,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Prompt",
-			label: "Include Workspace Tree",
+			group: "提示",
+			label: "包含工作区目录树",
 			description:
-				"Render the workspace directory tree in the system prompt. WARNING: This can bust prompt caching across sessions when files are modified.",
+				"Render the workspace directory tree in the system prompt. WARNING: This can bust prompt caching across sessions when files are modified. — 在系统提示中渲染工作区目录树。警告：文件被修改时，这可能会破坏跨会话的提示缓存。",
 		},
 	},
 
@@ -1228,10 +1228,10 @@ export const SETTINGS_SCHEMA = {
 		default: [] as string[],
 		ui: {
 			tab: "context",
-			group: "General",
-			label: "Additional Workspace Dirs",
+			group: "通用",
+			label: "附加工作区目录",
 			description:
-				"Extra workspace directories added to every session as additional roots (multi-root workspace). Managed live via /add-dir and /remove-dir. Paths resolve relative to cwd; absolute paths recommended. The agent is told these roots exist and can read/grep/glob them.",
+				"Extra workspace directories added to every session as additional roots (multi-root workspace). Managed live via /add-dir and /remove-dir. Paths resolve relative to cwd; absolute paths recommended. The agent is told these roots exist and can read/grep/glob them. — 作为附加根目录添加到每个会话的额外工作区目录（多根工作区）；通过 /add-dir 和 /remove-dir 实时管理；路径相对于 cwd 解析，建议使用绝对路径；代理被告知这些根目录存在并可读取/grep/glob。",
 		},
 	},
 
@@ -1241,26 +1241,26 @@ export const SETTINGS_SCHEMA = {
 		default: "default",
 		ui: {
 			tab: "model",
-			group: "Prompt",
-			label: "Personality",
-			description: "Communication style rendered into the system prompt's personality block",
+			group: "提示",
+			label: "人格风格",
+			description: "渲染到系统提示个性块中的沟通风格",
 			options: [
 				{
 					value: "default",
-					label: "Default",
-					description: "Terse, evidence-first engineer; dense, action-oriented replies",
+					label: "默认",
+					description: "简洁、证据优先的工程师风格",
 				},
 				{
 					value: "friendly",
-					label: "Friendly",
-					description: "Warm, encouraging collaborator focused on momentum and morale",
+					label: "友好",
+					description: "温暖、鼓励的协作风格",
 				},
 				{
 					value: "pragmatic",
-					label: "Pragmatic",
-					description: "Direct, efficient engineer focused on clarity and rigor",
+					label: "务实",
+					description: "直接、高效的工程师风格",
 				},
-				{ value: "none", label: "None", description: "Omit the personality block entirely" },
+				{ value: "none", label: "无", description: "完全省略个性块" },
 			],
 		},
 	},
@@ -1271,16 +1271,16 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Temperature",
-			description: "Sampling temperature (0 = deterministic, 1 = creative, -1 = provider default)",
+			group: "采样",
+			label: "温度",
+			description: "采样温度（0 = 确定性，1 = 创造性，-1 = 提供商默认）",
 			options: [
-				{ value: "-1", label: "Default", description: "Use provider default" },
-				{ value: "0", label: "0", description: "Deterministic" },
-				{ value: "0.2", label: "0.2", description: "Focused" },
-				{ value: "0.5", label: "0.5", description: "Balanced" },
-				{ value: "0.7", label: "0.7", description: "Creative" },
-				{ value: "1", label: "1", description: "Maximum variety" },
+				{ value: "-1", label: "默认", description: "使用提供商默认" },
+				{ value: "0", label: "0", description: "确定性" },
+				{ value: "0.2", label: "0.2", description: "专注" },
+				{ value: "0.5", label: "0.5", description: "平衡" },
+				{ value: "0.7", label: "0.7", description: "创造性" },
+				{ value: "1", label: "1", description: "最大多样性" },
 			],
 		},
 	},
@@ -1290,16 +1290,16 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "model",
-			group: "Sampling",
+			group: "采样",
 			label: "Top P",
-			description: "Nucleus sampling cutoff (0-1, -1 = provider default)",
+			description: "核采样截断（0-1，-1 = 提供商默认）",
 			options: [
-				{ value: "-1", label: "Default", description: "Use provider default" },
-				{ value: "0.1", label: "0.1", description: "Very focused" },
-				{ value: "0.3", label: "0.3", description: "Focused" },
-				{ value: "0.5", label: "0.5", description: "Balanced" },
-				{ value: "0.9", label: "0.9", description: "Broad" },
-				{ value: "1", label: "1", description: "No nucleus filtering" },
+				{ value: "-1", label: "默认", description: "使用提供商默认" },
+				{ value: "0.1", label: "0.1", description: "非常专注" },
+				{ value: "0.3", label: "0.3", description: "专注" },
+				{ value: "0.5", label: "0.5", description: "平衡" },
+				{ value: "0.9", label: "0.9", description: "广泛" },
+				{ value: "1", label: "1", description: "无核过滤" },
 			],
 		},
 	},
@@ -1309,15 +1309,15 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "model",
-			group: "Sampling",
+			group: "采样",
 			label: "Top K",
-			description: "Sample from top-K tokens (-1 = provider default)",
+			description: "从 top-K tokens 采样（-1 = 提供商默认）",
 			options: [
-				{ value: "-1", label: "Default", description: "Use provider default" },
-				{ value: "1", label: "1", description: "Greedy top token" },
-				{ value: "20", label: "20", description: "Focused" },
-				{ value: "40", label: "40", description: "Balanced" },
-				{ value: "100", label: "100", description: "Broad" },
+				{ value: "-1", label: "默认", description: "使用提供商默认" },
+				{ value: "1", label: "1", description: "贪婪顶部 token" },
+				{ value: "20", label: "20", description: "专注" },
+				{ value: "40", label: "40", description: "平衡" },
+				{ value: "100", label: "100", description: "广泛" },
 			],
 		},
 	},
@@ -1327,14 +1327,14 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "model",
-			group: "Sampling",
+			group: "采样",
 			label: "Min P",
-			description: "Minimum probability threshold (0-1, -1 = provider default)",
+			description: "最小概率阈值（0-1，-1 = 提供商默认）",
 			options: [
-				{ value: "-1", label: "Default", description: "Use provider default" },
-				{ value: "0.01", label: "0.01", description: "Very permissive" },
-				{ value: "0.05", label: "0.05", description: "Balanced" },
-				{ value: "0.1", label: "0.1", description: "Strict" },
+				{ value: "-1", label: "默认", description: "使用提供商默认" },
+				{ value: "0.01", label: "0.01", description: "非常宽松" },
+				{ value: "0.05", label: "0.05", description: "平衡" },
+				{ value: "0.1", label: "0.1", description: "严格" },
 			],
 		},
 	},
@@ -1344,15 +1344,15 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Presence Penalty",
-			description: "Penalty for introducing already-present tokens (-1 = provider default)",
+			group: "采样",
+			label: "存在惩罚",
+			description: "引入已存在 token 的惩罚（-1 = 提供商默认）",
 			options: [
-				{ value: "-1", label: "Default", description: "Use provider default" },
-				{ value: "0", label: "0", description: "No penalty" },
-				{ value: "0.5", label: "0.5", description: "Mild novelty" },
-				{ value: "1", label: "1", description: "Encourage novelty" },
-				{ value: "2", label: "2", description: "Strong novelty" },
+				{ value: "-1", label: "默认", description: "使用提供商默认" },
+				{ value: "0", label: "0", description: "无惩罚" },
+				{ value: "0.5", label: "0.5", description: "轻度新颖" },
+				{ value: "1", label: "1", description: "鼓励新颖" },
+				{ value: "2", label: "2", description: "强烈新颖" },
 			],
 		},
 	},
@@ -1362,16 +1362,16 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Repetition Penalty",
-			description: "Penalty for repeated tokens (-1 = provider default)",
+			group: "采样",
+			label: "重复惩罚",
+			description: "重复 token 的惩罚（-1 = 提供商默认）",
 			options: [
-				{ value: "-1", label: "Default", description: "Use provider default" },
-				{ value: "0.8", label: "0.8", description: "Allow repetition" },
-				{ value: "1", label: "1", description: "No penalty" },
-				{ value: "1.1", label: "1.1", description: "Mild penalty" },
-				{ value: "1.2", label: "1.2", description: "Balanced" },
-				{ value: "1.5", label: "1.5", description: "Strong penalty" },
+				{ value: "-1", label: "默认", description: "使用提供商默认" },
+				{ value: "0.8", label: "0.8", description: "允许重复" },
+				{ value: "1", label: "1", description: "无惩罚" },
+				{ value: "1.1", label: "1.1", description: "轻度惩罚" },
+				{ value: "1.2", label: "1.2", description: "平衡" },
+				{ value: "1.5", label: "1.5", description: "强烈惩罚" },
 			],
 		},
 	},
@@ -1382,13 +1382,13 @@ export const SETTINGS_SCHEMA = {
 		default: "medium",
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Text Verbosity",
-			description: "OpenAI Responses and Codex response verbosity (low, medium, or high)",
+			group: "采样",
+			label: "文本详细度",
+			description: "OpenAI Responses 和 Codex 响应详细度（低、中或高）",
 			options: [
-				{ value: "low", label: "Low", description: "Prefer concise responses" },
-				{ value: "medium", label: "Medium", description: "Balance brevity and detail (default)" },
-				{ value: "high", label: "High", description: "Prefer detailed responses" },
+				{ value: "low", label: "低", description: "偏好简洁响应" },
+				{ value: "medium", label: "中", description: "平衡简洁与详细（默认）" },
+				{ value: "high", label: "高", description: "偏好详细响应" },
 			],
 		},
 	},
@@ -1399,10 +1399,10 @@ export const SETTINGS_SCHEMA = {
 		default: "none",
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Service Tier — OpenAI",
+			group: "采样",
+			label: "服务等级 — OpenAI",
 			description:
-				"Processing tier for OpenAI / OpenAI-Codex requests, and OpenAI-family models routed via OpenRouter (none = omit). Sent as `service_tier`.",
+				"Processing tier for OpenAI / OpenAI-Codex requests, and OpenAI-family models routed via OpenRouter (none = omit). Sent as `service_tier`. — OpenAI / OpenAI-Codex 请求以及经 OpenRouter 路由的 OpenAI 系模型的处理等级（none = 省略）；以 `service_tier` 发送。",
 			options: SERVICE_TIER_OPENAI_OPTIONS,
 		},
 	},
@@ -1413,8 +1413,8 @@ export const SETTINGS_SCHEMA = {
 		default: "none",
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Service Tier — Anthropic",
+			group: "采样",
+			label: "服务等级 — Anthropic",
 			description:
 				'Processing tier for Claude requests. `priority` realizes fast mode (`speed: "fast"`) on supported direct Anthropic models; ignored on Bedrock/Vertex Claude and via OpenRouter.',
 			options: SERVICE_TIER_ANTHROPIC_OPTIONS,
@@ -1427,10 +1427,10 @@ export const SETTINGS_SCHEMA = {
 		default: "none",
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Service Tier — Google",
+			group: "采样",
+			label: "服务等级 — Google",
 			description:
-				"Processing tier for Gemini (Google AI Studio + Vertex) requests, and Google-family models routed via OpenRouter (none = omit). Sent as the top-level `serviceTier` field.",
+				"Processing tier for Gemini (Google AI Studio + Vertex) requests, and Google-family models routed via OpenRouter (none = omit). Sent as the top-level `serviceTier` field. — Gemini（Google AI Studio + Vertex）请求以及经 OpenRouter 路由的 Google 系模型的处理等级（none = 省略）；以顶层 `serviceTier` 字段发送。",
 			options: SERVICE_TIER_GOOGLE_OPTIONS,
 		},
 	},
@@ -1441,10 +1441,10 @@ export const SETTINGS_SCHEMA = {
 		default: "inherit",
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Service Tier — Subagent",
+			group: "采样",
+			label: "服务等级 — 子代理",
 			description:
-				"Service Tier for spawned task/eval subagents. Inherit = match the main agent's live per-family tiers (tracks /fast); pick a value to apply it to whichever family the subagent's model belongs to.",
+				"Service Tier for spawned task/eval subagents. Inherit = match the main agent's live per-family tiers (tracks /fast); pick a value to apply it to whichever family the subagent's model belongs to. — 生成的 task/eval 子代理的服务等级。Inherit = 匹配主代理实时的各家族等级（跟随 /fast）；选择一个值则应用于子代理模型所属的家族。",
 			options: SERVICE_TIER_INHERIT_OPTIONS,
 		},
 	},
@@ -1455,10 +1455,10 @@ export const SETTINGS_SCHEMA = {
 		default: "none",
 		ui: {
 			tab: "model",
-			group: "Sampling",
-			label: "Service Tier — Advisor",
+			group: "采样",
+			label: "服务等级 — 顾问",
 			description:
-				"Service Tier for the advisor model. None = standard processing; Inherit = match the main agent's live per-family tiers; pick a value to apply it to the advisor model's family.",
+				"Service Tier for the advisor model. None = standard processing; Inherit = match the main agent's live per-family tiers; pick a value to apply it to the advisor model's family. — 顾问模型的服务等级。None = 标准处理；Inherit = 匹配主代理实时的各家族等级；选择一个值则应用于顾问模型所属的家族。",
 			options: SERVICE_TIER_INHERIT_OPTIONS,
 			condition: "advisorEnabled",
 		},
@@ -1472,15 +1472,15 @@ export const SETTINGS_SCHEMA = {
 		default: 10,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Retry Attempts",
-			description: "Maximum retry attempts on API errors",
+			group: "重试与回退",
+			label: "重试次数",
+			description: "API 错误时的最大重试次数",
 			options: [
-				{ value: "1", label: "1 retry" },
-				{ value: "2", label: "2 retries" },
-				{ value: "3", label: "3 retries" },
-				{ value: "5", label: "5 retries" },
-				{ value: "10", label: "10 retries" },
+				{ value: "1", label: "1 次重试" },
+				{ value: "2", label: "2 次重试" },
+				{ value: "3", label: "3 次重试" },
+				{ value: "5", label: "5 次重试" },
+				{ value: "10", label: "10 次重试" },
 			],
 		},
 	},
@@ -1491,10 +1491,10 @@ export const SETTINGS_SCHEMA = {
 		default: 5 * 60 * 1000,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Max Retry Delay",
+			group: "重试与回退",
+			label: "最大重试延迟",
 			description:
-				"Maximum wait between retries, in ms. When the provider asks us to wait longer than this and no credential or model fallback succeeds, the request fails fast instead of sleeping (e.g. 3-hour Anthropic rate-limit windows).",
+				"Maximum wait between retries, in ms. When the provider asks us to wait longer than this and no credential or model fallback succeeds, the request fails fast instead of sleeping (e.g. 3-hour Anthropic rate-limit windows). — 重试之间的最大等待毫秒数。当提供商要求等待超过此值且没有凭据或模型回退成功时，请求快速失败而不是休眠（例如 3 小时的 Anthropic 速率限制窗口）。",
 		},
 	},
 	"retry.modelFallback": {
@@ -1502,9 +1502,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Retry Model Fallback",
-			description: "Allow retry recovery to switch to configured fallback models",
+			group: "重试与回退",
+			label: "重试模型回退",
+			description: "允许重试恢复切换到配置的回退模型",
 		},
 	},
 	"retry.usageAwareFallback": {
@@ -1512,10 +1512,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Usage-Aware Fallback",
+			group: "重试与回退",
+			label: "用量感知回退",
 			description:
-				"Use reliable coding-plan quota reports to prefer same-provider accounts, then configured fallback models, before a hard usage limit. Ordinary configured API keys are excluded.",
+				"Use reliable coding-plan quota reports to prefer same-provider accounts, then configured fallback models, before a hard usage limit. Ordinary configured API keys are excluded. — 在硬性用量限制前，使用可靠的编码计划配额报告优先选择同提供商账户，然后是配置的回退模型；普通的已配置 API 密钥被排除。",
 		},
 	},
 	"retry.usageReservePct": {
@@ -1523,17 +1523,17 @@ export const SETTINGS_SCHEMA = {
 		default: 10,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Reserve Margin",
+			group: "重试与回退",
+			label: "保留余量",
 			description:
-				"Treat a coding-plan model as near its limit below this remaining percentage. Unknown or unmapped usage keeps the primary model.",
+				"Treat a coding-plan model as near its limit below this remaining percentage. Unknown or unmapped usage keeps the primary model. — 当剩余百分比低于此值时，将编码计划模型视为接近其限制；未知或未映射的用量保持主模型。",
 			condition: "usageAwareFallbackEnabled",
 			options: [
-				{ value: "5", label: "5%", description: "Act only when nearly exhausted" },
-				{ value: "10", label: "10%", description: "Balanced safety margin" },
-				{ value: "15", label: "15%", description: "Conservative" },
-				{ value: "20", label: "20%", description: "Early protection" },
-				{ value: "25", label: "25%", description: "Very conservative" },
+				{ value: "5", label: "5%", description: "仅在几乎耗尽时行动" },
+				{ value: "10", label: "10%", description: "平衡的安全余量" },
+				{ value: "15", label: "15%", description: "保守" },
+				{ value: "20", label: "20%", description: "早期保护" },
+				{ value: "25", label: "25%", description: "非常保守" },
 			],
 		},
 	},
@@ -1543,25 +1543,25 @@ export const SETTINGS_SCHEMA = {
 		default: "confirm",
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Reserve Policy",
-			description: "What to do when every same-provider coding-plan account is inside the reserve margin.",
+			group: "重试与回退",
+			label: "保留策略",
+			description: "当所有同提供商编码计划账户都在保留余量内时该怎么做。",
 			condition: "usageAwareFallbackEnabled",
 			options: [
 				{
 					value: "confirm",
-					label: "Confirm interactively",
-					description: "Keep interactive sessions on the primary until confirmed; background agents auto-fallback",
+					label: "交互式确认",
+					description: "交互式会话保持主模型直到确认；后台代理自动回退",
 				},
 				{
 					value: "auto",
-					label: "Auto-fallback",
-					description: "Always select the next eligible configured fallback",
+					label: "自动回退",
+					description: "始终选择下一个符合条件的已配置回退",
 				},
 				{
 					value: "fail-closed",
-					label: "Fail closed",
-					description: "Do not spend reserve quota or select a fallback",
+					label: "失败关闭",
+					description: "不消耗保留配额或选择回退",
 				},
 			],
 		},
@@ -1571,8 +1571,8 @@ export const SETTINGS_SCHEMA = {
 		default: {} as Record<string, string[]>,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Retry Fallback Chains",
+			group: "重试与回退",
+			label: "重试回退链",
 			description:
 				'JSON object mapping model roles, model selectors ("provider/model-id"), or provider wildcards ("provider/*") to ordered fallback selectors, e.g. {"default":["openai/gpt-4o-mini"],"google-antigravity/*":["google/*","google-vertex/*"]}. Model-oriented keys apply whenever that model/provider is active, regardless of role; a "provider/*" entry keeps the failing model\'s id and swaps the provider. An id-prefixed wildcard ("openrouter/google/*") re-prefixes the failing model\'s bare id (google-antigravity/gemini-x -> openrouter/google/gemini-x) and, used as a key, matches only that provider\'s ids under the prefix.',
 		},
@@ -1583,16 +1583,16 @@ export const SETTINGS_SCHEMA = {
 		default: "cooldown-expiry",
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Fallback Revert Policy",
-			description: "When to return to the primary model after a fallback",
+			group: "重试与回退",
+			label: "回退恢复策略",
+			description: "回退后何时返回主模型",
 			options: [
 				{
 					value: "cooldown-expiry",
-					label: "Cooldown expiry",
-					description: "Return to the primary model after its suppression window ends",
+					label: "冷却到期",
+					description: "抑制窗口结束后返回主模型",
 				},
-				{ value: "never", label: "Never", description: "Stay on the fallback model until manually changed" },
+				{ value: "never", label: "永不", description: "保持回退模型直到手动更改" },
 			],
 		},
 	},
@@ -1602,10 +1602,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "model",
-			group: "Retry & Fallback",
-			label: "Anthropic Server-Side Fallback (Fable 5)",
+			group: "重试与回退",
+			label: "Anthropic 服务端回退 (Fable 5)",
 			description:
-				"When a Claude Fable 5 / Mythos 5 request is blocked by Anthropic's safety classifier, retry it on Claude Opus 4.8 server-side (Anthropic `server-side-fallback-2026-06-01` beta). Opt-in — leaving this off preserves the pre-fallback behavior for every request.",
+				"When a Claude Fable 5 / Mythos 5 request is blocked by Anthropic's safety classifier, retry it on Claude Opus 4.8 server-side (Anthropic `server-side-fallback-2026-06-01` beta). Opt-in — leaving this off preserves the pre-fallback behavior for every request. — 当 Claude Fable 5 / Mythos 5 请求被 Anthropic 的安全分类器阻止时，在 Claude Opus 4.8 服务端重试（Anthropic `server-side-fallback-2026-06-01` beta）。选择加入——保持关闭可保留每个请求的回退前行为。",
 		},
 	},
 
@@ -1620,9 +1620,9 @@ export const SETTINGS_SCHEMA = {
 		default: "one-at-a-time",
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Steering Mode",
-			description: "How to process queued messages while agent is working",
+			group: "输入",
+			label: "转向模式",
+			description: "代理工作时如何处理排队消息",
 		},
 	},
 
@@ -1632,9 +1632,9 @@ export const SETTINGS_SCHEMA = {
 		default: "one-at-a-time",
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Follow-Up Mode",
-			description: "How to drain follow-up messages after a turn completes",
+			group: "输入",
+			label: "跟进模式",
+			description: "一轮完成后如何排空跟进消息",
 		},
 	},
 
@@ -1644,9 +1644,9 @@ export const SETTINGS_SCHEMA = {
 		default: "immediate",
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Interrupt Mode",
-			description: "When steering messages interrupt tool execution",
+			group: "输入",
+			label: "中断模式",
+			description: "转向消息何时中断工具执行",
 		},
 	},
 
@@ -1656,21 +1656,21 @@ export const SETTINGS_SCHEMA = {
 		default: "prompt",
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Loop Mode",
-			description: "What happens between /loop iterations before re-submitting the prompt",
+			group: "输入",
+			label: "循环模式",
+			description: "在重新提交提示前，/loop 迭代之间会发生什么",
 			options: [
 				{
 					value: "prompt",
-					label: "Prompt",
-					description: "Re-submit the prompt as a follow-up message (current behavior)",
+					label: "提示",
+					description: "将提示作为跟进消息重新提交（当前行为）",
 				},
 				{
 					value: "compact",
-					label: "Compact",
-					description: "Compact the session context, then re-submit the prompt",
+					label: "紧凑",
+					description: "压缩会话上下文，然后重新提交提示",
 				},
-				{ value: "reset", label: "Reset", description: "Start a new session, then re-submit the prompt" },
+				{ value: "reset", label: "重置", description: "启动新会话，然后重新提交提示" },
 			],
 		},
 	},
@@ -1682,9 +1682,9 @@ export const SETTINGS_SCHEMA = {
 		default: "tree",
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Double-Escape Action",
-			description: "Action when pressing Escape twice with empty editor",
+			group: "输入",
+			label: "双 Escape 操作",
+			description: "编辑器为空时按两次 Escape 的操作",
 		},
 	},
 
@@ -1694,9 +1694,9 @@ export const SETTINGS_SCHEMA = {
 		default: "default",
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Session Tree Filter",
-			description: "Default filter mode when opening the session tree",
+			group: "输入",
+			label: "会话树过滤器",
+			description: "打开会话树时的默认过滤模式",
 		},
 	},
 
@@ -1705,9 +1705,9 @@ export const SETTINGS_SCHEMA = {
 		default: 5,
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Autocomplete Items",
-			description: "Max visible items in autocomplete dropdown (3-20)",
+			group: "输入",
+			label: "自动补全条数",
+			description: "自动补全下拉菜单中的最大可见项数（3-20）",
 			options: [
 				{ value: "3", label: "3 items" },
 				{ value: "5", label: "5 items" },
@@ -1724,9 +1724,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Emoji Autocomplete",
-			description: "Suggest emojis from `:name:` shortcodes and expand text emoticons like `:D` or `:-)`",
+			group: "输入",
+			label: "Emoji 自动补全",
+			description: "Suggest emojis from `:name:` shortcodes and expand text emoticons like `:D` or `:-)`. — 从 `:name:` 短代码建议 emoji，并展开 `:D` 或 `:-)` 等文本表情符号。",
 		},
 	},
 
@@ -1735,16 +1735,16 @@ export const SETTINGS_SCHEMA = {
 		default: 100,
 		ui: {
 			tab: "interaction",
-			group: "Input",
-			label: "Large Paste Menu",
+			group: "输入",
+			label: "大段粘贴菜单",
 			description:
-				"When a paste reaches this many lines, offer a menu to wrap it in a code block, wrap it in XML tags, or save it to a file. 0 disables the menu (large pastes still collapse to a [Paste] marker).",
+				"When a paste reaches this many lines, offer a menu to wrap it in a code block, wrap it in XML tags, or save it to a file. 0 disables the menu (large pastes still collapse to a [Paste] marker). — 当粘贴达到这么多行时，提供菜单将其包装为代码块、包装为 XML 标签或保存到文件；0 禁用菜单（大粘贴仍折叠为 [Paste] 标记）。",
 			options: [
-				{ value: "0", label: "Off" },
-				{ value: "100", label: "100 lines" },
-				{ value: "250", label: "250 lines" },
-				{ value: "500", label: "500 lines" },
-				{ value: "1000", label: "1000 lines" },
+				{ value: "0", label: "关闭" },
+				{ value: "100", label: "100 行" },
+				{ value: "250", label: "250 行" },
+				{ value: "500", label: "500 行" },
+				{ value: "1000", label: "1000 行" },
 			],
 		},
 	},
@@ -1754,9 +1754,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Quiet Startup",
-			description: "Skip welcome screen and startup status messages",
+			group: "启动与更新",
+			label: "安静启动",
+			description: "跳过欢迎屏幕和启动状态消息",
 		},
 	},
 
@@ -1765,10 +1765,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Show Startup Splash",
+			group: "启动与更新",
+			label: "显示启动画面",
 			description:
-				"Show the full animated setup splash on normal interactive startup without rerunning setup. Quiet Startup still suppresses it.",
+				"Show the full animated setup splash on normal interactive startup without rerunning setup. Quiet Startup still suppresses it. — 在正常交互式启动时显示完整动画设置启动画面而不重新运行设置；安静启动仍会抑制它。",
 		},
 	},
 
@@ -1777,9 +1777,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Setup Wizard",
-			description: "Show newly added onboarding steps once per setup version",
+			group: "启动与更新",
+			label: "设置向导",
+			description: "每个设置版本显示一次新添加的引导步骤",
 		},
 	},
 
@@ -1788,9 +1788,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Check for Updates",
-			description: "Check for omp updates on startup",
+			group: "启动与更新",
+			label: "检查更新",
+			description: "启动时检查 omp 更新",
 		},
 	},
 
@@ -1800,13 +1800,13 @@ export const SETTINGS_SCHEMA = {
 		default: "notify",
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Marketplace Auto-Update",
-			description: "Check for plugin updates on startup",
+			group: "启动与更新",
+			label: "市场自动更新",
+			description: "启动时检查插件更新",
 			options: [
-				{ value: "off", label: "Off", description: "Don't check for plugin updates" },
-				{ value: "notify", label: "Notify", description: "Check on startup and notify when updates are available" },
-				{ value: "auto", label: "Auto", description: "Check on startup and auto-install updates" },
+				{ value: "off", label: "关闭", description: "不检查插件更新" },
+				{ value: "notify", label: "通知", description: "启动时检查并在有更新时通知" },
+				{ value: "auto", label: "自动", description: "启动时检查并自动安装更新" },
 			],
 		},
 	},
@@ -1816,9 +1816,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "interaction",
-			group: "Startup & Updates",
-			label: "Collapse Changelog",
-			description: "Show condensed changelog after updates",
+			group: "启动与更新",
+			label: "折叠更新日志",
+			description: "更新后显示精简变更日志",
 		},
 	},
 
@@ -1827,9 +1827,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Magic Keywords",
-			label: "Magic Keywords",
-			description: "Enable hidden notices for standalone ultrathink, orchestrate, and workflowz keywords",
+			group: "魔法关键词",
+			label: "魔法关键词",
+			description: "为独立的 ultrathink、orchestrate 和 workflowz 关键字启用隐藏通知",
 		},
 	},
 
@@ -1838,9 +1838,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Magic Keywords",
-			label: "Ultrathink Keyword",
-			description: "Let standalone ultrathink request maximum automatic thinking and append its hidden notice",
+			group: "魔法关键词",
+			label: "Ultrathink 关键词",
+			description: "让独立的 ultrathink 请求最大自动思考并附加其隐藏通知。",
 		},
 	},
 
@@ -1849,9 +1849,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Magic Keywords",
-			label: "Orchestrate Keyword",
-			description: "Let standalone orchestrate append its hidden multi-agent orchestration notice",
+			group: "魔法关键词",
+			label: "Orchestrate 关键词",
+			description: "让独立的 orchestrate 附加其隐藏的多代理编排通知。",
 		},
 	},
 
@@ -1860,9 +1860,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Magic Keywords",
-			label: "Workflow Keyword",
-			description: "Let standalone workflowz append its hidden eval workflow notice",
+			group: "魔法关键词",
+			label: "Workflow 关键词",
+			description: "让独立的 workflowz 附加其隐藏的评估工作流通知。",
 		},
 	},
 
@@ -1873,9 +1873,9 @@ export const SETTINGS_SCHEMA = {
 		default: "on",
 		ui: {
 			tab: "interaction",
-			group: "Notifications",
-			label: "Completion Notification",
-			description: "Notify when the agent finishes a turn",
+			group: "通知",
+			label: "完成通知",
+			description: "代理完成一轮时通知",
 		},
 	},
 
@@ -1885,9 +1885,9 @@ export const SETTINGS_SCHEMA = {
 		default: "off",
 		ui: {
 			tab: "interaction",
-			group: "Notifications",
-			label: "Error Notification",
-			description: "Notify when the agent stops with an error",
+			group: "通知",
+			label: "错误通知",
+			description: "代理出错停止时通知",
 		},
 	},
 
@@ -1896,15 +1896,15 @@ export const SETTINGS_SCHEMA = {
 		default: 0,
 		ui: {
 			tab: "interaction",
-			group: "Notifications",
-			label: "Ask Timeout",
-			description: "Auto-select the recommended ask option after this many seconds (0 disables)",
+			group: "通知",
+			label: "询问超时",
+			description: "这么多秒后自动选择推荐的询问选项（0 禁用）",
 			options: [
-				{ value: "0", label: "Disabled" },
-				{ value: "15", label: "15 seconds" },
-				{ value: "30", label: "30 seconds" },
-				{ value: "60", label: "60 seconds" },
-				{ value: "120", label: "120 seconds" },
+				{ value: "0", label: "禁用" },
+				{ value: "15", label: "15 秒" },
+				{ value: "30", label: "30 秒" },
+				{ value: "60", label: "60 秒" },
+				{ value: "120", label: "120 秒" },
 			],
 		},
 	},
@@ -1915,9 +1915,9 @@ export const SETTINGS_SCHEMA = {
 		default: "on",
 		ui: {
 			tab: "interaction",
-			group: "Notifications",
-			label: "Ask Notification",
-			description: "Notify when the ask tool is waiting for input",
+			group: "通知",
+			label: "询问通知",
+			description: "询问工具等待输入时通知",
 		},
 	},
 
@@ -1926,9 +1926,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Notifications",
-			label: "Idle Recap",
-			description: "Generate a brief LLM recap of where things stand after the terminal has been idle",
+			group: "通知",
+			label: "空闲回顾",
+			description: "终端空闲后生成当前状态的简要 LLM 回顾",
 		},
 	},
 
@@ -1937,15 +1937,15 @@ export const SETTINGS_SCHEMA = {
 		default: 240,
 		ui: {
 			tab: "interaction",
-			group: "Notifications",
-			label: "Idle Recap Delay",
-			description: "Seconds to wait while idle before showing the recap",
+			group: "通知",
+			label: "空闲回顾延迟",
+			description: "显示回顾前空闲等待的秒数",
 			options: [
-				{ value: "60", label: "1 minute" },
-				{ value: "120", label: "2 minutes" },
-				{ value: "240", label: "4 minutes" },
-				{ value: "300", label: "5 minutes" },
-				{ value: "600", label: "10 minutes" },
+				{ value: "60", label: "1 分钟" },
+				{ value: "120", label: "2 分钟" },
+				{ value: "240", label: "4 分钟" },
+				{ value: "300", label: "5 分钟" },
+				{ value: "600", label: "10 分钟" },
 			],
 		},
 	},
@@ -1956,9 +1956,9 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_RELAY_URL,
 		ui: {
 			tab: "interaction",
-			group: "Collab",
-			label: "Relay URL",
-			description: "Relay used by /collab (wss://host[:port])",
+			group: "协作",
+			label: "中继 URL",
+			description: "/collab 使用的中继 (wss://host[:port])",
 		},
 	},
 
@@ -1967,10 +1967,10 @@ export const SETTINGS_SCHEMA = {
 		default: "",
 		ui: {
 			tab: "interaction",
-			group: "Collab",
-			label: "Web UI URL",
+			group: "协作",
+			label: "Web UI 地址",
 			description:
-				"Browser UI used by /collab links; empty derives from collab.relayUrl; explicit http:// is localhost-only",
+				"Browser UI used by /collab links; empty derives from collab.relayUrl; explicit http:// is localhost-only. — /collab 链接使用的浏览器 UI；为空时从 collab.relayUrl 派生；显式 http:// 仅限 localhost。",
 		},
 	},
 
@@ -1979,9 +1979,9 @@ export const SETTINGS_SCHEMA = {
 		default: "",
 		ui: {
 			tab: "interaction",
-			group: "Collab",
-			label: "Display Name",
-			description: "Name shown to other collab participants (default: OS username)",
+			group: "协作",
+			label: "显示名称",
+			description: "向其他协作参与者显示的名称（默认：操作系统用户名）",
 		},
 	},
 
@@ -1990,10 +1990,10 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_SHARE_URL,
 		ui: {
 			tab: "interaction",
-			group: "Collab",
-			label: "Share Server",
+			group: "协作",
+			label: "分享服务器",
 			description:
-				"Share viewer/upload base used by /share (encrypted blob upload + viewer; links are <base>/<id>#<key>)",
+				"Share viewer/upload base used by /share (encrypted blob upload + viewer; links are <base>/<id>#<key>). — /share 使用的分享查看器/上传基础（加密 blob 上传 + 查看器；链接为 <base>/<id>#<key>）。",
 		},
 	},
 
@@ -2003,19 +2003,19 @@ export const SETTINGS_SCHEMA = {
 		default: "blob",
 		ui: {
 			tab: "interaction",
-			group: "Collab",
-			label: "Share Store",
-			description: "Where /share uploads the encrypted session blob",
+			group: "协作",
+			label: "分享存储",
+			description: "/share 上传加密会话 blob 的位置",
 			options: [
 				{
 					value: "blob",
-					label: "Encrypted Blob",
-					description: "Upload to the share server (no GitHub account needed; avoids gist API rate limits)",
+					label: "加密 Blob",
+					description: "上传到分享服务器（无需 GitHub 账户；避免 gist API 速率限制）",
 				},
 				{
 					value: "gist",
 					label: "GitHub Gist",
-					description: "Push to a secret gist (needs authenticated gh), falling back to the share server",
+					description: "推送到私有 gist（需要已认证的 gh），回退到分享服务器",
 				},
 			],
 		},
@@ -2026,9 +2026,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "interaction",
-			group: "Collab",
-			label: "Share Secret Redaction",
-			description: "Run the secret obfuscator over /share snapshots before upload (uses the secrets.* config)",
+			group: "协作",
+			label: "分享机密编辑",
+			description: "上传前对 /share 快照运行机密混淆器（使用 secrets.* 配置）",
 		},
 	},
 
@@ -2038,9 +2038,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "interaction",
-			group: "Speech",
-			label: "Speech-to-Text",
-			description: "Enable speech-to-text input via microphone",
+			group: "语音",
+			label: "语音转文字",
+			description: "通过麦克风启用语音转文字输入",
 		},
 	},
 
@@ -2055,10 +2055,10 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_STT_MODEL_KEY,
 		ui: {
 			tab: "interaction",
-			group: "Speech",
-			label: "Speech Model",
+			group: "语音",
+			label: "语音模型",
 			description:
-				"Local on-device speech model. Parakeet TDT v3 (sherpa-onnx) is the SoTA default; Whisper base/small/large-v3-turbo tiers (transformers.js) trade size for multilingual coverage. Downloaded on first use.",
+				"Local on-device speech model. Parakeet TDT v3 (sherpa-onnx) is the SoTA default; Whisper base/small/large-v3-turbo tiers (transformers.js) trade size for multilingual coverage. Downloaded on first use. — 本地设备端语音模型。Parakeet TDT v3 (sherpa-onnx) 是 SoTA 默认；Whisper base/small/large-v3-turbo 档位（transformers.js）以大小为代价换取多语言覆盖；首次使用时下载。",
 			options: STT_MODEL_OPTIONS,
 		},
 	},
@@ -2068,10 +2068,10 @@ export const SETTINGS_SCHEMA = {
 		default: "never",
 		ui: {
 			tab: "interaction",
-			group: "Speech",
-			label: "Speech-to-Text Submit Trigger",
+			group: "语音",
+			label: "语音转文字提交触发",
 			description:
-				"Choose when speech dictation automatically submits: Never, Release (2+ words), Release with complete sentence, or When I Say Submit.",
+				"Choose when speech dictation automatically submits: Never, Release (2+ words), Release with complete sentence, or When I Say Submit. — 选择语音听写何时自动提交：从不、松开（2+ 词）、松开且句子完整，或当我说出提交时。",
 			options: STT_SUBMIT_TRIGGER_OPTIONS,
 		},
 	},
@@ -2086,9 +2086,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "context",
-			group: "General",
-			label: "Auto-Promote Context",
-			description: "Promote to a larger-context model on context overflow instead of compacting",
+			group: "通用",
+			label: "自动提升上下文",
+			description: "上下文溢出时提升到更大上下文的模型而不是压缩",
 		},
 	},
 
@@ -2098,9 +2098,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Auto-Compact",
-			description: "Automatically compact context when it gets too large",
+			group: "压缩",
+			label: "自动压缩",
+			description: "上下文过大时自动压缩",
 		},
 	},
 
@@ -2109,9 +2109,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Mid-Turn Compaction",
-			description: "Check thresholds at safe mid-turn tool-loop boundaries before the next provider request",
+			group: "压缩",
+			label: "回合中压缩",
+			description: "在下一次提供商请求前，在安全的回合中工具循环边界检查阈值",
 		},
 	},
 
@@ -2121,31 +2121,31 @@ export const SETTINGS_SCHEMA = {
 		default: "snapcompact",
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Compaction Strategy",
+			group: "压缩",
+			label: "压缩策略",
 			description:
-				"Choose in-place context-full maintenance, auto-handoff, surgical shake (drop heavy content), snapcompact (archive history as dense images), or disable auto maintenance (off)",
+				"Choose in-place context-full maintenance, auto-handoff, surgical shake (drop heavy content), snapcompact (archive history as dense images), or disable auto maintenance (off). — 选择就地上下文完整维护、自动交接、外科式抖动（丢弃重内容）、快照压缩（将历史归档为密集图像）或禁用自动维护（关闭）。",
 			options: [
 				{
 					value: "context-full",
-					label: "Context-full",
-					description: "Summarize in-place and keep the current session",
+					label: "上下文完整",
+					description: "就地总结并保持当前会话",
 				},
-				{ value: "handoff", label: "Handoff", description: "Generate handoff and continue in a new session" },
+				{ value: "handoff", label: "交接", description: "生成交接并在新会话中继续" },
 				{
 					value: "shake",
-					label: "Shake",
-					description: "Drop heavy content (tool results + large blocks) in place; recover via artifact",
+					label: "抖动",
+					description: "就地丢弃重内容（工具结果 + 大块）；通过产物恢复",
 				},
 				{
 					value: "snapcompact",
-					label: "Snapcompact",
-					description: "Archive history onto dense bitmap images the model reads back; no LLM call",
+					label: "快照压缩",
+					description: "将历史归档为模型可读回的密集位图图像；无需 LLM 调用",
 				},
 				{
 					value: "off",
-					label: "Off",
-					description: "Disable automatic context maintenance (same behavior as Auto-compact off)",
+					label: "关闭",
+					description: "禁用自动上下文维护（与 Auto-compact 关闭行为相同）",
 				},
 			],
 		},
@@ -2156,23 +2156,23 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Compaction Threshold",
-			description: "Percent threshold for context maintenance; set to Default to use legacy reserve-based behavior",
+			group: "压缩",
+			label: "压缩阈值",
+			description: "上下文维护的百分比阈值；设为默认以使用传统的基于保留的行为",
 			options: [
-				{ value: "default", label: "Default", description: "Legacy reserve-based threshold" },
-				{ value: "10", label: "10%", description: "Extremely early maintenance" },
-				{ value: "20", label: "20%", description: "Very early maintenance" },
-				{ value: "30", label: "30%", description: "Early maintenance" },
-				{ value: "40", label: "40%", description: "Moderately early maintenance" },
-				{ value: "50", label: "50%", description: "Halfway point" },
-				{ value: "60", label: "60%", description: "Moderate context usage" },
-				{ value: "70", label: "70%", description: "Balanced" },
-				{ value: "75", label: "75%", description: "Slightly aggressive" },
-				{ value: "80", label: "80%", description: "Typical threshold" },
-				{ value: "85", label: "85%", description: "Aggressive context usage" },
-				{ value: "90", label: "90%", description: "Very aggressive" },
-				{ value: "95", label: "95%", description: "Near context limit" },
+				{ value: "default", label: "默认", description: "传统的基于保留的阈值" },
+				{ value: "10", label: "10%", description: "极早维护" },
+				{ value: "20", label: "20%", description: "很早维护" },
+				{ value: "30", label: "30%", description: "早期维护" },
+				{ value: "40", label: "40%", description: "中等早期维护" },
+				{ value: "50", label: "50%", description: "中点" },
+				{ value: "60", label: "60%", description: "中等上下文使用" },
+				{ value: "70", label: "70%", description: "平衡" },
+				{ value: "75", label: "75%", description: "略激进" },
+				{ value: "80", label: "80%", description: "典型阈值" },
+				{ value: "85", label: "85%", description: "激进的上下文使用" },
+				{ value: "90", label: "90%", description: "非常激进" },
+				{ value: "95", label: "95%", description: "接近上下文限制" },
 			],
 		},
 	},
@@ -2181,18 +2181,18 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Compaction Token Limit",
-			description: "Fixed token limit for context maintenance; overrides percentage if set",
+			group: "压缩",
+			label: "压缩 Token 限制",
+			description: "上下文维护的固定 token 限制；设置后覆盖百分比",
 			options: [
-				{ value: "default", label: "Default", description: "Use percentage-based threshold" },
-				{ value: "25000", label: "25K tokens", description: "Quarter of a 200K window" },
-				{ value: "50000", label: "50K tokens", description: "Half of a 200K window" },
-				{ value: "100000", label: "100K tokens", description: "Half of a 200K window" },
-				{ value: "150000", label: "150K tokens", description: "Three-quarters of a 200K window" },
-				{ value: "200000", label: "200K tokens", description: "Full standard context window" },
-				{ value: "300000", label: "300K tokens", description: "Large context window" },
-				{ value: "500000", label: "500K tokens", description: "Very large context window" },
+				{ value: "default", label: "默认", description: "使用基于百分比的阈值" },
+				{ value: "25000", label: "25K tokens", description: "200K 窗口的四分之一" },
+				{ value: "50000", label: "50K tokens", description: "200K 窗口的一半" },
+				{ value: "100000", label: "100K tokens", description: "200K 窗口的一半" },
+				{ value: "150000", label: "150K tokens", description: "200K 窗口的四分之三" },
+				{ value: "200000", label: "200K tokens", description: "完整标准上下文窗口" },
+				{ value: "300000", label: "300K tokens", description: "大上下文窗口" },
+				{ value: "500000", label: "500K tokens", description: "超大上下文窗口" },
 			],
 		},
 	},
@@ -2202,9 +2202,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Save Handoff Docs",
-			description: "Save generated handoff documents to markdown files for the auto-handoff flow",
+			group: "压缩",
+			label: "保存交接文档",
+			description: "为自动交接流程将生成的交接文档保存为 markdown 文件",
 		},
 	},
 
@@ -2213,9 +2213,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Remote Compaction",
-			description: "Use remote compaction endpoints when available instead of local summarization",
+			group: "压缩",
+			label: "远程压缩",
+			description: "可用时使用远程压缩端点而不是本地总结",
 		},
 	},
 
@@ -2224,9 +2224,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Remote Compaction V2",
-			description: "Use Responses streaming compaction for compatible remote compaction models",
+			group: "压缩",
+			label: "远程压缩 V2",
+			description: "为兼容的远程压缩模型使用 Responses 流式压缩",
 		},
 	},
 
@@ -2250,9 +2250,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Idle Compaction",
-			description: "Compact context while idle when token count exceeds threshold",
+			group: "压缩",
+			label: "空闲压缩",
+			description: "token 数超过阈值时在空闲时压缩上下文",
 		},
 	},
 
@@ -2261,9 +2261,9 @@ export const SETTINGS_SCHEMA = {
 		default: 200000,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Idle Compaction Threshold",
-			description: "Token count above which idle compaction triggers",
+			group: "压缩",
+			label: "空闲压缩阈值",
+			description: "触发空闲压缩的 token 数",
 			options: [
 				{ value: "100000", label: "100K tokens" },
 				{ value: "200000", label: "200K tokens" },
@@ -2283,16 +2283,16 @@ export const SETTINGS_SCHEMA = {
 		default: 300,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Idle Compaction Delay",
-			description: "Seconds to wait while idle before compacting",
+			group: "压缩",
+			label: "空闲压缩延迟",
+			description: "压缩前空闲等待的秒数",
 			options: [
-				{ value: "60", label: "1 minute" },
-				{ value: "120", label: "2 minutes" },
-				{ value: "300", label: "5 minutes" },
-				{ value: "600", label: "10 minutes" },
-				{ value: "1800", label: "30 minutes" },
-				{ value: "3600", label: "1 hour" },
+				{ value: "60", label: "1 分钟" },
+				{ value: "120", label: "2 分钟" },
+				{ value: "300", label: "5 分钟" },
+				{ value: "600", label: "10 分钟" },
+				{ value: "1800", label: "30 分钟" },
+				{ value: "3600", label: "1 小时" },
 			],
 		},
 	},
@@ -2302,9 +2302,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Supersede Stale Reads",
-			description: "Prune older read results when the same file is read again (cache-aware, runs every turn)",
+			group: "压缩",
+			label: "取代过期读取",
+			description: "再次读取同一文件时修剪较旧的读取结果（缓存感知，每轮运行）",
 		},
 	},
 
@@ -2313,10 +2313,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Compaction",
-			label: "Elide Uneventful Results",
+			group: "压缩",
+			label: "省略无事件结果",
 			description:
-				"Prune tool results flagged contextually useless (no matches, timed-out waits) once consumed (cache-aware)",
+				"消耗后修剪被标记为上下文无用的工具结果（无匹配、超时等待）（缓存感知）",
 		},
 	},
 
@@ -2327,21 +2327,21 @@ export const SETTINGS_SCHEMA = {
 		default: "none",
 		ui: {
 			tab: "context",
-			group: "Experimental",
-			label: "Snapcompact System Prompt",
+			group: "实验性",
+			label: "Snapcompact 系统提示",
 			description:
-				"Experimental: render selected system prompt text as dense PNG image(s) and attach to the first user message (vision models only). Saves tokens; loses prompt caching for imaged text.",
+				"Experimental: render selected system prompt text as dense PNG image(s) and attach to the first user message (vision models only). Saves tokens; loses prompt caching for imaged text. — 实验性：将选定的系统提示文本渲染为密集 PNG 图像并附加到第一条用户消息（仅视觉模型）；节省 token，但失去图像化文本的提示缓存。",
 			options: [
-				{ value: "none", label: "None", description: "Keep the system prompt as text." },
+				{ value: "none", label: "无", description: "将系统提示保持为文本。" },
 				{
 					value: "agents-md",
 					label: "AGENTS.md",
-					description: "Only move loaded context-file instructions to images, when that saves tokens.",
+					description: "仅在节省 token 时，将已加载的上下文文件指令移到图片。",
 				},
 				{
 					value: "all",
-					label: "All",
-					description: "Move the full system prompt to images, when that saves tokens.",
+					label: "全部",
+					description: "仅在节省 token 时，将完整系统提示移到图片。",
 				},
 			],
 		},
@@ -2352,10 +2352,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "context",
-			group: "Experimental",
-			label: "Snapcompact Tool Results",
+			group: "实验性",
+			label: "Snapcompact 工具结果",
 			description:
-				"Experimental: render large historical tool results as dense PNG image(s) instead of text (vision models only). Saves tokens on accumulated read/search output.",
+				"Experimental: render large historical tool results as dense PNG image(s) instead of text (vision models only). Saves tokens on accumulated read/search output. — 实验性：将大型历史工具结果渲染为密集 PNG 图像而不是文本（仅视觉模型）；在累积的读取/搜索输出上节省 token。",
 		},
 	},
 
@@ -2379,28 +2379,28 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "context",
-			group: "Experimental",
-			label: "Tool Calling Mode",
+			group: "实验性",
+			label: "工具调用模式",
 			description:
-				"Controls how tools are exposed to the model. Auto uses provider-native tool calls unless the selected model is marked as not supporting them, then falls back to the GLM owned dialect. Native forces provider-native tools; the other values force the named owned dialect. Applies on session start.",
+				"Controls how tools are exposed to the model. Auto uses provider-native tool calls unless the selected model is marked as not supporting them, then falls back to the GLM owned dialect. Native forces provider-native tools; the other values force the named owned dialect. Applies on session start. — 控制工具如何暴露给模型。Auto 使用提供商原生工具调用，除非所选模型被标记为不支持，然后回退到 GLM 自有方言；Native 强制提供商原生工具；其他值强制指定的自有方言；在会话开始时生效。",
 			options: [
 				{
 					value: "auto",
-					label: "Auto",
-					description: "Use native tool calls unless the model is known not to support them.",
+					label: "自动",
+					description: "除非已知模型不支持，否则使用原生工具调用。",
 				},
-				{ value: "native", label: "Native", description: "Use provider-native tool calls." },
-				{ value: "glm", label: "GLM", description: "Use GLM-style in-band tool calls." },
-				{ value: "hermes", label: "Hermes", description: "Use Hermes-style in-band tool calls." },
-				{ value: "kimi", label: "Kimi", description: "Use Kimi-style in-band tool calls." },
-				{ value: "xml", label: "XML", description: "Use generic XML in-band tool calls." },
-				{ value: "anthropic", label: "Anthropic", description: "Use Anthropic-style in-band tool calls." },
-				{ value: "deepseek", label: "DeepSeek", description: "Use DeepSeek-style in-band tool calls." },
-				{ value: "harmony", label: "Harmony", description: "Use Harmony-style in-band tool calls." },
-				{ value: "qwen3", label: "Qwen3", description: "Use the Qwen3 owned dialect." },
-				{ value: "gemini", label: "Gemini", description: "Use the Gemini owned dialect." },
-				{ value: "gemma", label: "Gemma", description: "Use the Gemma owned dialect." },
-				{ value: "minimax", label: "MiniMax", description: "Use the MiniMax owned dialect." },
+				{ value: "native", label: "原生", description: "使用提供商原生工具调用。" },
+				{ value: "glm", label: "GLM", description: "使用 GLM 风格带内工具调用。" },
+				{ value: "hermes", label: "Hermes", description: "使用 Hermes 风格带内工具调用。" },
+				{ value: "kimi", label: "Kimi", description: "使用 Kimi 风格带内工具调用。" },
+				{ value: "xml", label: "XML", description: "使用通用 XML 带内工具调用。" },
+				{ value: "anthropic", label: "Anthropic", description: "使用 Anthropic 风格带内工具调用。" },
+				{ value: "deepseek", label: "DeepSeek", description: "使用 DeepSeek 风格带内工具调用。" },
+				{ value: "harmony", label: "Harmony", description: "使用 Harmony 风格带内工具调用。" },
+				{ value: "qwen3", label: "Qwen3", description: "使用 Qwen3 自有方言。" },
+				{ value: "gemini", label: "Gemini", description: "使用 Gemini 自有方言。" },
+				{ value: "gemma", label: "Gemma", description: "使用 Gemma 自有方言。" },
+				{ value: "minimax", label: "MiniMax", description: "使用 MiniMax 自有方言。" },
 			],
 		},
 	},
@@ -2411,103 +2411,103 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "context",
-			group: "Experimental",
-			label: "Snapcompact Shape",
+			group: "实验性",
+			label: "Snapcompact 形状",
 			description:
-				"Frame shape snapcompact prints text with (compaction archive and inline imaging). Auto picks a shape tuned for the current model.",
+				"Frame shape snapcompact prints text with (compaction archive and inline imaging). Auto picks a shape tuned for the current model. — snapcompact 打印文本所用的框架形状（压缩归档和内联成像）；Auto 为当前模型选择调优的形状。",
 			options: [
 				{
 					value: "auto",
-					label: "Auto",
-					description: "Picks a shape tuned for the current model, falling back to its provider family.",
+					label: "自动",
+					description: "为当前模型选择调优的形状，回退到其提供商家族。",
 				},
 				{
 					value: "8x8r-bw",
-					label: "8x8 repeated, black",
+					label: "8x8 重复，黑色",
 					description:
 						"unscii square cell, black ink, every line printed twice with the copy on a pale highlight band.",
 				},
 				{
 					value: "8x8r-sent",
-					label: "8x8 repeated, sentence hues",
-					description: "Repeated grid with ink cycling six hues at sentence boundaries.",
+					label: "8x8 重复，句色",
+					description: "重复网格，在句子边界循环六种色调的墨水。",
 				},
 				{
 					value: "8x8u-bw",
-					label: "8x8, black",
-					description: "Plain unscii square cell, single-printed lines, black ink.",
+					label: "8x8，黑色",
+					description: "普通 unscii 方形单元，单行打印，黑色墨水。",
 				},
 				{
 					value: "8x8u-sent",
-					label: "8x8, sentence hues",
-					description: "Plain unscii square cell with sentence-hue ink.",
+					label: "8x8，句色",
+					description: "普通 unscii 方形单元，句色墨水。",
 				},
 				{
 					value: "6x6u-bw",
-					label: "6x6 dense, black",
+					label: "6x6 密集，黑色",
 					description: "unscii squeezed to 6x6 — densest readable cell, fewest frames — in black ink.",
 				},
 				{
 					value: "6x6u-sent",
-					label: "6x6 dense, sentence hues",
-					description: "Densest cell with sentence-hue ink.",
+					label: "6x6 密集，句色",
+					description: "最密集单元，句色墨水。",
 				},
 				{
 					value: "5x8-bw",
-					label: "5x8 legacy, black",
-					description: "Original X.org 5x8 glyphs on the 2576px frame, black ink.",
+					label: "5x8 传统，黑色",
+					description: "2576px 框架上的原始 X.org 5x8 字形，黑色墨水。",
 				},
 				{
 					value: "5x8-sent",
-					label: "5x8 legacy, sentence hues",
-					description: "The original snapcompact shape (pre-shape-table sessions rendered this).",
+					label: "5x8 传统，句色",
+					description: "原始的 snapcompact 形状（形状表之前的会话渲染此形状）。",
 				},
 				{
 					value: "6x12-dim",
-					label: "6x12, dimmed stopwords",
-					description: "X.org 6x12 glyphs, black ink, function words dimmed gray.",
+					label: "6x12，停用词变暗",
+					description: "X.org 6x12 字形，黑色墨水，功能词变暗为灰色。",
 				},
 				{
 					value: "8x13-bw",
-					label: "8x13, black",
-					description: "X.org 8x13 glyphs, black ink.",
+					label: "8x13，黑色",
+					description: "X.org 8x13 字形，黑色墨水。",
 				},
 				{
 					value: "8on16-bw",
-					label: "8x13 on 16px pitch, black",
-					description: "8x13 glyphs on an 8x16 cell (extra leading), black ink.",
+					label: "8x13 于 16px 间距，黑色",
+					description: "8x16 单元上的 8x13 字形（额外行距），黑色墨水。",
 				},
 				{
 					value: "8on22-bw",
-					label: "8x13 on 22px pitch (leading), black",
+					label: "8x13 于 22px 间距（行距），黑色",
 					description:
-						"8x13 glyphs on an 8x22 cell — extra line spacing so rows don't crowd. Default for OpenAI/Google.",
+						"8x13 glyphs on an 8x22 cell — extra line spacing so rows don't crowd. Default for OpenAI/Google. — 8x22 单元上的 8x13 字形——额外行距使行不拥挤；OpenAI/Google 的默认。",
 				},
 				{
 					value: "11on16-bw",
-					label: "8x13 on 11px advance (tracking), black",
+					label: "8x13 于 11px 字距（字距调整），黑色",
 					description:
-						"8x13 glyphs on an 11x16 cell — extra letter spacing so characters don't merge. Default for Anthropic.",
+						"8x13 glyphs on an 11x16 cell — extra letter spacing so characters don't merge. Default for Anthropic. — 11x16 单元上的 8x13 字形——额外字距使字符不合并；Anthropic 的默认。",
 				},
 				{
 					value: "silver16-bw",
-					label: "Silver 16, CJK",
-					description: "Embedded Silver TrueType font on a 16px grid for CJK and other non-Latin text.",
+					label: "Silver 16，CJK",
+					description: "用于 CJK 和其他非拉丁文本的 16px 网格上的嵌入式 Silver TrueType 字体。",
 				},
 				{
 					value: "doc-8on16-bw",
-					label: "Doc 8on16, black",
-					description: "Two word-wrapped newspaper columns of 8x13 glyphs on a 16px pitch, black ink.",
+					label: "文档 8on16，黑色",
+					description: "16px 间距上的两列自动换行报纸式 8x13 字形，黑色墨水。",
 				},
 				{
 					value: "doc-8on16-sent",
-					label: "Doc 8on16, sentence hues",
-					description: "Two-column doc layout with sentence-hue ink.",
+					label: "文档 8on16，句色",
+					description: "双栏文档布局，句色墨水。",
 				},
 				{
 					value: "doc-8on16-sent-dim",
-					label: "Doc 8on16, sentence hues + dimmed stopwords",
-					description: "Two-column doc layout, sentence-hue ink, function words dimmed gray.",
+					label: "文档 8on16，句色 + 停用词变暗",
+					description: "双栏文档布局，句色墨水，功能词变暗为灰色。",
 				},
 			],
 		},
@@ -2519,9 +2519,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "context",
-			group: "General",
-			label: "Branch Summaries",
-			description: "Prompt to summarize when leaving a branch",
+			group: "通用",
+			label: "分支摘要",
+			description: "离开分支时提示总结",
 		},
 	},
 
@@ -2574,17 +2574,17 @@ export const SETTINGS_SCHEMA = {
 		default: "off",
 		ui: {
 			tab: "memory",
-			group: "General",
-			label: "Memory Backend",
-			description: "Off, local summary pipeline, Mnemopi SQLite, or Hindsight remote memory",
+			group: "通用",
+			label: "记忆后端",
+			description: "关闭、本地总结管道、Mnemopi SQLite 或 Hindsight 远程记忆",
 			options: [
-				{ value: "off", label: "Off", description: "No memory subsystem runs" },
-				{ value: "local", label: "Local", description: "Local rollout summarisation pipeline (memory_summary.md)" },
-				{ value: "hindsight", label: "Hindsight", description: "Vectorize Hindsight remote memory service" },
+				{ value: "off", label: "关闭", description: "不运行记忆子系统" },
+				{ value: "local", label: "本地", description: "本地滚动总结管道 (memory_summary.md)" },
+				{ value: "hindsight", label: "Hindsight", description: "向量化 Hindsight 远程记忆服务" },
 				{
 					value: "mnemopi",
 					label: "Mnemopi",
-					description: "Local SQLite recall/retain backend with optional embeddings",
+					description: "带可选嵌入的本地 SQLite 回忆/保留后端",
 				},
 			],
 		},
@@ -2598,10 +2598,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "memory",
-			group: "Auto-Learn",
-			label: "Auto-Learn (experimental)",
+			group: "自动学习",
+			label: "自动学习（实验性）",
 			description:
-				"After the agent stops, nudge it to capture lessons to memory and create/enhance isolated managed skills",
+				"代理停止后，提示它将经验教训存入记忆并创建/增强隔离的托管技能",
 		},
 	},
 	"autolearn.autoContinue": {
@@ -2609,10 +2609,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "memory",
-			group: "Auto-Learn",
-			label: "Auto-run capture at stop",
+			group: "自动学习",
+			label: "停止时自动捕获",
 			description:
-				"When on, auto-run one private capture turn at stop (uses extra tokens). When off, only standing auto-learn guidance remains.",
+				"When on, auto-run one private capture turn at stop (uses extra tokens). When off, only standing auto-learn guidance remains. — 开启时，在停止时自动运行一次私有捕获轮次（消耗额外 token）；关闭时，仅保留常驻的自动学习指导。",
 			condition: "autolearnActive",
 		},
 	},
@@ -2626,8 +2626,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi DB Path",
-			description: "Optional SQLite DB path. Defaults to the agent memories directory.",
+			label: "Mnemopi 数据库路径",
+			description: "可选的 SQLite 数据库路径。默认为代理记忆目录。",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2637,8 +2637,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Bank",
-			description: "Optional shared bank base name. Per-project modes derive project-local banks from it.",
+			label: "Mnemopi 记忆库",
+			description: "可选的共享记忆库基础名称。按项目模式从中派生项目本地记忆库。",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2649,24 +2649,24 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Scoping",
+			label: "Mnemopi 作用域",
 			description:
 				"global = one shared bank; per-project = isolated bank per cwd; per-project-tagged = project-local writes plus global recall visibility",
 			options: [
 				{
 					value: "global",
-					label: "Global",
-					description: "One shared Mnemopi bank for every project",
+					label: "全局",
+					description: "每个项目共用一个 Mnemopi 记忆库",
 				},
 				{
 					value: "per-project",
-					label: "Per project",
-					description: "Project-local Mnemopi bank per cwd basename",
+					label: "按项目",
+					description: "每个 cwd 基础名称一个项目本地 Mnemopi 记忆库",
 				},
 				{
 					value: "per-project-tagged",
-					label: "Per project (tagged)",
-					description: "Write to a project-local bank but merge project + shared recall results",
+					label: "按项目（带标签）",
+					description: "写入项目本地记忆库但合并项目 + 共享回忆结果",
 				},
 			],
 			condition: "mnemopiActive",
@@ -2679,18 +2679,18 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Embedding variant",
+			label: "嵌入变体",
 			description:
-				"Local embedding model family. en = stronger English model; multilingual = cross-language model. Changing this rebuilds existing memory embeddings on next start.",
+				"Local embedding model family. en = stronger English model; multilingual = cross-language model. Changing this rebuilds existing memory embeddings on next start. — 本地嵌入模型家族。en = 更强的英语模型；multilingual = 跨语言模型；更改此设置会在下次启动时重建现有记忆嵌入。",
 			options: [
 				{
 					value: "en",
-					label: "English (bge-base-en-v1.5)",
-					description: "BAAI/bge-base-en-v1.5 (768d), English-only",
+					label: "英语 (bge-base-en-v1.5)",
+					description: "BAAI/bge-base-en-v1.5 (768d)，仅英语",
 				},
 				{
 					value: "multilingual",
-					label: "Multilingual (multilingual-e5-large)",
+					label: "多语言 (multilingual-e5-large)",
 					description: "intfloat/multilingual-e5-large (1024d), cross-language recall",
 				},
 			],
@@ -2703,8 +2703,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Auto Recall",
-			description: "Recall local memories into the first turn of each session",
+			label: "Mnemopi 自动回忆",
+			description: "将本地记忆回忆到每个会话的第一轮",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2714,8 +2714,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Auto Retain",
-			description: "Retain completed conversation turns into local Mnemopi memory",
+			label: "Mnemopi 自动保留",
+			description: "将完成的会话轮次保留到本地 Mnemopi 记忆",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2725,8 +2725,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Polyphonic Recall",
-			description: "Enable 4-voice recall (vector, graph, fact, temporal) fused with reciprocal rank fusion",
+			label: "Mnemopi 多声部回忆",
+			description: "启用 4 声部回忆（向量、图、事实、时间）并与倒数排名融合",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2736,8 +2736,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Enhanced Recall",
-			description: "Enable the tiered query result cache for repeated and similar recall queries",
+			label: "Mnemopi 增强回忆",
+			description: "为重复和相似的回忆查询启用分层查询结果缓存",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2747,9 +2747,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Proactive Linking",
+			label: "Mnemopi 主动链接",
 			description:
-				"Ingest new memories into the episodic graph as they are stored, linking them to related entities and memories",
+				"存储新记忆时将其摄入情景图，链接到相关实体和记忆",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2759,8 +2759,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Disable Embeddings",
-			description: "Force deterministic FTS-only recall instead of vector embeddings",
+			label: "Mnemopi 禁用嵌入",
+			description: "强制确定性仅 FTS 回忆而不是向量嵌入",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2770,9 +2770,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Embedding Model",
+			label: "Mnemopi 嵌入模型",
 			description:
-				"Advanced: explicit embedding model id that overrides the variant. Leave empty to use mnemopi.embeddingVariant.",
+				"Advanced: explicit embedding model id that overrides the variant. Leave empty to use mnemopi.embeddingVariant. — 高级：覆盖变体的显式嵌入模型 id；留空以使用 mnemopi.embeddingVariant。",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2782,8 +2782,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Embedding API URL",
-			description: "Optional OpenAI-compatible embedding endpoint passed to Mnemopi",
+			label: "Mnemopi 嵌入 API 地址",
+			description: "传递给 Mnemopi 的可选 OpenAI 兼容嵌入端点",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2794,8 +2794,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi Embedding API Key",
-			description: "Optional embedding API key passed to Mnemopi",
+			label: "Mnemopi 嵌入 API 密钥",
+			description: "传递给 Mnemopi 的可选嵌入 API 密钥",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2806,18 +2806,18 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi LLM Mode",
+			label: "Mnemopi LLM 模式",
 			description:
-				"Use no LLM, the online tiny model (the TINY role from /models, else @smol), or a remote OpenAI-compatible endpoint",
+				"Use no LLM, the online tiny model (the TINY role from /models, else @smol), or a remote OpenAI-compatible endpoint. — 不使用 LLM、使用在线微型模型（来自 /models 的 TINY 角色，否则 @smol），或使用远程 OpenAI 兼容端点。",
 			condition: "mnemopiActive",
 			options: [
-				{ value: "none", label: "None", description: "Disable Mnemopi LLM-backed extraction" },
+				{ value: "none", label: "无", description: "禁用 Mnemopi 基于 LLM 的提取" },
 				{
 					value: "smol",
-					label: "Online (tiny)",
-					description: "Use the online tiny model (the TINY role from /models, else @smol)",
+					label: "在线（微型）",
+					description: "使用在线微型模型（来自 /models 的 TINY 角色，否则 @smol）",
 				},
-				{ value: "remote", label: "Remote", description: "Use the Mnemopi remote LLM settings below" },
+				{ value: "remote", label: "远程", description: "使用下面的 Mnemopi 远程 LLM 设置" },
 			],
 		},
 	},
@@ -2827,8 +2827,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi LLM Base URL",
-			description: "Optional OpenAI-compatible LLM endpoint for Mnemopi remote mode",
+			label: "Mnemopi LLM 基础地址",
+			description: "用于 Mnemopi 远程模式的可选 OpenAI 兼容 LLM 端点",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2839,8 +2839,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi LLM API Key",
-			description: "Optional LLM API key for Mnemopi remote mode",
+			label: "Mnemopi LLM API 密钥",
+			description: "用于 Mnemopi 远程模式的可选 LLM API 密钥",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2850,8 +2850,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Mnemopi",
-			label: "Mnemopi LLM Model",
-			description: "Optional LLM model name for Mnemopi remote mode",
+			label: "Mnemopi LLM 模型",
+			description: "用于 Mnemopi 远程模式的可选 LLM 模型名称",
 			condition: "mnemopiActive",
 		},
 	},
@@ -2869,8 +2869,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight API URL",
-			description: "Hindsight server URL (Cloud or self-hosted)",
+			label: "Hindsight API 地址",
+			description: "Hindsight 服务器 URL（云或自托管）",
 			condition: "hindsightActive",
 		},
 	},
@@ -2882,8 +2882,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight API Token",
-			description: "Bearer token for authenticated Hindsight servers",
+			label: "Hindsight API 令牌",
+			description: "用于已认证 Hindsight 服务器的 Bearer 令牌",
 			condition: "hindsightActive",
 		},
 	},
@@ -2894,8 +2894,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Bank ID",
-			description: "Memory bank identifier (default: project name)",
+			label: "Hindsight 记忆库 ID",
+			description: "记忆库标识符（默认：项目名称）",
 			condition: "hindsightActive",
 		},
 	},
@@ -2908,25 +2908,25 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Scoping",
+			label: "Hindsight 作用域",
 			description:
 				"global = one shared bank; per-project = isolated bank per cwd; per-project-tagged = shared bank with project tags so global + project memories merge on recall",
 			options: [
 				{
 					value: "global",
-					label: "Global",
-					description: "One shared bank — every project sees the same memories",
+					label: "全局",
+					description: "一个共享记忆库——每个项目看到相同的记忆",
 				},
 				{
 					value: "per-project",
-					label: "Per project",
-					description: "Isolated bank per cwd basename — projects cannot see each other's memories",
+					label: "按项目",
+					description: "每个 cwd 基础名称一个隔离记忆库——项目无法看到彼此的记忆",
 				},
 				{
 					value: "per-project-tagged",
-					label: "Per project (tagged)",
+					label: "按项目（带标签）",
 					description:
-						"Shared bank, retains tagged with project:<cwd>. Recall surfaces project + untagged global memories together",
+						"共享记忆库，保留标记为 project:<cwd>。回忆同时呈现项目 + 未标记的全局记忆",
 				},
 			],
 			condition: "hindsightActive",
@@ -2941,8 +2941,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Auto Recall",
-			description: "Recall memories on the first turn of each session",
+			label: "Hindsight 自动回忆",
+			description: "在每个会话的第一轮回忆记忆",
 			condition: "hindsightActive",
 		},
 	},
@@ -2952,8 +2952,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Auto Retain",
-			description: "Retain transcript every N turns and at session boundaries",
+			label: "Hindsight 自动保留",
+			description: "每 N 轮和会话边界保留记录",
 			condition: "hindsightActive",
 		},
 	},
@@ -2965,15 +2965,15 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Retain Mode",
+			label: "Hindsight 保留模式",
 			description: "full-session = upsert one document per session, last-turn = chunked",
 			options: [
 				{
 					value: "full-session",
-					label: "Full session",
-					description: "Upsert one document per session (recommended)",
+					label: "完整会话",
+					description: "每个会话更新一个文档（推荐）",
 				},
-				{ value: "last-turn", label: "Last turn", description: "Chunked retention sliced by turn boundaries" },
+				{ value: "last-turn", label: "最后一轮", description: "按轮次边界切分的分块保留" },
 			],
 			condition: "hindsightActive",
 		},
@@ -3005,9 +3005,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Mental Models",
+			label: "Hindsight 心智模型",
 			description:
-				"Read curated reflect summaries (mental models) into developer instructions at boot. Loads existing models on the bank — does not write. Pair with hindsight.mentalModelAutoSeed to also auto-create the built-in seed set.",
+				"Read curated reflect summaries (mental models) into developer instructions at boot. Loads existing models on the bank — does not write. Pair with hindsight.mentalModelAutoSeed to also auto-create the built-in seed set. — 启动时将精选的反思摘要（心智模型）读入开发者指令；加载记忆库上已有的模型——不写入；与 hindsight.mentalModelAutoSeed 搭配可同时自动创建内置种子集。",
 			condition: "hindsightActive",
 		},
 	},
@@ -3017,9 +3017,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "memory",
 			group: "Hindsight",
-			label: "Hindsight Mental Model Auto-Seed",
+			label: "Hindsight 心智模型自动播种",
 			description:
-				"At session start, create any built-in mental models (project-conventions, project-decisions, user-preferences) that do not yet exist on the bank.",
+				"At session start, create any built-in mental models (project-conventions, project-decisions, user-preferences) that do not yet exist on the bank. — 会话开始时，创建记忆库上尚不存在的任何内置心智模型（project-conventions、project-decisions、user-preferences）。",
 			condition: "hindsightActive",
 		},
 	},
@@ -3032,9 +3032,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
+			group: "规则 (TTSR)",
 			label: "TTSR",
-			description: "Interrupt the agent mid-stream when output matches rule patterns (Time-Traveling Stream Rules)",
+			description: "输出匹配规则模式时中断代理流（时间旅行流规则）",
 		},
 	},
 
@@ -3044,9 +3044,9 @@ export const SETTINGS_SCHEMA = {
 		default: "discard",
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
-			label: "TTSR Context Mode",
-			description: "What to do with partial output when TTSR triggers",
+			group: "规则 (TTSR)",
+			label: "TTSR 上下文模式",
+			description: "TTSR 触发时如何处理部分输出",
 		},
 	},
 
@@ -3056,14 +3056,14 @@ export const SETTINGS_SCHEMA = {
 		default: "always",
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
-			label: "TTSR Interrupt Mode",
-			description: "When to interrupt mid-stream vs inject warning after completion",
+			group: "规则 (TTSR)",
+			label: "TTSR 中断模式",
+			description: "何时中断流 vs 完成后注入警告",
 			options: [
-				{ value: "always", label: "always", description: "Interrupt on prose and tool streams" },
-				{ value: "prose-only", label: "prose-only", description: "Interrupt only on reply/thinking matches" },
-				{ value: "tool-only", label: "tool-only", description: "Interrupt only on tool-call argument matches" },
-				{ value: "never", label: "never", description: "Never interrupt; inject warning after completion" },
+				{ value: "always", label: "always", description: "在正文和工具流上中断" },
+				{ value: "prose-only", label: "prose-only", description: "仅在回复/思考匹配时中断" },
+				{ value: "tool-only", label: "tool-only", description: "仅在工具调用参数匹配时中断" },
+				{ value: "never", label: "never", description: "从不中断；完成后注入警告" },
 			],
 		},
 	},
@@ -3074,9 +3074,9 @@ export const SETTINGS_SCHEMA = {
 		default: "once",
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
-			label: "TTSR Repeat Mode",
-			description: "How rules can repeat: once per session or after a message gap",
+			group: "规则 (TTSR)",
+			label: "TTSR 重复模式",
+			description: "规则如何重复：每会话一次或在消息间隔后",
 		},
 	},
 
@@ -3085,15 +3085,15 @@ export const SETTINGS_SCHEMA = {
 		default: 10,
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
-			label: "TTSR Repeat Gap",
-			description: "Messages before a rule can trigger again",
+			group: "规则 (TTSR)",
+			label: "TTSR 重复间隔",
+			description: "规则可再次触发前的消息数",
 			options: [
-				{ value: "5", label: "5 messages" },
-				{ value: "10", label: "10 messages" },
-				{ value: "15", label: "15 messages" },
-				{ value: "20", label: "20 messages" },
-				{ value: "30", label: "30 messages" },
+				{ value: "5", label: "5 条消息" },
+				{ value: "10", label: "10 条消息" },
+				{ value: "15", label: "15 条消息" },
+				{ value: "20", label: "20 条消息" },
+				{ value: "30", label: "30 条消息" },
 			],
 		},
 	},
@@ -3103,9 +3103,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
-			label: "Built-in Rules",
-			description: "Load the default rules shipped with the agent (override individually with ttsr.disabledRules)",
+			group: "规则 (TTSR)",
+			label: "内置规则",
+			description: "加载代理附带的默认规则（可用 ttsr.disabledRules 单独覆盖）",
 		},
 	},
 
@@ -3114,9 +3114,9 @@ export const SETTINGS_SCHEMA = {
 		default: [] as string[],
 		ui: {
 			tab: "context",
-			group: "Rules (TTSR)",
-			label: "Disabled Rules",
-			description: "Rule names to ignore entirely (applies to bundled defaults and your own rules)",
+			group: "规则 (TTSR)",
+			label: "禁用规则",
+			description: "完全忽略的规则名称（适用于捆绑默认值和您自己的规则）",
 		},
 	},
 
@@ -3131,9 +3131,9 @@ export const SETTINGS_SCHEMA = {
 		default: "hashline",
 		ui: {
 			tab: "files",
-			group: "Editing",
-			label: "Edit Mode",
-			description: "Select the edit tool variant (replace, patch, hashline, or apply_patch)",
+			group: "编辑",
+			label: "编辑模式",
+			description: "选择编辑工具变体（replace、patch、hashline 或 apply_patch）",
 		},
 	},
 
@@ -3142,9 +3142,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "files",
-			group: "Editing",
-			label: "Fuzzy Match",
-			description: "Accept high-confidence fuzzy matches for whitespace differences",
+			group: "编辑",
+			label: "模糊匹配",
+			description: "接受空白差异的高置信度模糊匹配",
 		},
 	},
 
@@ -3153,14 +3153,14 @@ export const SETTINGS_SCHEMA = {
 		default: 0.95,
 		ui: {
 			tab: "files",
-			group: "Editing",
-			label: "Fuzzy Match Threshold",
-			description: "Similarity threshold (0-1) for accepting fuzzy matches",
+			group: "编辑",
+			label: "模糊匹配阈值",
+			description: "接受模糊匹配的相似度阈值（0-1）",
 			options: [
-				{ value: "0.85", label: "0.85", description: "Lenient" },
-				{ value: "0.90", label: "0.90", description: "Moderate" },
-				{ value: "0.95", label: "0.95", description: "Default" },
-				{ value: "0.98", label: "0.98", description: "Strict" },
+				{ value: "0.85", label: "0.85", description: "宽松" },
+				{ value: "0.90", label: "0.90", description: "中等" },
+				{ value: "0.95", label: "0.95", description: "默认" },
+				{ value: "0.98", label: "0.98", description: "严格" },
 			],
 		},
 	},
@@ -3170,9 +3170,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "files",
-			group: "Editing",
-			label: "Abort on Failed Preview",
-			description: "Abort streaming edit tool calls when patch preview fails",
+			group: "编辑",
+			label: "预览失败时中止",
+			description: "补丁预览失败时中止流式编辑工具调用",
 		},
 	},
 
@@ -3181,9 +3181,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "files",
-			group: "Editing",
-			label: "Block Auto-Generated Files",
-			description: "Prevent editing of files that appear to be auto-generated (protoc, sqlc, swagger, etc.)",
+			group: "编辑",
+			label: "阻止自动生成文件",
+			description: "阻止编辑看似自动生成的文件（protoc、sqlc、swagger 等）",
 		},
 	},
 
@@ -3192,9 +3192,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "files",
-			group: "Editing",
-			label: "Enforce Seen-Line Guard",
-			description: "Reject edits anchored on lines a prior read/search never displayed in full",
+			group: "编辑",
+			label: "强制已见行防护",
+			description: "拒绝锚定在先前读取/搜索从未完整显示的行上的编辑",
 		},
 	},
 
@@ -3203,9 +3203,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "files",
-			group: "Reading",
-			label: "Line Numbers",
-			description: "Prepend line numbers to read tool output by default",
+			group: "阅读",
+			label: "行号",
+			description: "默认在读取工具输出前添加行号",
 		},
 	},
 
@@ -3214,15 +3214,15 @@ export const SETTINGS_SCHEMA = {
 		default: 300,
 		ui: {
 			tab: "files",
-			group: "Reading",
-			label: "Default Read Limit",
-			description: "Default number of lines returned when agent calls read without a limit",
+			group: "阅读",
+			label: "默认读取限制",
+			description: "代理无限制调用读取时返回的默认行数",
 			options: [
-				{ value: "200", label: "200 lines" },
-				{ value: "300", label: "300 lines" },
-				{ value: "500", label: "500 lines" },
-				{ value: "1000", label: "1000 lines" },
-				{ value: "5000", label: "5000 lines" },
+				{ value: "200", label: "200 行" },
+				{ value: "300", label: "300 行" },
+				{ value: "500", label: "500 行" },
+				{ value: "1000", label: "1000 行" },
+				{ value: "5000", label: "5000 行" },
 			],
 		},
 	},
@@ -3232,9 +3232,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "files",
-			group: "Reading",
-			label: "Markdown Previews",
-			description: "Render Markdown read results as formatted terminal Markdown previews instead of raw source",
+			group: "阅读",
+			label: "Markdown 预览",
+			description: "将 Markdown 读取结果渲染为格式化的终端 Markdown 预览而不是原始源码",
 		},
 	},
 
@@ -3243,9 +3243,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Read Summaries",
-			description: "Return structural code summaries when read is called without an explicit selector",
+			group: "读取摘要",
+			label: "读取摘要",
+			description: "无显式选择器调用读取时返回结构化代码摘要",
 		},
 	},
 
@@ -3254,9 +3254,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Prose Summaries",
-			description: "Return structural summaries for Markdown and plain text reads",
+			group: "读取摘要",
+			label: "正文摘要",
+			description: "为 Markdown 和纯文本读取返回结构化摘要",
 		},
 	},
 
@@ -3265,9 +3265,9 @@ export const SETTINGS_SCHEMA = {
 		default: 4,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Read Summary Body Lines",
-			description: "Minimum multiline body or literal length before read summaries collapse it",
+			group: "读取摘要",
+			label: "读取摘要正文行数",
+			description: "读取摘要折叠前的多行正文或字面量最小长度",
 		},
 	},
 
@@ -3276,9 +3276,9 @@ export const SETTINGS_SCHEMA = {
 		default: 6,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Read Summary Comment Lines",
-			description: "Minimum multiline block comment length before read summaries collapse it",
+			group: "读取摘要",
+			label: "读取摘要注释行数",
+			description: "读取摘要折叠前的多行块注释最小长度",
 		},
 	},
 
@@ -3287,9 +3287,9 @@ export const SETTINGS_SCHEMA = {
 		default: 100,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Read Summary Minimum File Length",
-			description: "Files with fewer total lines are read verbatim instead of structurally summarized",
+			group: "读取摘要",
+			label: "读取摘要最小文件长度",
+			description: "总行数较少的文件逐字读取而不是结构化总结",
 		},
 	},
 
@@ -3298,10 +3298,10 @@ export const SETTINGS_SCHEMA = {
 		default: 50,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Read Summary Unfold Target",
+			group: "读取摘要",
+			label: "读取摘要展开目标",
 			description:
-				"BFS-unfold elidable spans until the summary is at least this many visible lines. 0 keeps only the outermost elisions.",
+				"BFS-unfold elidable spans until the summary is at least this many visible lines. 0 keeps only the outermost elisions. — BFS 展开可省略跨度，直到摘要至少达到这么多可见行；0 仅保留最外层的省略。",
 		},
 	},
 
@@ -3310,10 +3310,10 @@ export const SETTINGS_SCHEMA = {
 		default: 100,
 		ui: {
 			tab: "files",
-			group: "Read Summaries",
-			label: "Read Summary Unfold Ceiling",
+			group: "读取摘要",
+			label: "读取摘要展开上限",
 			description:
-				"Hard ceiling on summary size while BFS-unfolding. An unfold whose revealed lines would exceed this is skipped (that span stays folded) and unfolding continues with the remaining spans.",
+				"Hard ceiling on summary size while BFS-unfolding. An unfold whose revealed lines would exceed this is skipped (that span stays folded) and unfolding continues with the remaining spans. — BFS 展开时摘要大小的硬上限；展开后行数会超过此值的跨度被跳过（该跨度保持折叠），展开继续处理其余跨度。",
 		},
 	},
 
@@ -3322,9 +3322,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "files",
-			group: "Reading",
-			label: "Inline Read Previews",
-			description: "Render read tool results inline in the transcript instead of summary rows",
+			group: "阅读",
+			label: "内联读取预览",
+			description: "在记录中内联渲染读取工具结果而不是摘要行",
 		},
 	},
 
@@ -3336,7 +3336,7 @@ export const SETTINGS_SCHEMA = {
 			tab: "files",
 			group: "LSP",
 			label: "LSP",
-			description: "Enable the lsp tool for code intelligence (definitions, references, diagnostics, rename)",
+			description: "启用 lsp 工具进行代码智能（定义、引用、诊断、重命名）",
 		},
 	},
 
@@ -3346,9 +3346,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "files",
 			group: "LSP",
-			label: "Lazy LSP Startup",
+			label: "LSP 延迟启动",
 			description:
-				"Start language servers on first use (lsp tool or editing a matching file type) instead of at session startup",
+				"首次使用时启动语言服务器（lsp 工具或编辑匹配的文件类型）而不是在会话启动时",
 		},
 	},
 
@@ -3358,8 +3358,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "files",
 			group: "LSP",
-			label: "Format on Write",
-			description: "Automatically format code files using LSP after writing",
+			label: "写入时格式化",
+			description: "写入后使用 LSP 自动格式化代码文件",
 		},
 	},
 
@@ -3369,8 +3369,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "files",
 			group: "LSP",
-			label: "Diagnostics on Write",
-			description: "Return LSP diagnostics after writing code files",
+			label: "写入时诊断",
+			description: "写入代码文件后返回 LSP 诊断",
 		},
 	},
 
@@ -3380,8 +3380,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "files",
 			group: "LSP",
-			label: "Diagnostics on Edit",
-			description: "Return LSP diagnostics after editing code files",
+			label: "编辑时诊断",
+			description: "编辑代码文件后返回 LSP 诊断",
 		},
 	},
 
@@ -3391,8 +3391,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "files",
 			group: "LSP",
-			label: "Deduplicate Diagnostics",
-			description: "Suppress post-edit LSP diagnostics already shown for a file; only surface new or changed ones",
+			label: "诊断去重",
+			description: "抑制已为文件显示的编辑后 LSP 诊断；仅呈现新的或更改的",
 		},
 	},
 
@@ -3403,7 +3403,7 @@ export const SETTINGS_SCHEMA = {
 			tab: "shell",
 			group: "Bash",
 			label: "Bash",
-			description: "Enable the bash tool for shell command execution",
+			description: "启用 bash 工具执行 shell 命令",
 		},
 	},
 
@@ -3413,8 +3413,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "shell",
 			group: "Bash",
-			label: "Bash Auto-Background",
-			description: "Automatically background long-running bash commands and deliver the result later",
+			label: "Bash 自动后台",
+			description: "自动将长时间运行的 bash 命令置于后台并稍后交付结果",
 		},
 	},
 	"bash.patterns": {
@@ -3423,9 +3423,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "shell",
 			group: "Bash",
-			label: "Bash Approval Patterns",
+			label: "Bash 审批模式",
 			description:
-				"Ordered bash command approval rules. Each item has match and approval fields; only '*' wildcards are supported.",
+				"Ordered bash command approval rules. Each item has match and approval fields; only '*' wildcards are supported. — 有序的 bash 命令审批规则；每项包含 match 和 approval 字段；仅支持 '*' 通配符。",
 		},
 	},
 
@@ -3436,8 +3436,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "shell",
 			group: "Bash",
-			label: "Bash Interceptor",
-			description: "Block shell commands that have dedicated tools",
+			label: "Bash 拦截器",
+			description: "拦截已有专用工具的 shell 命令",
 		},
 	},
 	"bashInterceptor.patterns": { type: "array", default: DEFAULT_BASH_INTERCEPTOR_RULES },
@@ -3451,7 +3451,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Bash",
 			label: "direnv Auto-Load",
 			description:
-				"Auto-load a repo's direnv/devenv `.envrc` into the bash session so devenv tools and env vars are present without manual `direnv exec`. Honors direnv's allow list: an `.envrc` you haven't `direnv allow`ed is never executed",
+				"Auto-load a repo's direnv/devenv `.envrc` into the bash session so devenv tools and env vars are present without manual `direnv exec`. Honors direnv's allow list: an `.envrc` you haven't `direnv allow`ed is never executed. — 自动将仓库的 direnv/devenv `.envrc` 加载到 bash 会话，使 devenv 工具和环境变量无需手动 `direnv exec` 即可使用；遵循 direnv 的允许列表：未 `direnv allow` 的 `.envrc` 永远不会被执行。",
 		},
 	},
 	"bash.direnvLoadTimeoutMs": {
@@ -3462,7 +3462,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Bash",
 			label: "direnv Load Timeout (ms)",
 			description:
-				"Max wait for the first `direnv export` (a cold devenv shell can be slow); on timeout the session runs without the direnv env",
+				"Max wait for the first `direnv export` (a cold devenv shell can be slow); on timeout the session runs without the direnv env. — 等待首次 `direnv export` 的最大时间（冷 devenv shell 可能较慢）；超时则会话在无 direnv 环境的情况下运行。",
 		},
 	},
 	// Shell output minimizer
@@ -3472,8 +3472,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "shell",
 			group: "Bash",
-			label: "Shell Minimizer",
-			description: "Compress verbose shell output (git, npm, cargo, etc.) before returning it to the agent",
+			label: "Shell 输出压缩",
+			description: "压缩冗长的 shell 输出后再返回给代理",
 		},
 	},
 	"shellMinimizer.settingsPath": {
@@ -3493,8 +3493,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "shell",
 			group: "Bash",
-			label: "Shell Minimizer Source Outline",
-			description: "Source outline mode for cat/read of source files: default or aggressive",
+			label: "源码轮廓模式",
+			description: "cat/read 源文件的源码大纲模式：默认或激进",
 		},
 	},
 	"shellMinimizer.legacyFilters": {
@@ -3508,9 +3508,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Python Eval Backend",
-			description: "Allow the eval tool to dispatch Python cells to the IPython kernel",
+			group: "评估与运行时",
+			label: "Python 评估后端",
+			description: "允许将 Python 代码发送到 IPython 内核执行",
 		},
 	},
 
@@ -3519,9 +3519,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "JavaScript Eval Backend",
-			description: "Allow the eval tool to dispatch JavaScript cells to the in-process runtime",
+			group: "评估与运行时",
+			label: "JavaScript 评估后端",
+			description: "允许将 JavaScript 代码发送到进程内运行时执行",
 		},
 	},
 
@@ -3530,9 +3530,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Ruby Eval Backend",
-			description: "Allow the eval tool to dispatch Ruby cells to the persistent Ruby kernel",
+			group: "评估与运行时",
+			label: "Ruby 评估后端",
+			description: "允许 eval 工具将 Ruby 单元分派到持久 Ruby 内核",
 		},
 	},
 
@@ -3541,9 +3541,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Julia Eval Backend",
-			description: "Allow the eval tool to dispatch Julia cells to the persistent Julia kernel",
+			group: "评估与运行时",
+			label: "Julia 评估后端",
+			description: "允许 eval 工具将 Julia 单元分派到持久 Julia 内核",
 		},
 	},
 
@@ -3554,9 +3554,9 @@ export const SETTINGS_SCHEMA = {
 		default: "session",
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Python Kernel Mode",
-			description: "Keep the IPython kernel alive across eval calls or start fresh each time",
+			group: "评估与运行时",
+			label: "Python 内核模式",
+			description: "保持 IPython 内核在多次 eval 调用间存活",
 		},
 	},
 	"python.interpreter": {
@@ -3564,10 +3564,10 @@ export const SETTINGS_SCHEMA = {
 		default: "",
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Python Interpreter",
+			group: "评估与运行时",
+			label: "Python 解释器",
 			description:
-				"Optional path to an exact Python executable. When set, automatic Python runtime discovery is skipped.",
+				"可选的确切 Python 可执行文件路径。设置后跳过自动 Python 运行时发现。",
 		},
 	},
 	"ruby.interpreter": {
@@ -3575,10 +3575,10 @@ export const SETTINGS_SCHEMA = {
 		default: "",
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Ruby Interpreter",
+			group: "评估与运行时",
+			label: "Ruby 解释器",
 			description:
-				"Optional path to an exact Ruby executable. When set, automatic Ruby runtime discovery is skipped.",
+				"可选的确切 Ruby 可执行文件路径。设置后跳过自动 Ruby 运行时发现。",
 		},
 	},
 	"julia.interpreter": {
@@ -3586,10 +3586,10 @@ export const SETTINGS_SCHEMA = {
 		default: "",
 		ui: {
 			tab: "shell",
-			group: "Eval & Runtimes",
-			label: "Julia Interpreter",
+			group: "评估与运行时",
+			label: "Julia 解释器",
 			description:
-				"Optional path to an exact Julia executable. When set, automatic Julia runtime discovery is skipped.",
+				"可选的确切 Julia 可执行文件路径。设置后跳过自动 Julia 运行时发现。",
 		},
 	},
 
@@ -3603,10 +3603,10 @@ export const SETTINGS_SCHEMA = {
 		default: {},
 		ui: {
 			tab: "interaction",
-			group: "Approvals",
-			label: "Tool Approval Policies",
+			group: "审批",
+			label: "工具审批策略",
 			description:
-				"Per-tool approval policies. Set to 'allow' to auto-approve, 'prompt' to require confirmation, or 'deny' to block. Overrides are honored in every approval mode.",
+				"Per-tool approval policies. Set to 'allow' to auto-approve, 'prompt' to require confirmation, or 'deny' to block. Overrides are honored in every approval mode. — 每工具审批策略。设为 'allow' 自动批准，'prompt' 要求确认，或 'deny' 阻止；覆盖在每种审批模式下均生效。",
 		},
 	},
 
@@ -3620,27 +3620,27 @@ export const SETTINGS_SCHEMA = {
 		default: "yolo",
 		ui: {
 			tab: "interaction",
-			group: "Approvals",
-			label: "Tool Approval",
+			group: "审批",
+			label: "工具审批",
 			description:
-				"Default approval behavior for tool calls. 'Always ask' auto-approves read-only tools only. 'Write' auto-approves read and workspace-write tools. 'Yolo' auto-approves all tiers; user policy may still prompt or block.",
+				"Default approval behavior for tool calls. 'Always ask' auto-approves read-only tools only. 'Write' auto-approves read and workspace-write tools. 'Yolo' auto-approves all tiers; user policy may still prompt or block. — 工具调用的默认审批行为。'Always ask' 仅自动批准只读工具；'Write' 自动批准读取和工作区写入工具；'Yolo' 自动批准所有层级；用户策略仍可提示或阻止。",
 			options: [
 				{
 					value: "always-ask",
-					label: "Always ask",
-					description: "Auto-approve read-only tools; require confirmation for write and exec tools.",
+					label: "始终询问",
+					description: "自动批准只读工具；写入和执行工具需要确认。",
 				},
 				{
 					value: "write",
-					label: "Write",
+					label: "写入",
 					description:
-						"Auto-approve read-only and write tools; require confirmation for exec tools such as bash, eval, browser, and task.",
+						"自动批准只读和写入工具；bash、eval、browser 和 task 等执行工具需要确认。",
 				},
 				{
 					value: "yolo",
 					label: "Yolo",
 					description:
-						"Auto-approve read, write, and exec tools. User policy can still require confirmation or block calls.",
+						"自动批准读取、写入和执行工具。用户策略仍可要求确认或阻止调用。",
 				},
 			],
 		},
@@ -3652,9 +3652,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Todos",
-			description: "Enable the todo tool for task tracking",
+			group: "可用工具",
+			label: "待办",
+			description: "启用待办工具进行任务跟踪",
 		},
 	},
 
@@ -3663,9 +3663,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Todos",
-			label: "Todo Reminders",
-			description: "Remind the agent to complete todos before stopping",
+			group: "待办",
+			label: "待办提醒",
+			description: "在停止前提醒代理完成待办",
 		},
 	},
 
@@ -3674,14 +3674,14 @@ export const SETTINGS_SCHEMA = {
 		default: 3,
 		ui: {
 			tab: "tools",
-			group: "Todos",
-			label: "Todo Reminder Limit",
-			description: "Maximum number of todo reminders before giving up",
+			group: "待办",
+			label: "待办提醒上限",
+			description: "待办提醒的最大次数",
 			options: [
-				{ value: "1", label: "1 reminder" },
-				{ value: "2", label: "2 reminders" },
-				{ value: "3", label: "3 reminders" },
-				{ value: "5", label: "5 reminders" },
+				{ value: "1", label: "1 次" },
+				{ value: "2", label: "2 次" },
+				{ value: "3", label: "3 次" },
+				{ value: "5", label: "5 次" },
 			],
 		},
 	},
@@ -3692,17 +3692,17 @@ export const SETTINGS_SCHEMA = {
 		default: "default",
 		ui: {
 			tab: "tools",
-			group: "Todos",
-			label: "Create Todos Automatically",
-			description: "How strongly to push automatic todo-list creation after the first message",
+			group: "待办",
+			label: "自动创建待办",
+			description: "第一条消息后推动自动待办列表创建的力度",
 			options: [
-				{ value: "default", label: "Default", description: "Model decides; no automatic todo list" },
+				{ value: "default", label: "默认", description: "模型决定；无自动待办列表" },
 				{
 					value: "preferred",
-					label: "Preferred",
-					description: "Suggests a todo list on the first message (reminder, not forced)",
+					label: "推荐",
+					description: "在第一条消息上建议待办列表（提醒，非强制）",
 				},
-				{ value: "always", label: "Always", description: "Forces a comprehensive todo list on the first message" },
+				{ value: "always", label: "始终", description: "在第一条消息上强制全面的待办列表" },
 			],
 		},
 	},
@@ -3713,9 +3713,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
+			group: "可用工具",
 			label: "Glob",
-			description: "Enable the glob tool for glob-based file lookup",
+			description: "启用 glob 工具进行基于通配符的文件查找",
 		},
 	},
 
@@ -3724,9 +3724,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
+			group: "可用工具",
 			label: "Grep",
-			description: "Enable the grep tool for regex content search",
+			description: "启用 grep 工具进行正则内容搜索",
 		},
 	},
 
@@ -3735,15 +3735,15 @@ export const SETTINGS_SCHEMA = {
 		default: 1,
 		ui: {
 			tab: "tools",
-			group: "Grep & Browser",
-			label: "Grep Context Before",
-			description: "Lines of context before each grep match",
+			group: "搜索与浏览器",
+			label: "Grep 前上下文",
+			description: "每个 grep 匹配前的上下文行数",
 			options: [
-				{ value: "0", label: "0 lines" },
-				{ value: "1", label: "1 line" },
-				{ value: "2", label: "2 lines" },
-				{ value: "3", label: "3 lines" },
-				{ value: "5", label: "5 lines" },
+				{ value: "0", label: "0 行" },
+				{ value: "1", label: "1 行" },
+				{ value: "2", label: "2 行" },
+				{ value: "3", label: "3 行" },
+				{ value: "5", label: "5 行" },
 			],
 		},
 	},
@@ -3753,16 +3753,16 @@ export const SETTINGS_SCHEMA = {
 		default: 3,
 		ui: {
 			tab: "tools",
-			group: "Grep & Browser",
-			label: "Grep Context After",
-			description: "Lines of context after each grep match",
+			group: "搜索与浏览器",
+			label: "Grep 后上下文",
+			description: "每个 grep 匹配后的上下文行数",
 			options: [
-				{ value: "0", label: "0 lines" },
-				{ value: "1", label: "1 line" },
-				{ value: "2", label: "2 lines" },
-				{ value: "3", label: "3 lines" },
-				{ value: "5", label: "5 lines" },
-				{ value: "10", label: "10 lines" },
+				{ value: "0", label: "0 行" },
+				{ value: "1", label: "1 行" },
+				{ value: "2", label: "2 行" },
+				{ value: "3", label: "3 行" },
+				{ value: "5", label: "5 行" },
+				{ value: "10", label: "10 行" },
 			],
 		},
 	},
@@ -3772,9 +3772,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "AST Grep",
-			description: "Enable the ast_grep tool for structural AST search",
+			group: "可用工具",
+			label: "AST 搜索",
+			description: "启用 AST 结构搜索工具",
 		},
 	},
 
@@ -3783,9 +3783,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "AST Edit",
-			description: "Enable the ast_edit tool for structural AST rewrites",
+			group: "可用工具",
+			label: "AST 编辑",
+			description: "启用 AST 结构重写工具",
 		},
 	},
 
@@ -3796,9 +3796,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Debug",
-			description: "Enable the debug tool for DAP-based debugging",
+			group: "可用工具",
+			label: "调试",
+			description: "启用基于 DAP 的调试工具",
 		},
 	},
 
@@ -3807,9 +3807,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Launch",
-			description: "Enable the launch tool for supervising shared long-running project processes",
+			group: "可用工具",
+			label: "启动",
+			description: "启用 launch 工具监督共享的长时间运行项目进程",
 		},
 	},
 
@@ -3818,9 +3818,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Speech Generation",
-			description: "Enable the tts tool for on-device (Kokoro) or xAI Grok Voice speech-file synthesis",
+			group: "可用工具",
+			label: "语音生成",
+			description: "启用 tts 工具进行设备端（Kokoro）或 xAI Grok Voice 语音文件合成",
 		},
 	},
 	"generate_image.enabled": {
@@ -3828,10 +3828,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Generate Image",
+			group: "可用工具",
+			label: "生成图片",
 			description:
-				"Enable the generate_image tool (text-to-image generation and editing). Exposed as an xd:// device when tools.xdev is on.",
+				"Enable the generate_image tool (text-to-image generation and editing). Exposed as an xd:// device when tools.xdev is on. — 启用 generate_image 工具（文生图生成和编辑）；当 tools.xdev 开启时作为 xd:// 设备暴露。",
 		},
 	},
 
@@ -3848,14 +3848,14 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Inspect Image",
+			group: "可用工具",
+			label: "检查图片",
 			description:
-				"Controls the inspect_image tool, which delegates image understanding to a vision-capable model. 'auto' exposes it only when the active model lacks native image input; 'on' always exposes it; 'off' never does.",
+				"Controls the inspect_image tool, which delegates image understanding to a vision-capable model. 'auto' exposes it only when the active model lacks native image input; 'on' always exposes it; 'off' never does. — 控制 inspect_image 工具，它将图像理解委托给具备视觉能力的模型；'auto' 仅在活动模型缺乏原生图像输入时暴露；'on' 始终暴露；'off' 从不暴露。",
 			options: [
-				{ value: "auto", label: "Auto (only for models without vision)" },
-				{ value: "on", label: "On" },
-				{ value: "off", label: "Off" },
+				{ value: "auto", label: "自动（仅限无视觉模型）" },
+				{ value: "on", label: "开启" },
+				{ value: "off", label: "关闭" },
 			],
 		},
 	},
@@ -3865,9 +3865,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Computer",
-			description: "Enable native host-desktop screenshots and input for OpenAI computer use",
+			group: "可用工具",
+			label: "计算机",
+			description: "为 OpenAI computer use 启用原生主机桌面截图和输入",
 		},
 	},
 
@@ -3878,11 +3878,11 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "Computer",
-			label: "Computer Backend",
-			description: "Select automatic or explicit platform-native desktop capture and input",
+			label: "计算机后端",
+			description: "选择自动或显式的平台原生桌面捕获和输入",
 			options: [
-				{ value: "auto", label: "Auto" },
-				{ value: "native", label: "Native" },
+				{ value: "auto", label: "自动" },
+				{ value: "native", label: "原生" },
 			],
 		},
 	},
@@ -3893,8 +3893,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "Computer",
-			label: "Computer Display",
-			description: "Composite all displays or select a native display id",
+			label: "计算机显示器",
+			description: "合成所有显示器或选择原生显示器 id",
 		},
 	},
 
@@ -3904,8 +3904,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "Computer",
-			label: "Computer Screenshot Width",
-			description: "Maximum composite screenshot width in pixels",
+			label: "计算机截图宽度",
+			description: "最大合成截图宽度（像素）",
 		},
 	},
 
@@ -3915,8 +3915,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "Computer",
-			label: "Computer Screenshot Height",
-			description: "Maximum composite screenshot height in pixels",
+			label: "计算机截图高度",
+			description: "最大合成截图高度（像素）",
 		},
 	},
 
@@ -3925,16 +3925,16 @@ export const SETTINGS_SCHEMA = {
 		default: 300_000,
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "Inspect Image Timeout",
+			group: "执行",
+			label: "检查图片超时",
 			description:
-				"Per-request timeout for the inspect_image vision-model call, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout.",
+				"Per-request timeout for the inspect_image vision-model call, in milliseconds. A stalled provider fails fast with a timeout error instead of blocking until manual abort. Set to 0 to disable the timeout. — inspect_image 视觉模型调用的每请求超时毫秒数；停滞的提供商以超时错误快速失败，而不是阻塞到手动中止；设为 0 禁用超时。",
 			options: [
-				{ value: "0", label: "Disabled" },
-				{ value: "60000", label: "1 minute" },
-				{ value: "120000", label: "2 minutes" },
-				{ value: "180000", label: "3 minutes" },
-				{ value: "300000", label: "5 minutes" },
+				{ value: "0", label: "禁用" },
+				{ value: "60000", label: "1 分钟" },
+				{ value: "120000", label: "2 分钟" },
+				{ value: "180000", label: "3 分钟" },
+				{ value: "300000", label: "5 分钟" },
 			],
 		},
 	},
@@ -3944,9 +3944,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Checkpoint/Rewind",
-			description: "Enable the checkpoint and rewind tools for context checkpointing",
+			group: "可用工具",
+			label: "检查点/回退",
+			description: "启用 checkpoint 和 rewind 工具进行上下文检查点",
 		},
 	},
 
@@ -3956,9 +3956,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Read URLs",
-			description: "Allow the read tool to fetch and process URLs",
+			group: "可用工具",
+			label: "读取 URL",
+			description: "允许读取工具抓取和处理 URL",
 		},
 	},
 
@@ -3967,10 +3967,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Obsidian Vault",
+			group: "可用工具",
+			label: "Obsidian 知识库",
 			description:
-				"Enable the vault:// internal URL for reading and editing Obsidian vault content via the Obsidian CLI. When disabled, vault:// resolution is refused and the vault:// entry is omitted from the system prompt.",
+				"Enable the vault:// internal URL for reading and editing Obsidian vault content via the Obsidian CLI. When disabled, vault:// resolution is refused and the vault:// entry is omitted from the system prompt. — 启用 vault:// 内部 URL，通过 Obsidian CLI 读取和编辑 Obsidian 库内容；禁用时拒绝 vault:// 解析，并从系统提示中省略 vault:// 条目。",
 		},
 	},
 
@@ -3979,10 +3979,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
+			group: "可用工具",
 			label: "GitHub CLI",
 			description:
-				"Enable the github tool (op-based dispatch for repository, issue, pull request, diff, search, checkout, push, and Actions watch workflows)",
+				"Enable the github tool (op-based dispatch for repository, issue, pull request, diff, search, checkout, push, and Actions watch workflows). — 启用 github 工具（基于操作的分派，用于仓库、issue、拉取请求、diff、搜索、检出、推送和 Actions 监视工作流）。",
 		},
 	},
 
@@ -3992,8 +3992,8 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "GitHub",
-			label: "GitHub View Cache",
-			description: "Cache rendered issue/PR view output in ~/.omp/cache/github-cache.db so repeated reads are free",
+			label: "GitHub 视图缓存",
+			description: "将渲染的 issue/PR 视图输出缓存在 ~/.omp/cache/github-cache.db 中，使重复读取免费",
 		},
 	},
 
@@ -4003,9 +4003,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "GitHub",
-			label: "GitHub Cache Soft TTL",
+			label: "GitHub 缓存软 TTL",
 			description:
-				"Within this window, cached issue/PR view rows are returned directly (seconds; default 5 minutes)",
+				"在此窗口内，直接返回缓存的 issue/PR 视图行（秒；默认 5 分钟）",
 		},
 	},
 
@@ -4015,9 +4015,9 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "tools",
 			group: "GitHub",
-			label: "GitHub Cache Hard TTL",
+			label: "GitHub 缓存硬 TTL",
 			description:
-				"Past the soft TTL the cached row is returned and refreshed in the background; past the hard TTL it is dropped (seconds; default 7 days)",
+				"Past the soft TTL the cached row is returned and refreshed in the background; past the hard TTL it is dropped (seconds; default 7 days). — 超过软 TTL 时返回缓存行并在后台刷新；超过硬 TTL 时丢弃（秒；默认 7 天）。",
 		},
 	},
 
@@ -4026,9 +4026,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Web Search",
-			description: "Enable the web_search tool for live web results",
+			group: "可用工具",
+			label: "网络搜索",
+			description: "启用网络搜索工具",
 		},
 	},
 
@@ -4037,9 +4037,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Ask",
-			description: "Enable the ask tool for interactive user questions",
+			group: "可用工具",
+			label: "询问",
+			description: "启用 ask 工具进行交互式用户提问",
 		},
 	},
 
@@ -4048,9 +4048,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Available Tools",
-			label: "Browser",
-			description: "Enable the browser tool for scripted Chromium automation (puppeteer)",
+			group: "可用工具",
+			label: "浏览器",
+			description: "启用浏览器自动化工具（Chromium/puppeteer）",
 		},
 	},
 
@@ -4059,9 +4059,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Grep & Browser",
-			label: "Headless Browser",
-			description: "Launch browser in headless mode (disable to show browser UI)",
+			group: "搜索与浏览器",
+			label: "无头浏览器",
+			description: "以无头模式启动浏览器",
 		},
 	},
 
@@ -4070,10 +4070,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Grep & Browser",
-			label: "cmux Browser",
+			group: "搜索与浏览器",
+			label: "cmux 浏览器",
 			description:
-				"Use cmux WKWebView surfaces for browser automation when a cmux socket is available. Set PI_BROWSER_CMUX=0 or PI_BROWSER_CMUX=1 to override.",
+				"Use cmux WKWebView surfaces for browser automation when a cmux socket is available. Set PI_BROWSER_CMUX=0 or PI_BROWSER_CMUX=1 to override. — 当 cmux socket 可用时，使用 cmux WKWebView 表面进行浏览器自动化；设置 PI_BROWSER_CMUX=0 或 PI_BROWSER_CMUX=1 覆盖。",
 		},
 	},
 	"browser.screenshotDir": {
@@ -4081,10 +4081,10 @@ export const SETTINGS_SCHEMA = {
 		default: undefined,
 		ui: {
 			tab: "tools",
-			group: "Grep & Browser",
-			label: "Screenshot Directory",
+			group: "搜索与浏览器",
+			label: "截图目录",
 			description:
-				"Directory to save screenshots. If unset, screenshots go to a temp file. Supports ~. Examples: ~/Downloads, ~/Desktop, /sdcard/Download (Android)",
+				"Directory to save screenshots. If unset, screenshots go to a temp file. Supports ~. Examples: ~/Downloads, ~/Desktop, /sdcard/Download (Android). — 保存截图的目录；未设置时截图保存到临时文件；支持 ~；示例：~/Downloads、~/Desktop、/sdcard/Download (Android)。",
 		},
 	},
 
@@ -4094,9 +4094,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "Intent Tracing",
-			description: "Ask the agent to describe the intent of each tool call before executing it",
+			group: "执行",
+			label: "意图追踪",
+			description: "要求代理在执行前描述工具调用意图",
 		},
 	},
 	"tools.abortOnFabricatedResult": {
@@ -4104,10 +4104,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "Abort On Fabricated Tool Result",
+			group: "执行",
+			label: "伪造结果中止",
 			description:
-				"With in-band tool calls, stop the model immediately when it starts hallucinating a tool result mid-turn. Disable to let the model finish generating and discard the fabricated continuation instead.",
+				"With in-band tool calls, stop the model immediately when it starts hallucinating a tool result mid-turn. Disable to let the model finish generating and discard the fabricated continuation instead. — 使用带内工具调用时，当模型在回合中途开始幻觉工具结果时立即停止；禁用则让模型完成生成并丢弃虚构的续写。",
 		},
 	},
 
@@ -4116,16 +4116,16 @@ export const SETTINGS_SCHEMA = {
 		default: 0,
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "Max Tool Timeout",
-			description: "Maximum timeout in seconds the agent can set for any tool (0 = no limit)",
+			group: "执行",
+			label: "工具超时上限",
+			description: "代理可为工具设置的最大超时秒数",
 			options: [
-				{ value: "0", label: "No limit" },
-				{ value: "30", label: "30 seconds" },
-				{ value: "60", label: "60 seconds" },
-				{ value: "120", label: "120 seconds" },
-				{ value: "300", label: "5 minutes" },
-				{ value: "600", label: "10 minutes" },
+				{ value: "0", label: "无限制" },
+				{ value: "30", label: "30 秒" },
+				{ value: "60", label: "60 秒" },
+				{ value: "120", label: "120 秒" },
+				{ value: "300", label: "5 分钟" },
+				{ value: "600", label: "10 分钟" },
 			],
 		},
 	},
@@ -4136,9 +4136,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "Async Execution",
-			description: "Enable async bash commands and background task execution",
+			group: "执行",
+			label: "异步执行",
+			description: "启用异步 bash 命令和后台任务执行",
 		},
 	},
 
@@ -4153,17 +4153,17 @@ export const SETTINGS_SCHEMA = {
 		default: "smart",
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "Max Poll Time",
+			group: "执行",
+			label: "最大轮询时间",
 			description:
-				"How long a `hub` wait watches background jobs before returning the current state. A fixed value waits that exact duration every time. `smart` adapts: it starts at 5s and lengthens with each back-to-back wait (up to 5m), then resets to 5s after about a minute without waiting.",
+				"How long a `hub` wait watches background jobs before returning the current state. A fixed value waits that exact duration every time. `smart` adapts: it starts at 5s and lengthens with each back-to-back wait (up to 5m), then resets to 5s after about a minute without waiting. — `hub` 等待在返回当前状态前监视后台作业的时间；固定值每次等待该确切时长；`smart` 自适应：从 5s 开始，每次连续等待都会延长（最多 5m），停止等待约一分钟后重置为 5s。",
 			options: [
-				{ value: "5s", label: "5 seconds" },
-				{ value: "10s", label: "10 seconds" },
-				{ value: "30s", label: "30 seconds" },
-				{ value: "1m", label: "1 minute" },
-				{ value: "5m", label: "5 minutes" },
-				{ value: "smart", label: "Smart", description: "Default — adaptive 5s→5m, resets when you stop polling" },
+				{ value: "5s", label: "5 秒" },
+				{ value: "10s", label: "10 秒" },
+				{ value: "30s", label: "30 秒" },
+				{ value: "1m", label: "1 分钟" },
+				{ value: "5m", label: "5 分钟" },
+				{ value: "smart", label: "智能", description: "默认——自适应 5s→5m，停止轮询时重置" },
 			],
 		},
 	},
@@ -4173,16 +4173,16 @@ export const SETTINGS_SCHEMA = {
 		default: 120_000,
 		ui: {
 			tab: "tools",
-			group: "Execution",
-			label: "IRC Timeout",
+			group: "执行",
+			label: "IRC 超时",
 			description:
-				"Default timeout for hub message waits (and send await:true) in milliseconds; 0 disables the timeout",
+				"hub 消息等待（和 send await:true）的默认超时毫秒数；0 禁用超时",
 			options: [
-				{ value: "0", label: "Disabled" },
-				{ value: "30000", label: "30 seconds" },
-				{ value: "60000", label: "1 minute" },
-				{ value: "120000", label: "2 minutes" },
-				{ value: "300000", label: "5 minutes" },
+				{ value: "0", label: "禁用" },
+				{ value: "30000", label: "30 秒" },
+				{ value: "60000", label: "1 分钟" },
+				{ value: "120000", label: "2 分钟" },
+				{ value: "300000", label: "5 分钟" },
 			],
 		},
 	},
@@ -4197,10 +4197,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
+			group: "发现与 MCP",
 			label: "xd:// Tools",
 			description:
-				"Mount rarely-used (discoverable) tools under xd:// device URLs driven via read/write instead of shipping their schemas on every request. Disable to expose every enabled tool top-level.",
+				"Mount rarely-used (discoverable) tools under xd:// device URLs driven via read/write instead of shipping their schemas on every request. Disable to expose every enabled tool top-level. — 将很少使用（可发现）的工具挂载到由 read/write 驱动的 xd:// 设备 URL 下，而不是在每次请求时发送其模式；禁用则将所有启用的工具顶层暴露。",
 		},
 	},
 
@@ -4210,18 +4210,18 @@ export const SETTINGS_SCHEMA = {
 		default: "builtins",
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
+			group: "发现与 MCP",
 			label: "xd:// Prompt Docs",
 			description:
-				"Choose which mounted-device docs and schemas are inlined in the system prompt. Built-ins keeps core tools inline while MCP and extension tools stay on-demand.",
+				"Choose which mounted-device docs and schemas are inlined in the system prompt. Built-ins keeps core tools inline while MCP and extension tools stay on-demand. — 选择哪些挂载设备的文档和模式内联到系统提示中；Built-ins 保持核心工具内联，而 MCP 和扩展工具保持按需。",
 			options: [
-				{ value: "inline", label: "All Devices", description: "Inline docs and schemas for every mounted device." },
+				{ value: "inline", label: "所有设备", description: "为每个挂载设备内联文档和模式。" },
 				{
 					value: "builtins",
-					label: "Built-ins Only",
-					description: "Inline built-in docs; fetch MCP and extension docs on demand.",
+					label: "仅内置",
+					description: "内联内置文档；按需获取 MCP 和扩展文档。",
 				},
-				{ value: "catalog", label: "Catalog Only", description: "List every device; fetch all docs on demand." },
+				{ value: "catalog", label: "仅目录", description: "列出每个设备；按需获取所有文档。" },
 			],
 		},
 	},
@@ -4231,10 +4231,10 @@ export const SETTINGS_SCHEMA = {
 		default: EMPTY_STRING_ARRAY,
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
+			group: "发现与 MCP",
 			label: "xd:// Inline Devices",
 			description:
-				"When xd:// Prompt Docs is Built-ins Only, inline dynamic devices whose names match these glob patterns (for example mcp__context_mode_*). Catalog Only ignores this setting.",
+				"When xd:// Prompt Docs is Built-ins Only, inline dynamic devices whose names match these glob patterns (for example mcp__context_mode_*). Catalog Only ignores this setting. — 当 xd:// 提示文档为仅内置时，内联名称匹配这些 glob 模式的动态设备（例如 mcp__context_mode_*）；仅目录模式忽略此设置。",
 		},
 	},
 
@@ -4244,9 +4244,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
-			label: "MCP Project Config",
-			description: "Load .mcp.json/mcp.json from project root",
+			group: "发现与 MCP",
+			label: "MCP 项目配置",
+			description: "从项目根目录加载 .mcp.json/mcp.json",
 		},
 	},
 
@@ -4255,9 +4255,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
-			label: "MCP Markdown Results",
-			description: "Render non-JSON MCP text results as Markdown in the transcript",
+			group: "发现与 MCP",
+			label: "MCP Markdown 结果",
+			description: "在记录中将非 JSON MCP 文本结果渲染为 Markdown",
 		},
 	},
 
@@ -4266,9 +4266,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
-			label: "MCP Update Injection",
-			description: "Inject MCP resource updates into the agent conversation",
+			group: "发现与 MCP",
+			label: "MCP 更新注入",
+			description: "将 MCP 资源更新注入代理对话",
 		},
 	},
 
@@ -4277,10 +4277,10 @@ export const SETTINGS_SCHEMA = {
 		default: 500,
 		ui: {
 			tab: "tools",
-			group: "Discovery & MCP",
-			label: "MCP Notification Debounce",
+			group: "发现与 MCP",
+			label: "MCP 通知防抖",
 			description:
-				"Debounce window in milliseconds for MCP resource updates before injecting them into the conversation",
+				"将 MCP 资源更新注入对话前的防抖窗口（毫秒）",
 		},
 	},
 
@@ -4294,9 +4294,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Modes",
-			label: "Plan Mode",
-			description: "Enable plan mode for read-only exploration and planning before execution",
+			group: "模式",
+			label: "计划模式",
+			description: "启用只读探索和规划的计划模式",
 		},
 	},
 
@@ -4305,9 +4305,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tasks",
-			group: "Modes",
-			label: "Start in Plan Mode",
-			description: "Automatically enter plan mode at the start of every new session",
+			group: "模式",
+			label: "启动时进入计划模式",
+			description: "每个新会话开始时自动进入计划模式",
 			condition: "planModeEnabled",
 		},
 	},
@@ -4317,9 +4317,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Modes",
-			label: "Goal Mode",
-			description: "Enable per-session goal mode and the hidden goal tool",
+			group: "模式",
+			label: "目标模式",
+			description: "启用每会话目标模式和隐藏的目标工具",
 		},
 	},
 
@@ -4328,9 +4328,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Modes",
-			label: "Goal Status in Footer",
-			description: "Show token budget alongside the goal indicator in the status line",
+			group: "模式",
+			label: "页脚显示目标状态",
+			description: "在状态栏的目标指示器旁显示 token 预算",
 		},
 	},
 
@@ -4339,9 +4339,9 @@ export const SETTINGS_SCHEMA = {
 		default: ["interactive"],
 		ui: {
 			tab: "tasks",
-			group: "Modes",
-			label: "Goal Continuation Modes",
-			description: "Run modes where active goals may auto-continue between turns",
+			group: "模式",
+			label: "目标继续模式",
+			description: "活动目标可在轮次间自动继续的运行模式",
 		},
 	},
 
@@ -4350,9 +4350,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Modes",
-			label: "Refresh Title on Replan",
-			description: "Refresh generated session titles after todo init replans unless the title was set by the user",
+			group: "模式",
+			label: "重新规划时刷新标题",
+			description: "待办初始化重新规划后刷新生成的会话标题，除非标题由用户设置",
 		},
 	},
 
@@ -4374,31 +4374,31 @@ export const SETTINGS_SCHEMA = {
 		default: "none",
 		ui: {
 			tab: "tasks",
-			group: "Isolation",
-			label: "Isolation Mode",
+			group: "隔离",
+			label: "隔离模式",
 			description:
 				'Isolation backend for subagents. "auto" lets the native PAL pick the best available backend (CoW-aware filesystems, then overlayfs/ProjFS, then a git worktree / recursive-copy fallback).',
 			options: [
-				{ value: "none", label: "None", description: "No isolation" },
-				{ value: "auto", label: "Auto", description: "Let the PAL pick the best available backend" },
+				{ value: "none", label: "无", description: "无隔离" },
+				{ value: "auto", label: "自动", description: "让 PAL 选择最佳可用后端" },
 				{ value: "apfs", label: "APFS", description: "macOS clonefile reflink (APFS)" },
 				{ value: "btrfs", label: "btrfs", description: "btrfs subvolume snapshot" },
-				{ value: "zfs", label: "ZFS", description: "ZFS snapshot + clone" },
-				{ value: "reflink", label: "Reflink", description: "Linux FICLONE per-file reflink" },
+				{ value: "zfs", label: "ZFS", description: "ZFS 快照 + 克隆" },
+				{ value: "reflink", label: "Reflink", description: "Linux FICLONE 逐文件 reflink" },
 				{
 					value: "overlayfs",
 					label: "Overlayfs",
-					description: "Linux kernel overlay (or fuse-overlayfs fallback)",
+					description: "Linux 内核 overlay（或 fuse-overlayfs 回退）",
 				},
-				{ value: "projfs", label: "ProjFS", description: "Windows Projected File System" },
+				{ value: "projfs", label: "ProjFS", description: "Windows 投影文件系统" },
 				{
 					value: "block-clone",
-					label: "Block clone",
-					description: "Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE (NTFS/ReFS)",
+					label: "块克隆",
+					description: "Windows FSCTL_DUPLICATE_EXTENTS_TO_FILE (NTFS/ReFS)（NTFS/ReFS 文件范围复制）",
 				},
 				{
 					value: "rcopy",
-					label: "Recursive copy",
+					label: "递归复制",
 					description: "git worktree if available, otherwise recursive copy",
 				},
 			],
@@ -4410,10 +4410,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Isolation",
-			label: "Apply Isolated Changes",
+			group: "隔离",
+			label: "应用隔离更改",
 			description:
-				"Automatically apply successful isolated task changes to the parent checkout; disable to retain patch or branch artifacts",
+				"自动将成功的隔离任务更改应用到父检出；禁用则保留补丁或分支产物",
 		},
 	},
 
@@ -4423,12 +4423,12 @@ export const SETTINGS_SCHEMA = {
 		default: "patch",
 		ui: {
 			tab: "tasks",
-			group: "Isolation",
-			label: "Isolation Merge Strategy",
-			description: "How isolated task changes are integrated (patch apply or branch merge)",
+			group: "隔离",
+			label: "隔离合并策略",
+			description: "隔离任务更改如何集成（补丁应用或分支合并）",
 			options: [
-				{ value: "patch", label: "Patch", description: "Combine diffs and git apply" },
-				{ value: "branch", label: "Branch", description: "Commit per task, merge with --no-ff" },
+				{ value: "patch", label: "补丁", description: "合并差异并 git apply" },
+				{ value: "branch", label: "分支", description: "每任务提交，使用 --no-ff 合并" },
 			],
 		},
 	},
@@ -4439,12 +4439,12 @@ export const SETTINGS_SCHEMA = {
 		default: "generic",
 		ui: {
 			tab: "tasks",
-			group: "Isolation",
-			label: "Isolation Commit Style",
-			description: "Commit message style for nested repo changes (generic or AI-generated)",
+			group: "隔离",
+			label: "隔离提交风格",
+			description: "嵌套仓库更改的提交消息风格（通用或 AI 生成）",
 			options: [
-				{ value: "generic", label: "Generic", description: "Static commit message" },
-				{ value: "ai", label: "AI", description: "AI-generated commit message from diff" },
+				{ value: "generic", label: "通用", description: "静态提交消息" },
+				{ value: "ai", label: "AI", description: "从差异 AI 生成的提交消息" },
 			],
 		},
 	},
@@ -4454,10 +4454,10 @@ export const SETTINGS_SCHEMA = {
 		default: undefined,
 		ui: {
 			tab: "tasks",
-			group: "Isolation",
-			label: "Worktree Base Directory",
+			group: "隔离",
+			label: "工作树基础目录",
 			description:
-				"Base directory for agent-managed worktrees — task-isolation copies, `github` PR checkouts, and `omp worktree` cleanup all live here. Unset uses ~/.omp/wt. Must be an absolute or ~-relative path; relative paths are ignored. The OMP_WORKTREE_DIR env var overrides this.",
+				"Base directory for agent-managed worktrees — task-isolation copies, `github` PR checkouts, and `omp worktree` cleanup all live here. Unset uses ~/.omp/wt. Must be an absolute or ~-relative path; relative paths are ignored. The OMP_WORKTREE_DIR env var overrides this. — 代理管理工作树的基础目录——任务隔离副本、`github` PR 检出和 `omp worktree` 清理都位于此处；未设置使用 ~/.omp/wt；必须是绝对路径或 ~ 相对路径，相对路径被忽略；OMP_WORKTREE_DIR 环境变量覆盖此设置。",
 		},
 	},
 
@@ -4467,13 +4467,13 @@ export const SETTINGS_SCHEMA = {
 		default: "default",
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Prefer Task Delegation",
-			description: "How strongly to push delegating work to subagents",
+			group: "子代理",
+			label: "优先任务委派",
+			description: "推动将工作委派给子代理的力度",
 			options: [
-				{ value: "default", label: "Default", description: "Model decides when to delegate" },
-				{ value: "preferred", label: "Preferred", description: "Adds delegation guidance to the system prompt" },
-				{ value: "always", label: "Always", description: "Prompt guidance plus a first-turn delegation reminder" },
+				{ value: "default", label: "默认", description: "模型决定何时委派" },
+				{ value: "preferred", label: "推荐", description: "向系统提示添加委派指导" },
+				{ value: "always", label: "始终", description: "提示指导加上首轮委派提醒" },
 			],
 		},
 	},
@@ -4483,10 +4483,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Batch Task Calls",
+			group: "子代理",
+			label: "批量任务调用",
 			description:
-				"Switch the task tool to its batch shape: one call carries { context, tasks[] } — one subagent per item, with an optional per-item agent (defaulting to the session spawn-policy agent), per-item isolation, and a required shared context prepended to every assignment. With async.enabled=true, each spawn runs as an independent background agent with the normal idle/parked lifecycle; otherwise the call blocks for merged results. Disable to restore the flat single-spawn schema.",
+				"Switch the task tool to its batch shape: one call carries { context, tasks[] } — one subagent per item, with an optional per-item agent (defaulting to the session spawn-policy agent), per-item isolation, and a required shared context prepended to every assignment. With async.enabled=true, each spawn runs as an independent background agent with the normal idle/parked lifecycle; otherwise the call blocks for merged results. Disable to restore the flat single-spawn schema. — 将 task 工具切换到批处理形态：一次调用携带 { context, tasks[] }——每项一个子代理，带可选的每项代理（默认为会话生成策略代理）、每项隔离，以及前置到每个任务分配的必需共享上下文；async.enabled=true 时每个生成作为独立后台代理运行，具有正常的空闲/驻留生命周期；否则调用阻塞以合并结果；禁用则恢复扁平的单生成模式。",
 		},
 	},
 
@@ -4495,10 +4495,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Per-Task Effort",
+			group: "子代理",
+			label: "每任务努力",
 			description:
-				"Expose the optional effort parameter on task spawns, allowing callers to override each subagent's thinking level",
+				"在任务生成上暴露可选的 effort 参数，允许调用者覆盖每个子代理的思考级别",
 		},
 	},
 
@@ -4507,18 +4507,18 @@ export const SETTINGS_SCHEMA = {
 		default: 32,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Max Concurrent Tasks",
-			description: "Maximum number of subagents running concurrently",
+			group: "子代理",
+			label: "最大并发任务",
+			description: "并发运行的子代理最大数量",
 			options: [
-				{ value: "0", label: "Unlimited" },
-				{ value: "1", label: "1 task" },
-				{ value: "2", label: "2 tasks" },
-				{ value: "4", label: "4 tasks" },
-				{ value: "8", label: "8 tasks" },
-				{ value: "16", label: "16 tasks" },
-				{ value: "32", label: "32 tasks" },
-				{ value: "64", label: "64 tasks" },
+				{ value: "0", label: "无限制" },
+				{ value: "1", label: "1 个任务" },
+				{ value: "2", label: "2 个任务" },
+				{ value: "4", label: "4 个任务" },
+				{ value: "8", label: "8 个任务" },
+				{ value: "16", label: "16 个任务" },
+				{ value: "32", label: "32 个任务" },
+				{ value: "64", label: "64 个任务" },
 			],
 		},
 	},
@@ -4528,10 +4528,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "LSP in Subagents",
+			group: "子代理",
+			label: "子代理中启用 LSP",
 			description:
-				"Allow subagents spawned via the task tool to use the lsp tool. Off by default to keep subagents cheap; enable when LSP-aware delegation is worth the extra tokens.",
+				"Allow subagents spawned via the task tool to use the lsp tool. Off by default to keep subagents cheap; enable when LSP-aware delegation is worth the extra tokens. — 允许通过 task 工具生成的子代理使用 lsp 工具；默认关闭以保持子代理廉价；当 LSP 感知委派值得额外 token 时启用。",
 		},
 	},
 
@@ -4540,15 +4540,15 @@ export const SETTINGS_SCHEMA = {
 		default: 2,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Max Task Recursion",
-			description: "How many levels deep subagents can spawn their own subagents",
+			group: "子代理",
+			label: "最大任务递归",
+			description: "子代理可生成自己的子代理的深度层级",
 			options: [
-				{ value: "-1", label: "Unlimited" },
-				{ value: "0", label: "None" },
-				{ value: "1", label: "Single" },
-				{ value: "2", label: "Double" },
-				{ value: "3", label: "Triple" },
+				{ value: "-1", label: "无限制" },
+				{ value: "0", label: "无" },
+				{ value: "1", label: "单层" },
+				{ value: "2", label: "双层" },
+				{ value: "3", label: "三层" },
 			],
 		},
 	},
@@ -4558,16 +4558,16 @@ export const SETTINGS_SCHEMA = {
 		default: 0,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Max Subagent Runtime",
+			group: "子代理",
+			label: "子代理最大运行时间",
 			description:
-				"Hard wall-clock limit per subagent (ms). 0 disables it. Defense-in-depth against provider-side stream hangs that escape the inference-layer watchdog; triggers a normal subagent abort with a 'timed out' reason.",
+				"Hard wall-clock limit per subagent (ms). 0 disables it. Defense-in-depth against provider-side stream hangs that escape the inference-layer watchdog; triggers a normal subagent abort with a 'timed out' reason. — 每个子代理的硬墙钟限制（毫秒）；0 禁用；纵深防御提供商侧流挂起（逃过推理层看门狗）；触发带 'timed out' 原因的普通子代理中止。",
 			options: [
-				{ value: "0", label: "Unlimited", description: "Default" },
-				{ value: "300000", label: "5 minutes" },
-				{ value: "900000", label: "15 minutes" },
-				{ value: "1800000", label: "30 minutes" },
-				{ value: "3600000", label: "1 hour" },
+				{ value: "0", label: "无限制", description: "默认" },
+				{ value: "300000", label: "5 分钟" },
+				{ value: "900000", label: "15 分钟" },
+				{ value: "1800000", label: "30 分钟" },
+				{ value: "3600000", label: "1 小时" },
 			],
 		},
 	},
@@ -4577,10 +4577,10 @@ export const SETTINGS_SCHEMA = {
 		default: 420_000,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Agent Idle TTL",
+			group: "子代理",
+			label: "代理空闲 TTL",
 			description:
-				"How long an idle subagent stays live in memory before being parked to disk (ms). Parked agents are revived automatically when messaged or resumed. 0 keeps idle agents live until exit.",
+				"How long an idle subagent stays live in memory before being parked to disk (ms). Parked agents are revived automatically when messaged or resumed. 0 keeps idle agents live until exit. — 空闲子代理在驻留到磁盘前在内存中保持活跃的时长（毫秒）；驻留的代理在收到消息或恢复时自动唤醒；0 使空闲代理保持活跃直到退出。",
 		},
 	},
 
@@ -4589,15 +4589,15 @@ export const SETTINGS_SCHEMA = {
 		default: 200,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Soft Subagent Request Budget",
+			group: "子代理",
+			label: "子代理请求软预算",
 			description:
-				"Soft per-subagent request budget (assistant requests per run). Crossing it injects a wrap-up steering notice (see task.softRequestBudgetNotice); at 1.5x the budget the run is force-stopped and the agent must yield its partial findings. 0 disables the guard. Bundled scout/sonic agents use a lower built-in budget.",
+				"Soft per-subagent request budget (assistant requests per run). Crossing it injects a wrap-up steering notice (see task.softRequestBudgetNotice); at 1.5x the budget the run is force-stopped and the agent must yield its partial findings. 0 disables the guard. Bundled scout/sonic agents use a lower built-in budget. — 每个子代理的软请求预算（每次运行的助手请求数）；超过时注入收尾转向通知（见 task.softRequestBudgetNotice）；达到预算的 1.5 倍时强制停止运行，代理必须交出部分发现；0 禁用防护；捆绑的 scout/sonic 代理使用较低的内置预算。",
 			options: [
-				{ value: "0", label: "Disabled" },
-				{ value: "90", label: "90 requests" },
-				{ value: "150", label: "150 requests" },
-				{ value: "200", label: "200 requests", description: "Default" },
+				{ value: "0", label: "禁用" },
+				{ value: "90", label: "90 次请求" },
+				{ value: "150", label: "150 次请求" },
+				{ value: "200", label: "200 次请求", description: "默认" },
 			],
 		},
 	},
@@ -4607,10 +4607,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Soft Request Budget Notice",
+			group: "子代理",
+			label: "软请求预算通知",
 			description:
-				"Inject one steering notice when a subagent crosses its soft request budget, asking it to wrap up before the 1.5x forced-yield stop.",
+				"Inject one steering notice when a subagent crosses its soft request budget, asking it to wrap up before the 1.5x forced-yield stop. — 当子代理超过其软请求预算时注入一条转向通知，要求它在 1.5 倍强制让位停止前收尾。",
 		},
 	},
 
@@ -4620,10 +4620,10 @@ export const SETTINGS_SCHEMA = {
 		default: "max",
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Maximum Per-Spawn Effort",
+			group: "子代理",
+			label: "每次生成最大努力",
 			description:
-				"Maximum reasoning effort allowed for the task tool's per-spawn effort hint. Lower values prevent callers from escalating subagents above this ceiling; the default preserves the model's full range.",
+				"Maximum reasoning effort allowed for the task tool's per-spawn effort hint. Lower values prevent callers from escalating subagents above this ceiling; the default preserves the model's full range. — task 工具每生成 effort 提示允许的最大推理努力；较低的值防止调用者将子代理升级到超过此上限；默认保留模型的完整范围。",
 			options: THINKING_EFFORTS.map(getThinkingLevelMetadata),
 		},
 	},
@@ -4646,10 +4646,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "tasks",
-			group: "Subagents",
-			label: "Generic Task Prewalk",
+			group: "子代理",
+			label: "通用任务预检",
 			description:
-				"Arm prewalk for the bundled generic `task` subagent: it starts on its resolved model, plans and begins the implementation, then hands off to the 'smol' role at its first edit/write. Per-agent overrides (task.agentPrewalk, toggled with P in /agents) and user agent `prewalk` frontmatter apply regardless of this toggle.",
+				"Arm prewalk for the bundled generic `task` subagent: it starts on its resolved model, plans and begins the implementation, then hands off to the 'smol' role at its first edit/write. Per-agent overrides (task.agentPrewalk, toggled with P in /agents) and user agent `prewalk` frontmatter apply regardless of this toggle. — 为捆绑的通用 `task` 子代理启用预检：它在解析的模型上开始，规划并开始实现，然后在首次编辑/写入时移交给 'smol' 角色；每代理覆盖（task.agentPrewalk，在 /agents 中用 P 切换）和用户代理 `prewalk` frontmatter 无论此开关如何都生效。",
 		},
 	},
 
@@ -4658,17 +4658,17 @@ export const SETTINGS_SCHEMA = {
 		default: 60,
 		ui: {
 			tab: "tools",
-			group: "Todos",
-			label: "Todo Auto-Clear Delay",
-			description: "Delay before completed or abandoned todos are removed from the todo widget",
+			group: "待办",
+			label: "待办自动清除延迟",
+			description: "已完成或放弃的待办从待办组件移除前的延迟",
 			options: [
-				{ value: "0", label: "Instant" },
-				{ value: "60", label: "1 minute", description: "Default" },
-				{ value: "300", label: "5 minutes" },
-				{ value: "900", label: "15 minutes" },
-				{ value: "1800", label: "30 minutes" },
-				{ value: "3600", label: "1 hour" },
-				{ value: "-1", label: "Never" },
+				{ value: "0", label: "立即" },
+				{ value: "60", label: "1 分钟", description: "默认" },
+				{ value: "300", label: "5 分钟" },
+				{ value: "900", label: "15 分钟" },
+				{ value: "1800", label: "30 分钟" },
+				{ value: "3600", label: "1 小时" },
+				{ value: "-1", label: "永不" },
 			],
 		},
 	},
@@ -4678,9 +4678,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "appearance",
-			group: "Display",
-			label: "Show Resolved Model Badge",
-			description: "Display the actual model ID used by each subagent in the task widget status line",
+			group: "显示",
+			label: "显示已解析模型徽章",
+			description: "在任务组件状态栏中显示每个子代理使用的实际模型 ID",
 		},
 	},
 
@@ -4692,9 +4692,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Commands & Skills",
-			label: "Skill Commands",
-			description: "Register skills as /skill:name commands",
+			group: "命令与技能",
+			label: "技能命令",
+			description: "将技能注册为 /skill:name 命令",
 		},
 	},
 
@@ -4724,9 +4724,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Commands & Skills",
-			label: "Claude User Commands",
-			description: "Load commands from ~/.claude/commands/",
+			group: "命令与技能",
+			label: "Claude 用户命令",
+			description: "从 ~/.claude/commands/ 加载命令",
 		},
 	},
 
@@ -4735,9 +4735,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Commands & Skills",
-			label: "Claude Project Commands",
-			description: "Load commands from .claude/commands/",
+			group: "命令与技能",
+			label: "Claude 项目命令",
+			description: "从 .claude/commands/ 加载命令",
 		},
 	},
 
@@ -4746,9 +4746,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Commands & Skills",
-			label: "OpenCode User Commands",
-			description: "Load commands from ~/.config/opencode/commands/",
+			group: "命令与技能",
+			label: "OpenCode 用户命令",
+			description: "从 ~/.config/opencode/commands/ 加载命令",
 		},
 	},
 
@@ -4757,9 +4757,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tasks",
-			group: "Commands & Skills",
-			label: "OpenCode Project Commands",
-			description: "Load commands from .opencode/commands/",
+			group: "命令与技能",
+			label: "OpenCode 项目命令",
+			description: "从 .opencode/commands/ 加载命令",
 		},
 	},
 
@@ -4773,9 +4773,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "providers",
-			group: "Privacy",
-			label: "Hide Secrets",
-			description: "Obfuscate configured secrets and redact credential-shaped tokens before sending to AI providers",
+			group: "隐私",
+			label: "隐藏机密",
+			description: "在发送给 AI 提供商前混淆配置的机密并编辑凭据形状的令牌",
 		},
 	},
 
@@ -4785,10 +4785,10 @@ export const SETTINGS_SCHEMA = {
 		default: 3,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Ollama Cloud Max Concurrency",
+			group: "服务",
+			label: "Ollama Cloud 最大并发",
 			description:
-				"Maximum concurrent Ollama Cloud subagent runs per process; 0 disables the provider-specific limit",
+				"每进程最大并发 Ollama Cloud 子代理运行数；0 禁用提供商特定限制",
 		},
 	},
 	"providers.webSearchOrder": {
@@ -4796,10 +4796,10 @@ export const SETTINGS_SCHEMA = {
 		default: [] as SearchProviderId[],
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Web Search Provider Order",
+			group: "服务",
+			label: "网络搜索提供商顺序",
 			description:
-				"Prioritized providers for the web_search tool; unlisted providers retain their default order afterward",
+				"web_search 工具的优先提供商；未列出的提供商之后保留其默认顺序",
 			options: SEARCH_PROVIDER_CHOICES,
 			ordered: true,
 		},
@@ -4809,9 +4809,9 @@ export const SETTINGS_SCHEMA = {
 		default: [] as SearchProviderId[],
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Excluded Web Search Providers",
-			description: "Providers that web_search should never use, even as fallbacks",
+			group: "服务",
+			label: "排除的搜索提供商",
+			description: "web_search 绝不应使用的提供商，即使作为回退",
 			options: SEARCH_PROVIDER_CHOICES,
 		},
 	},
@@ -4820,9 +4820,9 @@ export const SETTINGS_SCHEMA = {
 		default: undefined,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Gemini web_search model",
-			description: "Model ID for Gemini Google Search grounding. Defaults to gemini-2.5-flash.",
+			group: "服务",
+			label: "Gemini web_search 模型",
+			description: "Gemini Google Search grounding 的模型 ID。默认为 gemini-2.5-flash。",
 		},
 	},
 	"providers.antigravityEndpoint": {
@@ -4831,24 +4831,24 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Antigravity Endpoint Mode",
-			description: "Endpoint routing strategy for google-antigravity providers (chat, search, image, discovery)",
+			group: "服务",
+			label: "Antigravity 端点模式",
+			description: "google-antigravity 提供商的端点路由策略（chat、search、image、discovery）",
 			options: [
 				{
 					value: "auto",
-					label: "Auto",
-					description: "Try production endpoint, fail over to sandbox on 5xx/429",
+					label: "自动",
+					description: "尝试生产端点，5xx/429 时故障转移到沙箱",
 				},
 				{
 					value: "production",
-					label: "Production Only",
-					description: "Force production endpoint only",
+					label: "仅生产环境",
+					description: "仅强制生产端点",
 				},
 				{
 					value: "sandbox",
-					label: "Sandbox Only",
-					description: "Force sandbox endpoint only",
+					label: "仅沙箱",
+					description: "仅强制沙箱端点",
 				},
 			],
 		},
@@ -4858,10 +4858,10 @@ export const SETTINGS_SCHEMA = {
 		default: [] as ImageProvider[],
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Image Provider Order",
+			group: "服务",
+			label: "图片提供商顺序",
 			description:
-				"Prioritized providers for image generation; unlisted providers follow the active session provider and the built-in order",
+				"图片生成的优先提供商；未列出的提供商遵循活动会话提供商和内置顺序",
 			options: IMAGE_PROVIDER_CHOICES,
 			ordered: true,
 		},
@@ -4873,15 +4873,15 @@ export const SETTINGS_SCHEMA = {
 		ui: {
 			tab: "providers",
 			group: "Fireworks",
-			label: "Fireworks Tier",
+			label: "Fireworks 等级",
 			description:
 				'Serving path for Fireworks requests. Priority sends `service_tier: "priority"` for higher reliability during peak traffic at a higher price; Standard omits it. Fast (`-fast`) models ignore this — Fast is its own serving path.',
 			options: [
-				{ value: "standard", label: "Standard", description: "Default serving path (no service_tier)" },
+				{ value: "standard", label: "标准", description: "默认服务路径（无 service_tier）" },
 				{
 					value: "priority",
-					label: "Priority",
-					description: "Priority serving path: higher reliability, premium per-token pricing",
+					label: "优先",
+					description: "优先服务路径：更高可靠性，每 token 溢价定价",
 				},
 			],
 		},
@@ -4892,9 +4892,9 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_LIVE_VOICE,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Live Voice",
-			description: "Voice used by Codex-backed realtime voice sessions",
+			group: "服务",
+			label: "实时语音",
+			description: "Codex 支持的实时语音会话使用的声音",
 			options: LIVE_VOICE_OPTIONS,
 		},
 	},
@@ -4904,20 +4904,20 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Text-to-Speech Provider",
-			description: "Backend for the tts tool: local on-device neural TTS (Kokoro-82M) or xAI Grok Voice",
+			group: "服务",
+			label: "文本转语音提供商",
+			description: "tts 工具的后端：本地设备端神经 TTS (Kokoro-82M) 或 xAI Grok Voice",
 			options: [
 				{
 					value: "auto",
-					label: "Auto",
-					description: "Prefer local on-device TTS; route .mp3 output to xAI when credentials exist",
+					label: "自动",
+					description: "优先本地设备端 TTS；存在凭据时将 .mp3 输出路由到 xAI",
 				},
-				{ value: "local", label: "Local", description: "On-device neural TTS (Kokoro-82M); output is WAV/PCM16" },
+				{ value: "local", label: "本地", description: "设备端神经 TTS (Kokoro-82M)；输出为 WAV/PCM16" },
 				{
 					value: "xai",
 					label: "xAI Grok Voice",
-					description: "Requires xAI Grok OAuth or XAI_API_KEY; MP3 or WAV",
+					description: "需要 xAI Grok OAuth 或 XAI_API_KEY；MP3 或 WAV",
 				},
 			],
 		},
@@ -4928,9 +4928,9 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_TTS_LOCAL_MODEL_KEY,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Local TTS Model",
-			description: "On-device neural TTS model (Kokoro-82M) used by the local TTS backend",
+			group: "服务",
+			label: "本地 TTS 模型",
+			description: "本地 TTS 后端使用的设备端神经 TTS 模型 (Kokoro-82M)",
 			options: TTS_LOCAL_MODEL_OPTIONS,
 		},
 	},
@@ -4940,9 +4940,9 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_TTS_VOICE,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Local TTS Voice",
-			description: "Kokoro voice used by the local TTS backend (American/British, female/male)",
+			group: "服务",
+			label: "本地 TTS 语音",
+			description: "本地 TTS 后端使用的 Kokoro 声音（美式/英式，女声/男声）",
 			options: TTS_LOCAL_VOICE_OPTIONS,
 		},
 	},
@@ -4951,9 +4951,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Speech Vocalization",
-			description: "Speak the assistant's output aloud through the speakers as it streams",
+			group: "服务",
+			label: "语音朗读",
+			description: "流式输出时通过扬声器朗读助手输出",
 		},
 	},
 	"speech.mode": {
@@ -4962,14 +4962,14 @@ export const SETTINGS_SCHEMA = {
 		default: "assistant",
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Speech Vocalization Mode",
+			group: "服务",
+			label: "语音朗读模式",
 			description:
-				"What to speak: all = assistant messages + thinking; assistant = messages only; yield = only the final message at turn end",
+				"朗读内容：all = 助手消息 + 思考；assistant = 仅消息；yield = 仅轮次结束时的最终消息",
 			options: [
-				{ value: "all", label: "All (messages + thinking)" },
-				{ value: "assistant", label: "Assistant messages" },
-				{ value: "yield", label: "Final message only" },
+				{ value: "all", label: "全部（消息 + 思考）" },
+				{ value: "assistant", label: "仅助手消息" },
+				{ value: "yield", label: "仅最终消息" },
 			],
 		},
 	},
@@ -4978,10 +4978,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Enhanced Speech Rewriting",
+			group: "服务",
+			label: "增强语音重写",
 			description:
-				"Rewrite assistant output into natural spoken prose with the tiny/smol model before synthesis (describes code, drops links and markdown). Falls back to mechanical cleanup on failure",
+				"Rewrite assistant output into natural spoken prose with the tiny/smol model before synthesis (describes code, drops links and markdown). Falls back to mechanical cleanup on failure. — 在合成前用 tiny/smol 模型将助手输出重写为自然的口语化散文（描述代码、丢弃链接和 markdown）；失败时回退到机械清理。",
 		},
 	},
 	"speech.voice": {
@@ -4990,9 +4990,9 @@ export const SETTINGS_SCHEMA = {
 		default: DEFAULT_TTS_VOICE,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Speech Vocalization Voice",
-			description: "Kokoro voice used when speaking the assistant's output aloud",
+			group: "服务",
+			label: "语音朗读音色",
+			description: "朗读助手输出时使用的 Kokoro 声音",
 			options: TTS_LOCAL_VOICE_OPTIONS,
 		},
 	},
@@ -5002,10 +5002,10 @@ export const SETTINGS_SCHEMA = {
 		default: ONLINE_TINY_TITLE_MODEL_KEY,
 		ui: {
 			tab: "providers",
-			group: "Tiny Model",
-			label: "Tiny Model",
+			group: "微型模型",
+			label: "微型模型",
 			description:
-				"Session-title model: online (the TINY role from /models, else @smol) by default, or a local on-device model",
+				"会话标题模型：默认在线（来自 /models 的 TINY 角色，否则 @smol），或本地设备端模型",
 			options: TINY_TITLE_MODEL_OPTIONS,
 		},
 	},
@@ -5015,10 +5015,10 @@ export const SETTINGS_SCHEMA = {
 		default: TINY_MODEL_DEVICE_DEFAULT,
 		ui: {
 			tab: "providers",
-			group: "Tiny Model",
-			label: "Tiny Model Device",
+			group: "微型模型",
+			label: "微型模型设备",
 			description:
-				"ONNX execution provider for local tiny models (titles + memory). Default uses CPU-only inference. The PI_TINY_DEVICE env var overrides this.",
+				"ONNX execution provider for local tiny models (titles + memory). Default uses CPU-only inference. The PI_TINY_DEVICE env var overrides this. — 本地微型模型（标题 + 记忆）的 ONNX 执行提供程序；默认使用仅 CPU 推理；PI_TINY_DEVICE 环境变量覆盖此设置。",
 			options: TINY_MODEL_DEVICE_SETTING_OPTIONS,
 		},
 	},
@@ -5028,10 +5028,10 @@ export const SETTINGS_SCHEMA = {
 		default: TINY_MODEL_DTYPE_DEFAULT,
 		ui: {
 			tab: "providers",
-			group: "Tiny Model",
-			label: "Tiny Model Precision",
+			group: "微型模型",
+			label: "微型模型精度",
 			description:
-				"ONNX quantization/precision for local tiny models. Default uses each model's shipped dtype (q4); lower precision is faster, higher is more faithful. The PI_TINY_DTYPE env var overrides this.",
+				"ONNX quantization/precision for local tiny models. Default uses each model's shipped dtype (q4); lower precision is faster, higher is more faithful. The PI_TINY_DTYPE env var overrides this. — 本地微型模型的 ONNX 量化/精度；默认使用每个模型自带的 dtype (q4)；更低精度更快，更高精度更忠实；PI_TINY_DTYPE 环境变量覆盖此设置。",
 			options: TINY_MODEL_DTYPE_SETTING_OPTIONS,
 		},
 	},
@@ -5041,10 +5041,10 @@ export const SETTINGS_SCHEMA = {
 		default: ONLINE_MEMORY_MODEL_KEY,
 		ui: {
 			tab: "memory",
-			group: "General",
-			label: "Memory Model",
+			group: "通用",
+			label: "记忆模型",
 			description:
-				"Mnemopi LLM for fact extraction + consolidation: online (the TINY role from /models, else smol/remote) by default, or a local on-device model",
+				"Mnemopi LLM for fact extraction + consolidation: online (the TINY role from /models, else smol/remote) by default, or a local on-device model. — 用于事实提取 + 整合的 Mnemopi LLM：默认在线（来自 /models 的 TINY 角色，否则 smol/remote），或本地设备端模型。",
 			condition: "mnemopiActive",
 			options: TINY_MEMORY_MODEL_OPTIONS,
 		},
@@ -5056,10 +5056,10 @@ export const SETTINGS_SCHEMA = {
 		default: ONLINE_AUTO_THINKING_MODEL_KEY,
 		ui: {
 			tab: "model",
-			group: "Thinking",
-			label: "Auto Thinking Model",
+			group: "思考",
+			label: "自动思考模型",
 			description:
-				"Difficulty classifier for the `auto` thinking level: online (the TINY role from /models, else smol) by default, or a local on-device model",
+				"Difficulty classifier for the `auto` thinking level: online (the TINY role from /models, else smol) by default, or a local on-device model. — `auto` 思考级别的难度分类器：默认在线（来自 /models 的 TINY 角色，否则 smol），或本地设备端模型。",
 			condition: "autoThinkingActive",
 			options: AUTO_THINKING_MODEL_OPTIONS,
 		},
@@ -5069,10 +5069,10 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "interaction",
-			group: "Agent",
-			label: "Detect unexpected stops",
+			group: "代理",
+			label: "检测意外停止",
 			description:
-				"Use a small model to detect when the assistant says it will continue but stops without tool calls; automatically prompt it to continue.",
+				"Use a small model to detect when the assistant says it will continue but stops without tool calls; automatically prompt it to continue. — 使用小模型检测助手何时说会继续但未调用工具就停止；自动提示它继续。",
 		},
 	},
 	"providers.unexpectedStopModel": {
@@ -5081,10 +5081,10 @@ export const SETTINGS_SCHEMA = {
 		default: ONLINE_MEMORY_MODEL_KEY,
 		ui: {
 			tab: "providers",
-			group: "Tiny Model",
-			label: "Unexpected Stop Model",
+			group: "微型模型",
+			label: "意外停止检测模型",
 			description:
-				"Classifier for unexpected-stop detection: online (the TINY role from /models, else smol) by default, or a local on-device model.",
+				"Classifier for unexpected-stop detection: online (the TINY role from /models, else smol) by default, or a local on-device model. — 意外停止检测的分类器：默认在线（来自 /models 的 TINY 角色，否则 smol），或本地设备端模型。",
 			condition: "unexpectedStopDetection",
 			options: TINY_MEMORY_MODEL_OPTIONS,
 		},
@@ -5096,11 +5096,11 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "providers",
-			group: "Protocol",
-			label: "Kimi API Format",
-			description: "API format for Kimi Code provider (auto follows live model metadata)",
+			group: "协议",
+			label: "Kimi API 格式",
+			description: "Kimi Code 提供商的 API 格式（自动跟随实时模型元数据）",
 			options: [
-				{ value: "auto", label: "Auto", description: "Use the model's server-declared protocol" },
+				{ value: "auto", label: "自动", description: "使用模型服务器声明的协议" },
 				{ value: "openai", label: "OpenAI", description: "api.kimi.com" },
 				{ value: "anthropic", label: "Anthropic", description: "api.moonshot.ai" },
 			],
@@ -5113,13 +5113,13 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "providers",
-			group: "Protocol",
-			label: "OpenAI WebSockets",
-			description: "Websocket policy for OpenAI Codex models (auto uses model defaults, on forces, off disables)",
+			group: "协议",
+			label: "OpenAI WebSocket",
+			description: "OpenAI Codex 模型的 WebSocket 策略（auto 使用模型默认，on 强制，off 禁用）",
 			options: [
-				{ value: "auto", label: "Auto", description: "Use model/provider default websocket behavior" },
-				{ value: "off", label: "Off", description: "Disable websockets for OpenAI Codex models" },
-				{ value: "on", label: "On", description: "Force websockets for OpenAI Codex models" },
+				{ value: "auto", label: "自动", description: "使用模型/提供商默认 WebSocket 行为" },
+				{ value: "off", label: "关闭", description: "为 OpenAI Codex 模型禁用 WebSocket" },
+				{ value: "on", label: "开启", description: "为 OpenAI Codex 模型强制 WebSocket" },
 			],
 		},
 	},
@@ -5129,16 +5129,16 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "providers",
-			group: "Timeouts",
-			label: "Stream First Event Timeout",
+			group: "超时",
+			label: "流首事件超时",
 			description:
-				"Seconds to wait for the first model stream event; -1 uses provider/env defaults, 0 disables the watchdog",
+				"等待第一个模型流事件的秒数；-1 使用提供商/环境默认，0 禁用看门狗",
 			options: [
-				{ value: "-1", label: "Auto", description: "Use provider defaults and PI_* timeout env vars" },
-				{ value: "0", label: "Off", description: "Disable first-event timeout" },
-				{ value: "300", label: "5 minutes" },
-				{ value: "600", label: "10 minutes" },
-				{ value: "1800", label: "30 minutes" },
+				{ value: "-1", label: "自动", description: "使用提供商默认值和 PI_* 超时环境变量" },
+				{ value: "0", label: "关闭", description: "禁用首事件超时" },
+				{ value: "300", label: "5 分钟" },
+				{ value: "600", label: "10 分钟" },
+				{ value: "1800", label: "30 分钟" },
 			],
 		},
 	},
@@ -5148,16 +5148,16 @@ export const SETTINGS_SCHEMA = {
 		default: -1,
 		ui: {
 			tab: "providers",
-			group: "Timeouts",
-			label: "Stream Idle Timeout",
+			group: "超时",
+			label: "流空闲超时",
 			description:
-				"Seconds a model stream may stay silent between events; -1 uses provider/env defaults, 0 disables the watchdog",
+				"模型流在事件之间可保持静默的秒数；-1 使用提供商/环境默认，0 禁用看门狗",
 			options: [
-				{ value: "-1", label: "Auto", description: "Use provider defaults and PI_* timeout env vars" },
-				{ value: "0", label: "Off", description: "Disable idle timeout" },
-				{ value: "300", label: "5 minutes" },
-				{ value: "600", label: "10 minutes" },
-				{ value: "1800", label: "30 minutes" },
+				{ value: "-1", label: "自动", description: "使用提供商默认值和 PI_* 超时环境变量" },
+				{ value: "0", label: "关闭", description: "禁用空闲超时" },
+				{ value: "300", label: "5 分钟" },
+				{ value: "600", label: "10 分钟" },
+				{ value: "1800", label: "30 分钟" },
 			],
 		},
 	},
@@ -5168,19 +5168,19 @@ export const SETTINGS_SCHEMA = {
 		default: "default",
 		ui: {
 			tab: "providers",
-			group: "Protocol",
-			label: "OpenRouter Routing",
+			group: "协议",
+			label: "OpenRouter 路由",
 			description:
-				"Default routing-variant suffix appended to OpenRouter model IDs (overridden when the selector already names a variant)",
+				"追加到 OpenRouter 模型 ID 的默认路由变体后缀（选择器已命名变体时覆盖）",
 			options: [
-				{ value: "default", label: "Default", description: "No suffix; use OpenRouter's default routing" },
-				{ value: "nitro", label: ":nitro", description: "Prioritize throughput / lowest latency" },
-				{ value: "floor", label: ":floor", description: "Prioritize cheapest available provider" },
-				{ value: "online", label: ":online", description: "Enable OpenRouter's web-search plugin" },
+				{ value: "default", label: "默认", description: "无后缀；使用 OpenRouter 默认路由" },
+				{ value: "nitro", label: ":nitro", description: "优先吞吐量 / 最低延迟" },
+				{ value: "floor", label: ":floor", description: "优先最便宜的可用提供商" },
+				{ value: "online", label: ":online", description: "启用 OpenRouter 的 web-search 插件" },
 				{
 					value: "exacto",
 					label: ":exacto",
-					description: "Cherry-picked high-quality providers (only defined for select models)",
+					description: "精选的高质量提供商（仅对特定模型定义）",
 				},
 			],
 		},
@@ -5191,20 +5191,20 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Fetch Provider",
-			description: "Reader backend priority for the fetch/read URL tool",
+			group: "服务",
+			label: "抓取提供商",
+			description: "fetch/read URL 工具的读取器后端优先级",
 			options: [
 				{
 					value: "auto",
-					label: "Auto",
-					description: "Priority: native > trafilatura > lynx > parallel > jina",
+					label: "自动",
+					description: "优先级：native > trafilatura > lynx > parallel > jina",
 				},
-				{ value: "native", label: "Native", description: "In-process HTML→Markdown converter (always available)" },
-				{ value: "trafilatura", label: "Trafilatura", description: "Auto-installs via uv/pip" },
-				{ value: "lynx", label: "Lynx", description: "Requires lynx system package" },
-				{ value: "parallel", label: "Parallel", description: "Requires PARALLEL_API_KEY" },
-				{ value: "jina", label: "Jina", description: "Uses r.jina.ai reader (JINA_API_KEY optional)" },
+				{ value: "native", label: "原生", description: "进程内 HTML→Markdown 转换器（始终可用）" },
+				{ value: "trafilatura", label: "Trafilatura", description: "通过 uv/pip 自动安装" },
+				{ value: "lynx", label: "Lynx", description: "需要 lynx 系统包" },
+				{ value: "parallel", label: "Parallel", description: "需要 PARALLEL_API_KEY" },
+				{ value: "jina", label: "Jina", description: "使用 r.jina.ai 读取器（JINA_API_KEY 可选）" },
 			],
 		},
 	},
@@ -5215,18 +5215,18 @@ export const SETTINGS_SCHEMA = {
 		default: "unset" as const,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Codex Auto-Redeem Saved Resets",
+			group: "服务",
+			label: "Codex 自动赎回已保存重置",
 			description:
-				"When a turn is blocked by the Codex weekly limit on the active account and no other account is available, run the conservative saved-reset check. unset asks before spending the first eligible reset, yes spends eligible resets without prompting, and no disables the check entirely. Requires retries enabled.",
+				"When a turn is blocked by the Codex weekly limit on the active account and no other account is available, run the conservative saved-reset check. unset asks before spending the first eligible reset, yes spends eligible resets without prompting, and no disables the check entirely. Requires retries enabled. — 当活动账户的 Codex 周限额阻止一轮且没有其他账户可用时，运行保守的已保存重置检查；unset 在花费第一个符合条件的重置前询问，yes 不提示即花费符合条件的重置，no 完全禁用检查；需要启用重试。",
 			options: [
 				{
 					value: "unset",
-					label: "Unset",
-					description: "Check eligibility, then ask before spending the first saved reset.",
+					label: "未设置",
+					description: "检查资格，然后在花费第一个已保存重置前询问。",
 				},
-				{ value: "yes", label: "Yes", description: "Spend eligible saved resets without prompting." },
-				{ value: "no", label: "No", description: "Do not run the saved-reset auto-redeem check." },
+				{ value: "yes", label: "是", description: "不提示即花费符合条件的已保存重置。" },
+				{ value: "no", label: "否", description: "不运行已保存重置自动赎回检查。" },
 			],
 		},
 	},
@@ -5235,10 +5235,10 @@ export const SETTINGS_SCHEMA = {
 		default: 60,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Codex Auto-Redeem Min Block",
+			group: "服务",
+			label: "Codex 自动赎回最小阻塞",
 			description:
-				"Only auto-redeem when the natural weekly reset is at least this many minutes away (don't spend a ~30-day credit to save a short wait).",
+				"Only auto-redeem when the natural weekly reset is at least this many minutes away (don't spend a ~30-day credit to save a short wait). — 仅当自然周重置至少还有这么多分钟时才自动赎回（不要为了节省短暂等待而花费约 30 天的额度）。",
 		},
 	},
 	"codexResets.keepCredits": {
@@ -5246,9 +5246,9 @@ export const SETTINGS_SCHEMA = {
 		default: 0,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Codex Auto-Redeem Reserve",
-			description: "Never auto-spend below this many saved resets (0 = the last credit may be spent automatically).",
+			group: "服务",
+			label: "Codex 自动赎回保留",
+			description: "Never auto-spend below this many saved resets (0 = the last credit may be spent automatically). — 低于这么多已保存重置时绝不自动花费（0 = 最后一个额度可自动花费）。",
 		},
 	},
 	"provider.appendOnlyContext": {
@@ -5257,14 +5257,14 @@ export const SETTINGS_SCHEMA = {
 		default: "auto",
 		ui: {
 			tab: "providers",
-			group: "Protocol",
-			label: "Append-Only Context",
+			group: "协议",
+			label: "仅追加上下文",
 			description:
-				"Cache system prompt + tool specs and keep an append-only message log so provider prefix caches (DeepSeek, Xiaomi/SGLang, Anthropic) hit at maximum rate. Auto enables for known prefix-cache providers.",
+				"Cache system prompt + tool specs and keep an append-only message log so provider prefix caches (DeepSeek, Xiaomi/SGLang, Anthropic) hit at maximum rate. Auto enables for known prefix-cache providers. — 缓存系统提示 + 工具规格并保持仅追加的消息日志，使提供商前缀缓存（DeepSeek、Xiaomi/SGLang、Anthropic）以最大速率命中；Auto 为已知前缀缓存提供商启用。",
 			options: [
-				{ value: "auto", label: "Auto", description: "Enable for known prefix-cache providers (recommended)" },
-				{ value: "on", label: "On", description: "Always enable append-only context" },
-				{ value: "off", label: "Off", description: "Disable append-only context" },
+				{ value: "auto", label: "自动", description: "为已知前缀缓存提供商启用（推荐）" },
+				{ value: "on", label: "开启", description: "始终启用仅追加上下文" },
+				{ value: "off", label: "关闭", description: "禁用仅追加上下文" },
 			],
 		},
 	},
@@ -5273,7 +5273,7 @@ export const SETTINGS_SCHEMA = {
 	"exa.enabled": {
 		type: "boolean",
 		default: true,
-		ui: { tab: "providers", group: "Services", label: "Exa", description: "Master toggle for all Exa search tools" },
+		ui: { tab: "providers", group: "服务", label: "Exa", description: "所有 Exa 搜索工具的总开关" },
 	},
 
 	"exa.enableSearch": {
@@ -5281,9 +5281,9 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Exa Search",
-			description: "Enable Exa basic search, deep search, code search, and crawl tools",
+			group: "服务",
+			label: "Exa 搜索",
+			description: "启用 Exa 基础搜索、深度搜索、代码搜索和爬取工具",
 		},
 	},
 
@@ -5292,9 +5292,9 @@ export const SETTINGS_SCHEMA = {
 		default: 1_000,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Exa Search Delay",
-			description: "Minimum delay between Exa web search requests in milliseconds; set 0 to disable pacing",
+			group: "服务",
+			label: "Exa 搜索延迟",
+			description: "Exa 网络搜索请求之间的最小延迟（毫秒）；设为 0 禁用节奏控制",
 		},
 	},
 
@@ -5303,9 +5303,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "Exa Researcher",
-			description: "Enable the Exa researcher tool for AI-powered deep research",
+			group: "服务",
+			label: "Exa 研究员",
+			description: "启用 Exa 研究员工具进行 AI 驱动的深度研究",
 		},
 	},
 
@@ -5314,9 +5314,9 @@ export const SETTINGS_SCHEMA = {
 		default: false,
 		ui: {
 			tab: "providers",
-			group: "Services",
+			group: "服务",
 			label: "Exa Websets",
-			description: "Enable Exa webset management and enrichment tools",
+			description: "启用 Exa webset 管理和增强工具",
 		},
 	},
 
@@ -5326,9 +5326,9 @@ export const SETTINGS_SCHEMA = {
 		default: undefined,
 		ui: {
 			tab: "providers",
-			group: "Services",
-			label: "SearXNG Endpoint",
-			description: "Base URL of a self-hosted SearXNG instance used for web search",
+			group: "服务",
+			label: "SearXNG 端点",
+			description: "用于网络搜索的自托管 SearXNG 实例的基础 URL",
 		},
 	},
 
@@ -5381,10 +5381,10 @@ export const SETTINGS_SCHEMA = {
 		default: true,
 		ui: {
 			tab: "tools",
-			group: "Developer",
-			label: "Auto QA",
+			group: "开发者",
+			label: "自动 QA",
 			description:
-				"Automated tool issue reporting (xd://report_issue). On by default; the first report asks for consent, and denying it disables reporting until re-enabled explicitly",
+				"Automated tool issue reporting (xd://report_issue). On by default; the first report asks for consent, and denying it disables reporting until re-enabled explicitly. — 自动化工具问题报告 (xd://report_issue)；默认开启；首次报告征求同意，拒绝则禁用报告直到显式重新启用。",
 		},
 	},
 
@@ -5393,9 +5393,9 @@ export const SETTINGS_SCHEMA = {
 		default: "https://qa.omp.sh/v1/grievances" as const,
 		ui: {
 			tab: "tools",
-			group: "Developer",
-			label: "Auto QA Push Endpoint",
-			description: "Full URL receiving Auto QA JSON reports (default https://qa.omp.sh/v1/grievances)",
+			group: "开发者",
+			label: "自动 QA 推送端点",
+			description: "接收 Auto QA JSON 报告的完整 URL（默认 https://qa.omp.sh/v1/grievances）",
 		},
 	},
 

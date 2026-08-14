@@ -12,6 +12,10 @@ v2 改进：翻译数据集中管理，按文件 + 类别组织，易读易维�
 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 """
 import os
+import re
+
+# v17 新增翻译数据（settings-schema.ts 的 label/description）
+import translations_v17 as v17
 
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 CODING_AGENT_SRC = os.path.join(REPO_DIR, "packages", "coding-agent", "src")
@@ -595,6 +599,37 @@ B_STRINGS = [
     ('"List installed marketplace plugins"', '"列出已安装的市场插件"'),
     ('"Upgrade outdated plugins"', '"升级过期插件"'),
     ('"Show usage guide"', '"显示使用指南"'),
+    # --- v17 新增命令描述 ---
+    ('description: "Have the agent interview you in chat, then set up goal mode"',
+     'description: "让代理在聊天中采访你，然后设置目标模式"'),
+    ('description: "Toggle the native computer-use tool for this session"',
+     'description: "切换本会话的原生计算机使用工具"'),
+    ('description: "Enable computer use for this session"', 'description: "为本会话启用计算机使用"'),
+    ('description: "Disable computer use for this session"', 'description: "为本会话禁用计算机使用"'),
+    ('description: "Show computer use status"', 'description: "显示计算机使用状态"'),
+    ('description: "Control the inspect_image vision-delegation tool for this session"',
+     'description: "控制本会话的 inspect_image 视觉委派工具"'),
+    ('description: "Always expose inspect_image this session"', 'description: "本会话始终暴露 inspect_image"'),
+    ('description: "Never expose inspect_image this session"', 'description: "本会话从不暴露 inspect_image"'),
+    ('description: "Follow inspect_image.mode (auto hides it for vision-capable models)"',
+     'description: "遵循 inspect_image.mode（对支持视觉的模型自动隐藏）"'),
+    ('description: "Show inspect_image status"', 'description: "显示 inspect_image 状态"'),
+    ('description: "Open the advisor configuration editor (TUI)"', 'description: "打开顾问配置编辑器（TUI）"'),
+    ('description: "Pin the current provider to a stored OAuth account"',
+     'description: "将当前提供商固定到已存储的 OAuth 账户"'),
+    ('description: "List mental models on the active bank"', 'description: "列出当前记忆库中的心智模型"'),
+    ('description: "Show one mental model (id required)"', 'description: "显示单个心智模型（需要 id）"'),
+    ('description: "Refresh auto-refresh models bank-wide, or one model by id"',
+     'description: "刷新整个记忆库的自动刷新模型，或按 id 刷新单个模型"'),
+    ('description: "Diff the change history of a mental model"', 'description: "对比心智模型的变更历史"'),
+    ('description: "Create any built-in mental models that are missing"', 'description: "创建缺失的内置心智模型"'),
+    ('description: "Delete a mental model from the bank (id required)"', 'description: "从记忆库删除心智模型（需要 id）"'),
+    ('description: "Re-pull the cached <mental_models> block"', 'description: "重新拉取缓存的 <mental_models> 块"'),
+    ('description: "Add a workspace directory to this session (multi-root)"',
+     'description: "向本会话添加工作区目录（多根）"'),
+    ('description: "Remove a workspace directory from this session"', 'description: "从本会话移除工作区目录"'),
+    ('description: "List this session\'s workspace directories"', 'description: "列出本会话的工作区目录"'),
+    ('description: "Start Codex-backed realtime voice mode"', 'description: "启动 Codex 驱动的实时语音模式"'),
 ]
 
 
@@ -616,6 +651,19 @@ D_STRINGS = [
     ('description: "Show last 50 log entries"', 'description: "显示最近 50 条日志"'),
     ('description: "Show environment details"', 'description: "显示环境详情"'),
     ('description: "Remove old session artifacts"', 'description: "移除旧的会话产物"'),
+    # --- v17 新增调试项 ---
+    ('label: "Open: artifact folder"', 'label: "打开：产物文件夹"'),
+    ('label: "Report: performance issue"', 'label: "报告：性能问题"'),
+    ('label: "View: recent logs"', 'label: "查看：最近日志"'),
+    ('label: "View: system info"', 'label: "查看：系统信息"'),
+    ('label: "View: terminal state"', 'label: "查看：终端状态"'),
+    ('description: "Subprotocols, geometry, scrollback strategy"', 'description: "子协议、几何、回滚策略"'),
+    ('description: "Styling, links, text sizing, graphics, notify"', 'description: "样式、链接、文本大小、图形、通知"'),
+    ('description: "Show live provider SSE frames"', 'description: "显示实时提供商 SSE 帧"'),
+    ('description: "Expose JavaScriptCore inspector socket (experimental)"',
+     'description: "暴露 JavaScriptCore 检查器套接字（实验性）"'),
+    ('description: "Write visible TUI conversation to a temp txt"', 'description: "将可见 TUI 对话写入临时 txt"'),
+    ('label: "Clear: artifact cache"', 'label: "清除：产物缓存"'),
 ]
 
 
@@ -646,6 +694,14 @@ K_STRINGS = [
     ('description: "Selection page down"', 'description: "选择区下翻页"'),
     ('description: "Confirm selection"', 'description: "确认选择"'),
     ('description: "Cancel selection"', 'description: "取消选择"'),
+    # --- v17 新增快捷键 ---
+    ('description: "Move cursor up"', 'description: "光标上移"'),
+    ('description: "Move cursor down"', 'description: "光标下移"'),
+    ('description: "Move cursor left"', 'description: "光标左移"'),
+    ('description: "Move cursor right"', 'description: "光标右移"'),
+    ('description: "Undo"', 'description: "撤销"'),
+    ('description: "Submit input"', 'description: "提交输入"'),
+    ('description: "Copy selection"', 'description: "复制选中内容"'),
 ]
 
 
@@ -662,6 +718,7 @@ M_STRINGS = [
     ('name: "Title"', 'name: "标题"'),
     ('name: "Subtask"', 'name: "子任务"'),
     ('name: "Advisor"', 'name: "顾问"'),
+    ('name: "Tiny"', 'name: "微型"'),
 ]
 
 
@@ -721,6 +778,38 @@ def apply_translations(file_path, groups):
     return total
 
 
+def apply_description_translations(file_path, groups):
+    """应用 description 翻译，兼容 `description: "..."` 同行与 `description:\\n"..."` 跨行格式。
+
+    v17 源码中部分 description 的值与键不在同一行，`description: "值"` 无法直接匹配。
+    这里用正则匹配 `description:` 后跟任意空白（含换行）再跟字符串值，只替换字符串值本身。
+    """
+    if not os.path.exists(file_path):
+        return 0
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    total = 0
+    for old_str, new_str in groups:
+        m = re.match(r'description:\s*("(?:[^"\\]|\\.)*")', old_str)
+        if not m:
+            continue
+        old_quoted = m.group(1)
+        m2 = re.match(r'description:\s*("(?:[^"\\]|\\.)*")', new_str)
+        new_quoted = m2.group(1) if m2 else new_str
+        pattern = re.compile(r'(description:\s*)' + re.escape(old_quoted))
+
+        def repl(match):
+            return match.group(1) + new_quoted
+
+        new_content, n = pattern.subn(repl, content)
+        if n > 0:
+            content = new_content
+            total += n
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    return total
+
+
 def main():
     grand_total = 0
 
@@ -739,6 +828,14 @@ def main():
     grand_total += apply_translations(S, S_OPTION_DESCRIPTIONS)
     grand_total += apply_translations(S, S_DESCRIPTIONS)
     grand_total += apply_translations(S, S_TABS)
+    # --- v17 新增翻译数据 ---
+    grand_total += apply_translations(S, v17.S_LABELS_V17_1)
+    grand_total += apply_translations(S, v17.S_LABELS_V17_2)
+    grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_1)
+    grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_2)
+    grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_3)
+    grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_4)
+    grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_5)
     grand_total += apply_translations(W, W_STRINGS)
     grand_total += apply_translations(B, B_STRINGS)
     grand_total += apply_translations(D, D_STRINGS)

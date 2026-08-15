@@ -17,7 +17,11 @@ import re
 # v17 新增翻译数据（settings-schema.ts 的 label/description）
 import translations_v17 as v17
 
-REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+# 使用当前工作目录作为仓库根，而不是脚本所在目录。
+# 原因：CI 中脚本位于 zh 仓库根目录，但从 source/（上游克隆）运行，
+# 若用脚本目录会错误地修补 zh 根目录的源码，而真正被构建的 source/ 保持英文。
+# 本地用法：cd oh-my-pi-source && python patch_omp_zh_v2.py（cwd 即仓库根）。
+REPO_DIR = os.getcwd()
 CODING_AGENT_SRC = os.path.join(REPO_DIR, "packages", "coding-agent", "src")
 TUI_SRC = os.path.join(REPO_DIR, "packages", "tui", "src")
 
@@ -818,8 +822,8 @@ def main():
     print("=" * 60)
 
     if not os.path.exists(CODING_AGENT_SRC):
-        print(f"⚠ 未找到 oh-my-pi 源码目录：{CODING_AGENT_SRC}")
-        print("   请确认脚本放在 oh-my-pi 源码仓库根目录。")
+        print(f"警告：未找到 oh-my-pi 源码目录：{CODING_AGENT_SRC}")
+        print("   请确认在 oh-my-pi 源码仓库根目录（含 packages/）下运行本脚本。")
         return
 
     grand_total += apply_translations(S, S_GROUPS)
@@ -845,7 +849,7 @@ def main():
     grand_total += apply_translations(SC, SC_STRINGS)
 
     print(f"\n{'=' * 60}")
-    print(f"✅ 中文翻译补丁 v2 完成！共替换 {grand_total} 处。")
+    print(f"[完成] 中文翻译补丁 v2 完成！共替换 {grand_total} 处。")
     print(f"   重启 omp 即可生效。")
     print(f"{'=' * 60}")
 

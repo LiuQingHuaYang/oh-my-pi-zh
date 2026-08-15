@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Upstream version tag (e.g. v16.1.14)'
+        description: 'Upstream version tag (e.g. v17.1.8)'
         required: false
+        default: 'v17.1.8'
         type: string
   schedule:
     - cron: '0 0 * * 0'
@@ -39,9 +40,9 @@ jobs:
         run: |
           git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
           cd source
-          if [ "${{ github.event.inputs.version }}" != "" ]; then
-            git checkout ${{ github.event.inputs.version }}
-          fi
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ]; then VERSION="v17.1.8"; fi
+          git checkout "$VERSION"
 
       - name: Install dependencies
         working-directory: source
@@ -57,7 +58,7 @@ jobs:
       - name: Install official omp to get correct native addon cache
         shell: bash
         run: |
-          bun install -g @oh-my-pi/pi-coding-agent
+          bun install -g @oh-my-pi/pi-coding-agent@17.1.8
           omp --smoke-test
           # 从缓存复制正确版本的 .node 到源码目录
           OMP_VERSION=$(omp --version | cut -d/ -f2)
@@ -101,9 +102,9 @@ jobs:
         run: |
           git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
           cd source
-          if [ "${{ github.event.inputs.version }}" != "" ]; then
-            git checkout ${{ github.event.inputs.version }}
-          fi
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ]; then VERSION="v17.1.8"; fi
+          git checkout "$VERSION"
 
       - name: Install dependencies
         working-directory: source
@@ -116,7 +117,7 @@ jobs:
       # 关键步骤：安装官方版生成正确版本的 .node 缓存
       - name: Install official omp to get correct native addon cache
         run: |
-          bun install -g @oh-my-pi/pi-coding-agent
+          bun install -g @oh-my-pi/pi-coding-agent@17.1.8
           omp --smoke-test
           OMP_VERSION=$(omp --version | cut -d/ -f2)
           cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
@@ -166,9 +167,9 @@ jobs:
         run: |
           git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
           cd source
-          if [ "${{ github.event.inputs.version }}" != "" ]; then
-            git checkout ${{ github.event.inputs.version }}
-          fi
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ]; then VERSION="v17.1.8"; fi
+          git checkout "$VERSION"
 
       - name: Install dependencies
         working-directory: source
@@ -181,7 +182,7 @@ jobs:
       # 关键步骤：安装官方版生成正确版本的 .node 缓存
       - name: Install official omp to get correct native addon cache
         run: |
-          bun install -g @oh-my-pi/pi-coding-agent
+          bun install -g @oh-my-pi/pi-coding-agent@17.1.8
           omp --smoke-test
           OMP_VERSION=$(omp --version | cut -d/ -f2)
           cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true

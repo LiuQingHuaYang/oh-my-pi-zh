@@ -26,15 +26,19 @@
 >
 > 本仓库是 [oh-my-pi](https://github.com/can1357/oh-my-pi) 的中文汉化 fork，界面、设置、命令描述均已翻译为简体中文。
 >
+> <a href="https://www.npmjs.com/package/pi-agent-zh"><img src="https://img.shields.io/npm/v/pi-agent-zh?style=flat&colorA=222222&colorB=CB3837" alt="npm version"></a>
+>
 > **安装（一条命令）：**
 >
 > ```powershell
-> bun install -g @daassw/pi-coding-agent@17.1.8
+> bun install -g pi-agent-zh
 > ```
 >
 > 安装后直接运行 `omp` 即为中文界面，无需任何额外配置。
 >
 > 需要 Bun ≥ 1.3.14（安装：`powershell -c "irm bun.sh/install.ps1 | iex"`）
+>
+> **自动同步**：本仓库每 6 小时自动检查上游新版本，检测到更新后自动构建三平台二进制（GitHub Release）并发布 npm 包（`pi-agent-zh`）。
 
 The most capable agent surface that ships. Continuously tuned by real-world use — complete out of the box, open all the way down.
 

@@ -9,7 +9,7 @@
  *
  * Flow (mirrors scripts/ci-release-publish.ts):
  *   1. Rewrite `packages/coding-agent/package.json` in place:
- *        - name -> @liuqinghuayang/pi-coding-agent
+ *        - name -> pi-agent-zh
  *        - bin  -> { omp: "dist/cli.js" }
  *        - every `catalog:` dep resolved to the concrete version from the
  *          root workspace catalog (npm cannot resolve `catalog:`)
@@ -38,7 +38,7 @@ const rootManifestPath = path.join(repoRoot, "package.json");
 const argv = process.argv.slice(2);
 const isDryRun = argv.includes("--dry-run");
 const nameArg = argv.find(a => a.startsWith("--name="));
-const packageName = nameArg ? nameArg.slice("--name=".length) : "@daassw/pi-coding-agent";
+const packageName = nameArg ? nameArg.slice("--name=".length) : "pi-agent-zh";
 
 type JsonValue = string | number | boolean | null | JsonObject | JsonValue[];
 interface JsonObject {

@@ -217,3 +217,49 @@ jobs:
       - name: 清理产物
         if: always()
         run: rm -rf artifacts release-assets release-body.md
+
+  # ── 第 4 步：自动发布 npm 包（pi-agent-zh）──
+  publish-npm:
+    name: 发布 npm 包 ${{ needs.check-upstream.outputs.new_version }}
+    needs: check-upstream
+    if: needs.check-upstream.outputs.should_build == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出我们的仓库（含发布脚本）
+        uses: actions/checkout@v4
+
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 克隆上游源码并切换到目标版本
+        shell: bash
+        run: |
+          git clone https://github.com/${{ env.UPSTREAM_REPO }}.git source
+          cd source
+          git checkout ${{ needs.check-upstream.outputs.new_version }}
+
+      - name: 安装依赖
+        working-directory: source
+        shell: bash
+        run: bun install
+
+      - name: 应用中文补丁
+        working-directory: source
+        shell: bash
+        run: python3 ../patch_omp_zh_v2.py
+
+      - name: 复制发布脚本到源码目录
+        shell: bash
+        run: cp scripts/publish-zh.ts source/scripts/publish-zh.ts
+
+      - name: 配置 npm 认证
+        shell: bash
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: 发布 npm 包
+        working-directory: source
+        shell: bash
+        run: bun scripts/publish-zh.ts

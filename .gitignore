@@ -85,3 +85,6 @@ packages/coding-agent/bench/boot-baseline.json
 /bazel-testlogs
 /bazel-pi
 /.bazelrc.user
+
+# É¨ÃèÊä³ö
+untranslated_scan.txt

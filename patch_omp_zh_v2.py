@@ -835,11 +835,13 @@ def main():
     # --- v17 新增翻译数据 ---
     grand_total += apply_translations(S, v17.S_LABELS_V17_1)
     grand_total += apply_translations(S, v17.S_LABELS_V17_2)
+    grand_total += apply_translations(S, v17.S_LABELS_V17_3)
     grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_1)
     grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_2)
     grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_3)
     grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_4)
     grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_5)
+    grand_total += apply_description_translations(S, v17.S_DESCRIPTIONS_V17_6)
     grand_total += apply_translations(W, W_STRINGS)
     grand_total += apply_translations(B, B_STRINGS)
     grand_total += apply_translations(D, D_STRINGS)

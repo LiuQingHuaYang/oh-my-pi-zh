@@ -22,6 +22,20 @@
   Fork of <a href="https://github.com/badlogic/pi-mono">Pi</a> by <a href="https://github.com/mariozechner">@mariozechner</a> 
 </p>
 
+> ## 🇨🇳 中文汉化版
+>
+> 本仓库是 [oh-my-pi](https://github.com/can1357/oh-my-pi) 的中文汉化 fork，界面、设置、命令描述均已翻译为简体中文。
+>
+> **安装（一条命令）：**
+>
+> ```powershell
+> bun install -g @daassw/pi-coding-agent@17.1.8
+> ```
+>
+> 安装后直接运行 `omp` 即为中文界面，无需任何额外配置。
+>
+> 需要 Bun ≥ 1.3.14（安装：`powershell -c "irm bun.sh/install.ps1 | iex"`）
+
 The most capable agent surface that ships. Continuously tuned by real-world use — complete out of the box, open all the way down.
 
 **40+** providers · **32** built-in tools · **14** lsp ops · **28** dap ops · **~55k** lines of Rust core.

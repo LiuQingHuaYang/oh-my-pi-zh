@@ -250,6 +250,15 @@ jobs:
         shell: bash
         run: python3 ../patch_omp_zh_v2.py
 
+      - name: 安装官方版（生成正确版本的 .node 缓存）
+        shell: bash
+        run: |
+          bun install -g @oh-my-pi/pi-coding-agent
+          omp --smoke-test
+          OMP_VERSION=$(omp --version | cut -d/ -f2)
+          mkdir -p source/packages/natives/native
+          cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
+
       - name: 复制发布脚本到源码目录
         shell: bash
         run: cp scripts/publish-zh.ts source/scripts/publish-zh.ts

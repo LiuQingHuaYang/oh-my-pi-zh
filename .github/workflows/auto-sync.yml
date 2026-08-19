@@ -1,4 +1,4 @@
-name: Auto Sync Upstream
+﻿name: Auto Sync Upstream
 
 on:
   schedule:
@@ -250,14 +250,17 @@ jobs:
         shell: bash
         run: python3 ../patch_omp_zh_v2.py
 
-      - name: 安装官方版（生成正确版本的 .node 缓存）
+      - name: 安装官方版（复制对应平台的 .node 原生插件）
         shell: bash
         run: |
           bun install -g @oh-my-pi/pi-coding-agent
-          omp --smoke-test
           OMP_VERSION=$(omp --version | cut -d/ -f2)
+          echo "omp 版本: $OMP_VERSION"
+          # 从 bun 全局 node_modules 的 per-platform 包复制 .node（npm 安装模式下
+          # natives 不会放到 ~/.omp/natives，只有 compiled binary 才走那个缓存目录）
           mkdir -p source/packages/natives/native
-          cp "$HOME/.omp/natives/$OMP_VERSION/pi_natives."*.node "source/packages/natives/native/" 2>/dev/null || true
+          cp "$HOME/.bun/install/global/node_modules/@oh-my-pi/pi-natives-linux-x64/pi_natives."*.node "source/packages/natives/native/" || echo "警告：未能从 per-platform 包复制 .node"
+          ls -la source/packages/natives/native/
 
       - name: 复制发布脚本到源码目录
         shell: bash

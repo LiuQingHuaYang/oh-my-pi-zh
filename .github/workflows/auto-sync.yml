@@ -47,8 +47,17 @@ jobs:
       - name: 对比版本号
         id: compare
         run: |
+          FORCE="${{ github.event.inputs.force_version }}"
           UPSTREAM="${{ steps.upstream.outputs.version }}"
           OURS="${{ steps.our.outputs.version }}"
+
+          # 手动强制指定版本时，总是触发构建（用于补发/重发某版本）
+          if [ "$FORCE" != "" ]; then
+            echo "强制构建版本: $FORCE (我们当前 release: $OURS)"
+            echo "should_build=true" >> $GITHUB_OUTPUT
+            echo "new_version=$FORCE" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
           if [ "$UPSTREAM" = "null" ] || [ -z "$UPSTREAM" ]; then
             echo "无法获取上游版本"

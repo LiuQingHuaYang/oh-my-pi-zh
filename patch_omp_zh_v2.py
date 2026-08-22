@@ -729,16 +729,14 @@ M_STRINGS = [
 # ──────────── 8. settings-list.ts ────────────
 SL = os.path.join(TUI_SRC, "components", "settings-list.ts")
 SL_STRINGS = [
-    ('"No settings available"', '"暂无设置"'),
-    ('"No matching settings"', '"无匹配设置"'),
-    ('"Backspace to edit search · Esc to cancel"', '"退格键编辑搜索 · Esc 取消"'),
-    ('"Enter/Space to change · ', '"Enter/空格 修改 · '),
-    ('Type to search · Esc to cancel"', '输入搜索 · Esc 取消"'),
-    # The full hint template includes the jump hint dynamically, but we translate
-    # the static parts. The base hint template is:
-    # "Enter/Space to change · PgUp/PgDn to jump sections · Type to search · Esc to cancel"
-    ('PgUp/PgDn to jump sections · ', 'PgUp/PgDn 跳转分区 · '),
-    ('"Type to search"', '"输入搜索"'),
+    # 注意：源码中这些字符串带前导双空格，且 hint 模板使用反引号模板字符串，
+    # 必须精确匹配（含前导空格与 ${...} 插值）才能命中。
+    ('"  No matching settings"', '"  无匹配设置"'),
+    ('"  Backspace to edit search · Esc to cancel"', '"  退格键编辑搜索 · Esc 取消"'),
+    ('"  Type to search"', '"  输入搜索"'),
+    ('`  Search: ${query}`', '`  搜索：${query}`'),
+    ('`Enter/Space to change · ${jumpHint}Type to search · Esc to cancel`',
+     '`Enter/空格 修改 · ${jumpHint}输入搜索 · Esc 取消`'),
 ]
 
 
@@ -750,6 +748,23 @@ SC_STRINGS = [
     ('"  Search: ', '"  搜索：'),
 ]
 
+# ──────────── 10. settings-selector.ts ────────────
+SS = os.path.join(CODING_AGENT_SRC, "modes", "components", "settings-selector.ts")
+SS_STRINGS = [
+    # 设置面板主框架（边框标题、预览标签、底部提示、搜索计数）
+    ('topBorder(width, "Settings")', 'topBorder(width, "设置")'),
+    ('"Preview:"', '"预览："'),
+    ('"Enter to change · Tab to jump tabs · Esc to exit search"',
+     '"Enter 修改 · Tab 切换标签 · Esc 退出搜索"'),
+    ('"Tab to switch tabs · Esc to close"', '"Tab 切换标签 · Esc 关闭"'),
+    ('"↑/↓ to jump sections · Tab/Enter to settings · ←/→ to switch tabs · Esc to close"',
+     '"↑/↓ 跳转分区 · Tab/Enter 进入设置 · ←/→ 切换标签 · Esc 关闭"'),
+    ('"Tab to jump sections · ←/→ to switch tabs"', '"Tab 跳转分区 · ←/→ 切换标签"'),
+    ('`Enter/Space to change · ${nav} · Type to search · Esc to close`',
+     '`Enter/空格 修改 · ${nav} · 输入搜索 · Esc 关闭`'),
+    ('"1 match"', '"1 个匹配"'),
+    ('`${this.#searchMatchCount} matches`', '`${this.#searchMatchCount} 个匹配`'),
+]
 
 # ═══════════════════════════════════════════════════════════════════════════
 # 补丁引擎
@@ -849,6 +864,7 @@ def main():
     grand_total += apply_translations(M, M_STRINGS)
     grand_total += apply_translations(SL, SL_STRINGS)
     grand_total += apply_translations(SC, SC_STRINGS)
+    grand_total += apply_translations(SS, SS_STRINGS)
 
     print(f"\n{'=' * 60}")
     print(f"[完成] 中文翻译补丁 v2 完成！共替换 {grand_total} 处。")

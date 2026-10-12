@@ -1,4 +1,4 @@
-﻿name: Auto Sync Upstream
+name: Auto Sync Upstream
 
 on:
   schedule:
@@ -86,17 +86,17 @@ jobs:
           - os: windows-latest
             name: Windows x64
             artifact: omp-windows-x64
-            patch_cmd: PYTHONIOENCODING=utf-8 python ../patch_omp_zh_v2.py
+            patch_cmd: PYTHONIOENCODING=utf-8 python ../patch_omp_zh_v3.py
             setup_python: true
           - os: ubuntu-latest
             name: Linux x64
             artifact: omp-linux-x64
-            patch_cmd: python3 ../patch_omp_zh_v2.py
+            patch_cmd: python3 ../patch_omp_zh_v3.py
             setup_python: false
           - os: macos-latest
             name: macOS arm64
             artifact: omp-darwin-arm64
-            patch_cmd: python3 ../patch_omp_zh_v2.py
+            patch_cmd: python3 ../patch_omp_zh_v3.py
             setup_python: false
     runs-on: ${{ matrix.target.os }}
     steps:
@@ -257,7 +257,7 @@ jobs:
       - name: 应用中文补丁
         working-directory: source
         shell: bash
-        run: python3 ../patch_omp_zh_v2.py
+        run: python3 ../patch_omp_zh_v3.py
 
       - name: 安装官方版（复制对应平台的 .node 原生插件）
         shell: bash

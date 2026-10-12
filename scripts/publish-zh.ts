@@ -57,10 +57,26 @@ async function main(): Promise<void> {
 	const rootManifest = (await Bun.file(rootManifestPath).json()) as JsonObject;
 	const catalog = (rootManifest.workspaces as JsonObject).catalog as JsonObject;
 	const manifest = (await Bun.file(manifestPath).json()) as JsonObject;
+	const baseVersion = manifest.version as string;
+	let targetVersion = baseVersion;
+	try {
+		const checkResult = await $`npm view ${packageName}@${baseVersion} version`.quiet().nothrow();
+		if (checkResult.exitCode === 0 && checkResult.text().trim() === baseVersion) {
+			targetVersion = `${baseVersion}-1`;
+			const checkSub = await $`npm view ${packageName}@${targetVersion} version`.quiet().nothrow();
+			if (checkSub.exitCode === 0 && checkSub.text().trim() === targetVersion) {
+				targetVersion = `${baseVersion}-2`;
+			}
+			console.log(`==> 版本 ${baseVersion} 已在 npm 发布，当前使用修订版本: ${targetVersion}`);
+		}
+	} catch (e) {
+		// Ignore check errors
+	}
 
 	const publishManifest: JsonObject = {
 		...manifest,
 		name: packageName,
+		version: targetVersion,
 		bin: { omp: "dist/cli.js" },
 		dependencies: resolveDeps(manifest.dependencies as JsonObject, catalog),
 		optionalDependencies: resolveDeps(manifest.optionalDependencies as JsonObject, catalog),

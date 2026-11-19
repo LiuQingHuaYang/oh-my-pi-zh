@@ -233,6 +233,9 @@ jobs:
     needs: check-upstream
     if: needs.check-upstream.outputs.should_build == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: 检出我们的仓库（含发布脚本）
         uses: actions/checkout@v4
@@ -241,6 +244,15 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+
+      - name: 配置 npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: 确保 npm 支持可信发布
+        run: npm install -g npm@11.17.0
 
       - name: 克隆上游源码并切换到目标版本
         shell: bash
@@ -275,12 +287,9 @@ jobs:
         shell: bash
         run: cp scripts/publish-zh.ts source/scripts/publish-zh.ts
 
-      - name: 配置 npm 认证
-        shell: bash
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: 发布 npm 包
         working-directory: source
         shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: bun scripts/publish-zh.ts
